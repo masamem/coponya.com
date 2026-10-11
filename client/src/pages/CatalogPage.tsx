@@ -17,7 +17,7 @@ import { CouponCard } from "@/components/CouponCard";
 import { StoreOverview, StoreArticle } from "@/components/StoreProfile";
 import SubmitCoupon from "@/components/SubmitCoupon";
 
-const pages: Record<string, [string, string]> = {
+export const pages: Record<string, [string, string]> = {
   "/submit-coupon": [
     "أضف كوبونك",
     "شارك عرضك مع فريق كوبونيا ليصل إلى المزيد من المتسوقين.",
@@ -238,7 +238,7 @@ export default function CatalogPage({
     /* handled as missing page */
   }
   const store = location.startsWith("/stores/")
-    ? stores.find((s) => s.name === detail)
+    ? stores.find((s) => location.split("/").length === 3 && ((s.slug || s.name) === detail || s.name === detail || !!s.previousSlugs?.includes(detail)))
     : undefined;
   const categoryDetail = location.startsWith("/categories/")
     ? categories.find((c) => c[0] === detail)
@@ -257,9 +257,9 @@ export default function CatalogPage({
       title: `${info?.[0] || "الصفحة غير موجودة"} — Coponya · كوبونيا`,
       description: `${info?.[0] || "كوبونيا"}: ${info?.[1] || "تصفح المتاجر والكوبونات والعروض."}`,
     };
-    applyPageMetadata(metadata.title, metadata.description, location, {
-      noindex: !info || ["/favorites", "/account", "/report", "/submit-coupon"].includes(location) || !!store && !isLive,
-      structuredData: store && isLive ? storeStructuredData(store, window.location.origin) : undefined,
+    applyPageMetadata(metadata.title, metadata.description, store ? `/stores/${encodeURIComponent(store.slug || store.name)}` : location, {
+      noindex: !isLive || !info || ["/favorites", "/account", "/report", "/submit-coupon", "/contact", "/privacy", "/terms"].includes(location) || !!store && !isLive,
+      structuredData: store && isLive ? storeStructuredData(store, "https://coponya.com") : undefined,
     });
   }, [location, isLive, store, info?.[0], info?.[1]]);
   const isCoupons =
@@ -395,7 +395,7 @@ export default function CatalogPage({
               .filter((s) => matchesSearch(s.name, query))
               .map((s) => (
                 <Link
-                  href={`/stores/${encodeURIComponent(s.name)}`}
+                  href={`/stores/${encodeURIComponent(s.slug || s.name)}`}
                   key={s.name}
                   className="store-card"
                 >

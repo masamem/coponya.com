@@ -5,7 +5,7 @@ export function applyPageMetadata(title: string, description: string, path: stri
     if (!element) { element = document.createElement("meta"); element.setAttribute(attribute, key); document.head.append(element); }
     element.content = content;
   };
-  const url = new URL(path, window.location.origin).href;
+  const url = new URL(path, "https://coponya.com").href;
   setMeta("name", "description", description);
   setMeta("name", "robots", options.noindex ? "noindex,follow" : "index,follow");
   setMeta("property", "og:title", title);

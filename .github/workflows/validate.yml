@@ -19,3 +19,4 @@ jobs:
       - run: pnpm check
       - run: pnpm exec vitest run
       - run: pnpm build
+      - run: pnpm verify:seo

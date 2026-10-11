@@ -1,6 +1,7 @@
 import type { StoreSeo } from "./storeSeo";
-export type Store = StoreSeo & { name: string; initial: string; tone: string; discount: string; count: string; websiteUrl?: string; summary?: string; about?: string; products?: string; shipping?: string; payment?: string; returnsPolicy?: string; faq?: string; logoUrl?: string };
+export type Store = StoreSeo & { id?: string; previousSlugs?: string[]; slug?: string; name: string; initial: string; tone: string; discount: string; count: string; websiteUrl?: string; summary?: string; about?: string; products?: string; shipping?: string; payment?: string; returnsPolicy?: string; faq?: string; logoUrl?: string };
 export type Coupon = {
+  id?: string; seoTitle?: string; metaDescription?: string;
   logoUrl?: string;
   isDemo?: boolean;
   websiteUrl?: string;

@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { StoreLogo } from "@/components/StoreLogo";
 /* سوق الضوء: clear coupon actions, RTL-first, Coponya palette. */
 import { useState } from "react";
@@ -63,7 +64,7 @@ export function CouponCard({
       <div className="coupon-card__main">
         <div>
           <span className="discount-pill">خصم {coupon.discount}</span>
-          <h3>{coupon.title}</h3>
+          <h3>{coupon.id ? <Link href={`/coupons/${coupon.id}`}>{coupon.title}</Link> : coupon.title}</h3>
           <p>{coupon.description}</p>
         </div>
         <div className="discount-value">

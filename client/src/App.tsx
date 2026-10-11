@@ -1,4 +1,4 @@
-import { CatalogProvider } from "./contexts/CatalogContext";
+import { CatalogProvider, type CatalogSnapshot } from "./contexts/CatalogContext";
 /* سوق الضوء: global RTL shell for Coponya, with a light editorial commerce tone. */
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,13 +10,13 @@ function Router() {
   return <Home />;
 }
 
-export default function App() {
+export default function App({ initial }: { initial?: CatalogSnapshot }) {
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
-          <CatalogProvider><Router /></CatalogProvider>
+          <CatalogProvider initial={initial}><Router /></CatalogProvider>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

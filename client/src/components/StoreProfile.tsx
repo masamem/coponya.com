@@ -25,7 +25,7 @@ export function StoreArticle({store,related}: {store: Store; related: Store[]}) 
       {sections.map(s=><section key={s.id} id={s.id}><h2>{s.title}</h2><Paragraphs text={s.text!}/></section>)}
       <section id="store-how"><h2>كيف تستخدم كوبون {store.name}؟</h2><ol><li>اختر كوبوناً متاحاً واقرأ شروطه وتاريخ انتهائه.</li><li>انسخ الكود وانتقل إلى موقع المتجر.</li><li>أضف المنتجات المشمولة بالعرض إلى السلة.</li><li>أدخل الكود في خانة الخصم عند الدفع، وتأكد من تغير الإجمالي قبل إتمام الطلب.</li></ol><p className="store-guide-note">قبول الكود يعتمد على شروط المتجر والمنتجات والطلب. راجع سياسة المتجر الحالية قبل الشراء.</p></section>
       {faq.length>0&&<section id="store-faq"><h2>الأسئلة الشائعة عن {store.name}</h2><div className="faq-list">{faq.map((f,i)=><details key={i}><summary>{f.question}</summary><p>{f.answer}</p></details>)}</div></section>}
-      {related.length>0&&<section><h2>اكتشف متاجر أخرى</h2><div className="store-related">{related.map(s=><Link key={s.name} href={`/stores/${encodeURIComponent(s.name)}`} className="store-related-card"><StoreLogo initial={s.initial} tone={s.tone} logoUrl={s.logoUrl}/><strong>{s.name}</strong><span>{s.count}</span></Link>)}</div></section>}
+      {related.length>0&&<section><h2>اكتشف متاجر أخرى</h2><div className="store-related">{related.map(s=><Link key={s.name} href={`/stores/${encodeURIComponent(s.slug || s.name)}`} className="store-related-card"><StoreLogo initial={s.initial} tone={s.tone} logoUrl={s.logoUrl}/><strong>{s.name}</strong><span>{s.count}</span></Link>)}</div></section>}
     </article>
   </div>;
 }
