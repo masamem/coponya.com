@@ -28,9 +28,10 @@ export function CouponCard({
   const [copied, setCopied] = useState(false);
   const affiliateUrl = couponAffiliateUrl(coupon);
   const copyCode = async () => {
-    openCouponAffiliate(coupon);
     try {
-      await navigator.clipboard.writeText(coupon.code);
+      const copy = navigator.clipboard.writeText(coupon.code);
+      openCouponAffiliate(coupon);
+      await copy;
       setCopied(true);
       toast.success(coupon.isDemo === false ? "تم نسخ الكود" : "تم نسخ الكود التجريبي");
     } catch {

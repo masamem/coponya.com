@@ -216,10 +216,11 @@ export default function Home() {
         : [...current, name],
     );
   const copyCode = async (code: string) => {
-    if (modalCoupon) openCouponAffiliate(modalCoupon);
     try {
       if (!navigator.clipboard) throw new Error();
-      await navigator.clipboard.writeText(code);
+      const copy = navigator.clipboard.writeText(code);
+      if (modalCoupon) openCouponAffiliate(modalCoupon);
+      await copy;
       setCopied(true);
       toast.success("تم نسخ الكود");
     } catch {
