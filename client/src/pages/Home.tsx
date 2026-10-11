@@ -357,6 +357,30 @@ export default function Home() {
               </div>
             </section>
 
+            <section className="container discovery-banners" aria-label="اكتشف المزيد مع كوبونيا">
+              <Link href="/coupons" className="discovery-banner discovery-banner--green">
+                <span className="discovery-banner__eyebrow">قبل ما تكمل طلبك</span>
+                <h2>مرّ على كوبونيا</h2>
+                <p>ابحث عن كود متجرك واطّلع على شروطه قبل الدفع.</p>
+                <span className="discovery-banner__cta">استكشف الكوبونات <ArrowLeft size={17} /></span>
+                <Ticket className="discovery-banner__art" aria-hidden="true" />
+              </Link>
+              <Link href="/stores" className="discovery-banner discovery-banner--orange">
+                <span className="discovery-banner__eyebrow">متجرك المفضل أقرب</span>
+                <h2>ابدأ باسم المتجر</h2>
+                <p>تصفح المتاجر ووصل إلى كوبوناتها في مكان واحد.</p>
+                <span className="discovery-banner__cta">تصفح المتاجر <ArrowLeft size={17} /></span>
+                <Store className="discovery-banner__art" aria-hidden="true" />
+              </Link>
+              <Link href="/favorites" className="discovery-banner discovery-banner--cream">
+                <span className="discovery-banner__eyebrow">اختياراتك لك</span>
+                <h2>احفظه لوقت الشراء</h2>
+                <p>اضغط على القلب وارجع لكوبوناتك المفضلة بسهولة.</p>
+                <span className="discovery-banner__cta">افتح المفضلة <ArrowLeft size={17} /></span>
+                <Heart className="discovery-banner__art" aria-hidden="true" />
+              </Link>
+            </section>
+
             <section className="section stores-section">
               <div className="container">
                 <SectionHeading
