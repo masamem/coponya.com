@@ -81,6 +81,76 @@ function SectionHeading({
   );
 }
 
+function BannerSlideshow({ isLive }: { isLive: boolean }) {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [autoplay, setAutoplay] = useState(true);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const changeSlide = (direction: number) => setActive((current) => (current + direction + 4) % 4);
+  useEffect(() => {
+    if (!autoplay || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % 4), 6000);
+    return () => window.clearInterval(timer);
+  }, [paused, autoplay]);
+  return (
+    <section className="hero-visual hero-slideshow" aria-label="بنرات كوبونيا" aria-roledescription="عرض شرائح"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}
+      onTouchStart={(event) => setTouchStart(event.touches[0].clientX)}
+      onTouchEnd={(event) => { if (touchStart !== null) { const distance = event.changedTouches[0].clientX - touchStart; if (Math.abs(distance) > 45) changeSlide(distance > 0 ? 1 : -1); } setTouchStart(null); }}>
+                <div className="hero-slide hero-slide--original" hidden={active !== 0}>
+                  <img src={heroUrl} alt="رسوم تجريدية لأكواد الخصم والتسوق" />
+                  <div className="floating-receipt">
+                    <span className="receipt-icon">
+                      <Check size={17} />
+                    </span>
+                    <div>
+                      <strong>اختياراتك للتوفير</strong>
+                      <small>اكتشف تفاصيل الكوبون</small>
+                    </div>
+                  </div>
+                  <div className="floating-save">
+                    <span>{isLive ? "اكتشف فرص التوفير" : "توفير تجريبي"}</span>
+                    <strong>{isLive ? "كوبونيا" : <RiyalAmount value={186} />}</strong>
+                    <small>{isLive ? "اختر كوبونك" : "مثال توضيحي"}</small>
+                  </div>
+                </div>
+              <Link href="/coupons" className="hero-slide discovery-banner discovery-banner--green" hidden={active !== 1}>
+                <span className="discovery-banner__eyebrow">قبل ما تكمل طلبك</span>
+                <h2>مرّ على كوبونيا</h2>
+                <p>ابحث عن كود متجرك واطّلع على شروطه قبل الدفع.</p>
+                <span className="discovery-banner__cta">استكشف الكوبونات <ArrowLeft size={17} /></span>
+                <Ticket className="discovery-banner__art" aria-hidden="true" />
+              </Link>
+              <Link href="/stores" className="hero-slide discovery-banner discovery-banner--orange" hidden={active !== 2}>
+                <span className="discovery-banner__eyebrow">متجرك المفضل أقرب</span>
+                <h2>ابدأ باسم المتجر</h2>
+                <p>تصفح المتاجر ووصل إلى كوبوناتها في مكان واحد.</p>
+                <span className="discovery-banner__cta">تصفح المتاجر <ArrowLeft size={17} /></span>
+                <Store className="discovery-banner__art" aria-hidden="true" />
+              </Link>
+              <Link href="/favorites" className="hero-slide discovery-banner discovery-banner--cream" hidden={active !== 3}>
+                <span className="discovery-banner__eyebrow">اختياراتك لك</span>
+                <h2>احفظه لوقت الشراء</h2>
+                <p>اضغط على القلب وارجع لكوبوناتك المفضلة بسهولة.</p>
+                <span className="discovery-banner__cta">افتح المفضلة <ArrowLeft size={17} /></span>
+                <Heart className="discovery-banner__art" aria-hidden="true" />
+              </Link>
+
+      <div className="hero-slideshow__controls">
+        <button type="button" aria-label="البنر السابق" onClick={() => changeSlide(-1)}><ChevronRight size={18} /></button>
+        <div className="hero-slideshow__dots" role="group" aria-label="اختيار البنر">
+          {["البنر الأساسي", "استكشف الكوبونات", "تصفح المتاجر", "المفضلة"].map((label, index) => (
+            <button key={label} type="button" aria-label={label} aria-current={active === index ? "true" : undefined} onClick={() => setActive(index)} />
+          ))}
+        </div>
+        <button type="button" aria-label="البنر التالي" onClick={() => changeSlide(1)}><ChevronLeft size={18} /></button>
+        <button type="button" aria-label={autoplay ? "إيقاف العرض التلقائي" : "تشغيل العرض التلقائي"} onClick={() => setAutoplay(!autoplay)}>{autoplay ? "إيقاف" : "تشغيل"}</button>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const [location, navigate] = useLocation();
   const { stores, coupons, categories, deals, isLive, loading, error, reload } = useCatalog();
@@ -319,23 +389,7 @@ export default function Home() {
                     </span>
                   </div>
                 </div>
-                <div className="hero-visual">
-                  <img src={heroUrl} alt="رسوم تجريدية لأكواد الخصم والتسوق" />
-                  <div className="floating-receipt">
-                    <span className="receipt-icon">
-                      <Check size={17} />
-                    </span>
-                    <div>
-                      <strong>اختياراتك للتوفير</strong>
-                      <small>اكتشف تفاصيل الكوبون</small>
-                    </div>
-                  </div>
-                  <div className="floating-save">
-                    <span>{isLive ? "اكتشف فرص التوفير" : "توفير تجريبي"}</span>
-                    <strong>{isLive ? "كوبونيا" : <RiyalAmount value={186} />}</strong>
-                    <small>{isLive ? "اختر كوبونك" : "مثال توضيحي"}</small>
-                  </div>
-                </div>
+                <BannerSlideshow isLive={isLive} />
               </div>
               <div className="hero-stats container">
                 <div>
@@ -355,30 +409,6 @@ export default function Home() {
                   <span>بحث وحفظ</span>
                 </div>
               </div>
-            </section>
-
-            <section className="container discovery-banners" aria-label="اكتشف المزيد مع كوبونيا">
-              <Link href="/coupons" className="discovery-banner discovery-banner--green">
-                <span className="discovery-banner__eyebrow">قبل ما تكمل طلبك</span>
-                <h2>مرّ على كوبونيا</h2>
-                <p>ابحث عن كود متجرك واطّلع على شروطه قبل الدفع.</p>
-                <span className="discovery-banner__cta">استكشف الكوبونات <ArrowLeft size={17} /></span>
-                <Ticket className="discovery-banner__art" aria-hidden="true" />
-              </Link>
-              <Link href="/stores" className="discovery-banner discovery-banner--orange">
-                <span className="discovery-banner__eyebrow">متجرك المفضل أقرب</span>
-                <h2>ابدأ باسم المتجر</h2>
-                <p>تصفح المتاجر ووصل إلى كوبوناتها في مكان واحد.</p>
-                <span className="discovery-banner__cta">تصفح المتاجر <ArrowLeft size={17} /></span>
-                <Store className="discovery-banner__art" aria-hidden="true" />
-              </Link>
-              <Link href="/favorites" className="discovery-banner discovery-banner--cream">
-                <span className="discovery-banner__eyebrow">اختياراتك لك</span>
-                <h2>احفظه لوقت الشراء</h2>
-                <p>اضغط على القلب وارجع لكوبوناتك المفضلة بسهولة.</p>
-                <span className="discovery-banner__cta">افتح المفضلة <ArrowLeft size={17} /></span>
-                <Heart className="discovery-banner__art" aria-hidden="true" />
-              </Link>
             </section>
 
             <section className="section stores-section">
