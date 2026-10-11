@@ -7,6 +7,8 @@ import { Link, useLocation } from "wouter";
 import * as Dialog from "@radix-ui/react-dialog";
 import { toast } from "sonner";
 import CatalogPage from "./CatalogPage";
+import Articles from "./Articles";
+import CouponDetail from "./CouponDetail";
 import { CouponCard } from "@/components/CouponCard";
 import { useCatalog } from "@/contexts/CatalogContext";
 const Admin = lazy(() => import("./Admin"));
@@ -107,9 +109,9 @@ export default function Home() {
     if (location === "/" || location === "/admin") {
       applyPageMetadata(location === "/admin" ? "إدارة كوبونيا" : "Coponya — كوبونيا | كوبونات وعروض السعودية",
         "كوبونيا — اكتشف الكوبونات والعروض وتصفح المتاجر واحفظ اختياراتك المفضلة.", location,
-        { noindex: location === "/admin" });
+        { noindex: location === "/admin" || !isLive });
     }
-  }, [location]);
+  }, [location, isLive]);
   const openCoupon = (coupon: (typeof coupons)[number]) => {
     setCopied(false);
     setModalCoupon(coupon);
@@ -245,7 +247,7 @@ export default function Home() {
       {loading && <p className="catalog-notice" role="status">جارٍ تحميل المتاجر والكوبونات…</p>}
       {error && <div className="catalog-notice" role="alert">{error} <button onClick={reload} className="text-link">إعادة المحاولة</button></div>}
       <main id="main-content" tabIndex={-1}>
-        {location !== "/" ? (
+        {location.startsWith("/coupons/") ? <CouponDetail location={location} favorites={favorites} onFavorite={toggleFavorite} onReveal={openCoupon}/> : location.startsWith("/articles") ? <Articles location={location}/> : location !== "/" ? (
           <CatalogPage
             location={location}
             favorites={favorites}
@@ -298,7 +300,7 @@ export default function Home() {
                       {matchingStores.length > 0 && (
                         <nav aria-label="المتاجر المطابقة للبحث">
                           {matchingStores.map((store) => (
-                            <Link key={store.name} href={`/stores/${encodeURIComponent(store.name)}`}>
+                            <Link key={store.name} href={`/stores/${encodeURIComponent(store.slug || store.name)}`}>
                               <Store size={16} /> {store.name} <ArrowLeft size={14} />
                             </Link>
                           ))}
@@ -320,7 +322,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="hero-visual">
-                  <img src={heroUrl} alt="رسوم تجريدية لأكواد الخصم والتسوق" />
+                  <img fetchPriority="high" decoding="async" src={heroUrl} alt="رسوم تجريدية لأكواد الخصم والتسوق" />
                   <div className="floating-receipt">
                     <span className="receipt-icon">
                       <Check size={17} />
@@ -368,7 +370,7 @@ export default function Home() {
                 <div className="store-rail">
                   {stores.map((store) => (
                     <Link
-                      href={`/stores/${encodeURIComponent(store.name)}`}
+                      href={`/stores/${encodeURIComponent(store.slug || store.name)}`}
                       className="store-card"
                       key={store.name}
                     >
@@ -412,7 +414,7 @@ export default function Home() {
                       {isLive ? "اقرأ الشروط واختر الكوبون المناسب، واحفظه للوصول إليه بسرعة." : "استكشف الأكواد التجريبية، واحفظ اختياراتك للوصول إليها بسرعة."}
                     </p>
                   </div>
-                  <img src={spotlightUrl} alt="رسوم تجريدية لقسائم التوفير" />
+                  <img loading="lazy" decoding="async" src={spotlightUrl} alt="رسوم تجريدية لقسائم التوفير" />
                 </div>
                 <div className="coupon-grid">
                   {filteredCoupons.length ? (
@@ -591,6 +593,7 @@ export default function Home() {
           <div>
             <h3>الكوبونات</h3>
             <Link href="/coupons">أحدث الكوبونات</Link>
+            <Link href="/articles">المقالات</Link>
             <Link href="/stores">أشهر المتاجر</Link>
             <Link href="/deals">العروض</Link>
             <Link href="/categories">التصنيفات</Link>

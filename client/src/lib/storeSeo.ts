@@ -39,7 +39,7 @@ export function storeMetadata(store: Store) {
 }
 
 export function storeStructuredData(store: Store, origin: string) {
-  const url = `${origin}/stores/${encodeURIComponent(store.name)}`;
+  const url = `${origin}/stores/${encodeURIComponent(store.slug || store.name)}`;
   const faq = parseFaq(store.faq);
   return {
     "@context": "https://schema.org",

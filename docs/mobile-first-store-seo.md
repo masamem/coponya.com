@@ -23,9 +23,9 @@ Keyword planning fields and article ideas are not displayed as keyword stuffing 
 
 Canonical URLs retain existing store-name routes. Metadata, Open Graph, WebPage/BreadcrumbList and visible FAQ JSON-LD update after live data loads. Navigating away removes the store schema. Admin and personal/form routes use noindex; demo store pages also use noindex.
 
-## SEO limits and next phase
+## Production SEO extension
 
-Metadata is currently client-rendered. The initial HTML remains the SPA shell; this PR does not add SSR, prerendering, sitemap generation, stable slugs, or real HTTP 404 responses. A production SEO phase should deliver store content and metadata in initial HTML, generate a sitemap from active stores and use redirects when introducing stable slugs. See [Google's JavaScript SEO guidance](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics).
+See [SEO Manager implementation](seo-manager-implementation.md) for server rendering, stable routes and historical redirects, coupon/article SEO, dynamic sitemap, robots, rollout requirements and verification. The earlier client-only limitation is addressed by the production server/function; Vite dev/preview remains a client development shell.
 
 ## Review checks
 
