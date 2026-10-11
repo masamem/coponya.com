@@ -346,8 +346,10 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .coupon-modal.accessible-modal { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:min(390px,calc(100% - 24px)); }
 
 /* Supplied Coponya artwork, with its original transparency and proportions. */
-.brand-mark__logo { display:block; width:174px; height:auto; object-fit:contain; flex-shrink:0; }
-.brand-mark--compact .brand-mark__logo { width:160px; height:auto; }
-@media(max-width:700px) { .brand-mark__logo { width:140px; height:auto; } .header-actions .submit-nav-link { display:none; } }
+.brand-mark__logo { display:block; width:auto; height:40px; object-fit:contain; flex-shrink:0; }
+.brand-mark--compact .brand-mark__logo { width:auto; height:40px; }
+@media(max-width:700px) { .brand-mark__logo, .brand-mark--compact .brand-mark__logo { width:auto; height:45px; } .header-actions .submit-nav-link { display:none; } }
 
 .footer-brand .brand-mark { padding:0; background:transparent; }
+
+.footer-brand .brand-mark__logo { width:auto; height:44px; }
