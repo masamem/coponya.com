@@ -37,20 +37,21 @@ import {
   Zap,
 } from "lucide-react";
 
-const logoUrl = "/brand/coponya-logo-horizontal.png";
+const logoUrl = "/brand/coponya-main-v5.png";
+const footerLogoUrl = "/brand/coponya-footer-white-v5.png";
 const heroUrl =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663890167905/YhatHEeNFLBL9m3u6y3Nwp/sahm-hero-fixpfM4RqYnrUecg2f4VDV.webp";
 const spotlightUrl =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663890167905/YhatHEeNFLBL9m3u6y3Nwp/sahm-savings-spotlight-knrB4G87CxRHwAHAo2WEjz.webp";
 
-function BrandMark({ compact = false }: { compact?: boolean }) {
+function BrandMark({ compact = false, inverse = false }: { compact?: boolean; inverse?: boolean }) {
   return (
     <Link
       href="/"
       className={`brand-mark ${compact ? "brand-mark--compact" : ""}`}
       aria-label="كوبونيا، الرئيسية"
     >
-      <img className="brand-mark__logo" src={logoUrl} alt="كوبونيا Coponya" width="1397" height="402" />
+      <img className="brand-mark__logo" src={inverse ? footerLogoUrl : logoUrl} alt="كوبونيا Coponya" width="1020" height="301" />
     </Link>
   );
 }
@@ -569,7 +570,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="container footer-grid">
           <div className="footer-brand">
-            <BrandMark />
+            <BrandMark inverse />
             <p>
               كوبونيا يساعدك تجد الكوبون المناسب في الوقت المناسب، لتتسوق بذكاء
               وتوفّر أكثر.
