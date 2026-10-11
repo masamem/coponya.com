@@ -84,14 +84,13 @@ function SectionHeading({
 function BannerSlideshow({ isLive }: { isLive: boolean }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [autoplay, setAutoplay] = useState(true);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const changeSlide = (direction: number) => setActive((current) => (current + direction + 4) % 4);
   useEffect(() => {
-    if (!autoplay || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => setActive((current) => (current + 1) % 4), 6000);
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % 4), 3000);
     return () => window.clearInterval(timer);
-  }, [paused, autoplay]);
+  }, [paused]);
   return (
     <section className="hero-visual hero-slideshow" aria-label="بنرات كوبونيا" aria-roledescription="عرض شرائح"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
@@ -145,7 +144,6 @@ function BannerSlideshow({ isLive }: { isLive: boolean }) {
           ))}
         </div>
         <button type="button" aria-label="البنر التالي" onClick={() => changeSlide(1)}><ChevronLeft size={18} /></button>
-        <button type="button" aria-label={autoplay ? "إيقاف العرض التلقائي" : "تشغيل العرض التلقائي"} onClick={() => setAutoplay(!autoplay)}>{autoplay ? "إيقاف" : "تشغيل"}</button>
       </div>
     </section>
   );
