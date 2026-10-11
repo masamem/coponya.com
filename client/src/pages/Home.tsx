@@ -1,3 +1,4 @@
+import { couponAffiliateUrl, openCouponAffiliate } from "@/lib/couponAffiliate";
 import { applyPageMetadata } from "@/lib/pageMetadata";
 import { StoreLogo } from "@/components/StoreLogo";
 import { RiyalAmount } from "@/components/RiyalAmount";
@@ -215,6 +216,7 @@ export default function Home() {
         : [...current, name],
     );
   const copyCode = async (code: string) => {
+    if (modalCoupon) openCouponAffiliate(modalCoupon);
     try {
       if (!navigator.clipboard) throw new Error();
       await navigator.clipboard.writeText(code);
@@ -726,7 +728,7 @@ export default function Home() {
                   </>
                 ) : (
                   <>
-                    <Copy size={18} /> نسخ الكود
+                    <Copy size={18} /> {modalCoupon && couponAffiliateUrl(modalCoupon) ? "نسخ الكود وفتح نون" : "نسخ الكود"}
                   </>
                 )}
               </button>

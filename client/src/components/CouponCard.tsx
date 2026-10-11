@@ -1,3 +1,4 @@
+import { couponAffiliateUrl, openCouponAffiliate } from "@/lib/couponAffiliate";
 import { StoreLogo } from "@/components/StoreLogo";
 /* سوق الضوء: clear coupon actions, RTL-first, Coponya palette. */
 import { useState } from "react";
@@ -25,7 +26,9 @@ export function CouponCard({
   onFavorite: () => void;
 }) {
   const [copied, setCopied] = useState(false);
+  const affiliateUrl = couponAffiliateUrl(coupon);
   const copyCode = async () => {
+    openCouponAffiliate(coupon);
     try {
       await navigator.clipboard.writeText(coupon.code);
       setCopied(true);
@@ -88,9 +91,9 @@ export function CouponCard({
         <button
           className="button button--primary button--small"
           onClick={copyCode}
-          aria-label={`نسخ كود ${coupon.store}: ${coupon.code}`}
+          aria-label={`نسخ كود ${coupon.store}: ${coupon.code}${affiliateUrl ? " وفتح نون في نافذة جديدة" : ""}`}
         >
-          {copied ? <>تم النسخ <Check size={16} /></> : <>نسخ الكود <Copy size={16} /></>}
+          {copied ? <>تم النسخ <Check size={16} /></> : <>{affiliateUrl ? "نسخ الكود وفتح نون" : "نسخ الكود"} <Copy size={16} /></>}
         </button>
       </div>
       <button className="terms-link" onClick={() => onReveal(coupon)}>
