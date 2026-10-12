@@ -6,8 +6,8 @@ import { useCatalog } from "@/contexts/CatalogContext";
 import { matchesSearch, type Coupon } from "@/lib/catalog";
 import { CouponCard } from "./CouponCard";
 
-export function ArticleCards({ items = articles }: { items?: typeof articles }) {
-  return <div className="article-grid">{items.map(a => <article className="article-card" key={a.slug}>
+export function ArticleCards({ items = articles, limit }: { items?: typeof articles; limit?: number }) {
+  return <div className="article-grid">{items.slice(0,limit).map(a => <article className="article-card" key={a.slug}>
     <Link href={`/blog/${a.slug}`} className="article-card__cover" tabIndex={-1} aria-hidden="true"><img src="/brand/blog-savings.svg" alt="" width="1200" height="560" loading="lazy"/></Link>
     <span className="eyebrow">{a.category} · دليل كوبونيا</span><h2><Link href={`/blog/${a.slug}`}>{a.title}</Link></h2>
     <p>{a.description}</p><Link className="text-link" href={`/blog/${a.slug}`}>اقرأ الدليل ←</Link>
@@ -58,7 +58,7 @@ export default function Discovery({ location, favorites, onFavorite, onReveal }:
         <details className="article-contents"><summary>محتويات المقال</summary><nav aria-label="محتويات المقال">{article.sections.map(([heading], i) => <a key={heading} href={`#section-${i}`}>{heading}</a>)}</nav></details>
         {article.sections.map(([heading, body], i) => <section id={`section-${i}`} key={heading}><h2>{heading}</h2><p>{body}</p></section>)}
         <div className="article-next-step"><div><h2>اختر كوبونك التالي</h2><p>اقرأ شروط الكوبون وتأكد من ظهور الخصم لدى المتجر قبل الدفع.</p></div><Link className="button button--primary" href="/coupons">تصفح الكوبونات ←</Link></div>
-      </article><div className="article-related"><h2>مقالات ذات صلة</h2><ArticleCards items={articles.filter(a => a.slug !== article.slug)}/></div></div>
+      </article><div className="article-related"><h2>مقالات ذات صلة</h2><ArticleCards items={articles.filter(a => a.slug !== article.slug).sort((a,b) => Number(b.category === article.category) - Number(a.category === article.category)).slice(0,3)}/></div></div>
     </> : location === "/blog" ? <ArticleCards/> : <Link href="/blog" className="button button--primary">تصفح الأدلة</Link>}
   </section>;
 }

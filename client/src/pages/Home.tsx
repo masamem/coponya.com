@@ -600,7 +600,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="section"><div className="container"><SectionHeading title="اقرأ قبل أن تتسوق" eyebrow="المدونة" href="/blog" link="كل الأدلة"/><ArticleCards/></div></section>
+            <section className="section"><div className="container"><SectionHeading title="اقرأ قبل أن تتسوق" eyebrow="المدونة" href="/blog" link="كل الأدلة"/><ArticleCards limit={3}/></div></section>
             <section className="newsletter-section">
               <div className="container newsletter-inner">
                 <div>
