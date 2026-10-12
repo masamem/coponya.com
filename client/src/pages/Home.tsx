@@ -1,3 +1,4 @@
+import Discovery, { ArticleCards } from "@/components/Discovery";
 import { couponAffiliateUrl, openCouponAffiliate } from "@/lib/couponAffiliate";
 import { applyPageMetadata } from "@/lib/pageMetadata";
 import { StoreLogo } from "@/components/StoreLogo";
@@ -184,14 +185,8 @@ export default function Home() {
     setModalCoupon(coupon);
   };
   const goSearch = () => {
-    if (location !== "/") navigate("/coupons");
-    window.setTimeout(
-      () =>
-        document
-          .getElementById(location === "/" ? "hero-search" : "catalog-search")
-          ?.focus(),
-      100,
-    );
+    navigate("/search");
+    window.setTimeout(() => document.getElementById("discovery-search")?.focus(), 100);
   };
 
   const filteredCoupons = useMemo(
@@ -204,7 +199,7 @@ export default function Home() {
             ),
           )
         : coupons,
-    [query],
+    [query, coupons],
   );
   const matchingStores = query.trim()
     ? stores.filter((store) => matchesSearch(store.name, query))
@@ -278,6 +273,7 @@ export default function Home() {
             >
               التصنيفات
             </Link>
+            <Link href="/blog" aria-current={location.startsWith("/blog") ? "page" : undefined}>المدونة</Link>
           </nav>
           <div className="header-actions">
             <Link
@@ -316,7 +312,9 @@ export default function Home() {
       {loading && <p className="catalog-notice" role="status">جارٍ تحميل المتاجر والكوبونات…</p>}
       {error && <div className="catalog-notice" role="alert">{error} <button onClick={reload} className="text-link">إعادة المحاولة</button></div>}
       <main id="main-content" tabIndex={-1}>
-        {location !== "/" ? (
+        {location === "/search" || location === "/blog" || location.startsWith("/blog/") ? (
+          <Discovery key={location} location={location} favorites={favorites} onFavorite={toggleFavorite} onReveal={openCoupon}/>
+        ) : location !== "/" ? (
           <CatalogPage
             location={location}
             favorites={favorites}
@@ -346,9 +344,7 @@ export default function Home() {
                     role="search"
                     onSubmit={(e) => {
                       e.preventDefault();
-                      document
-                        .getElementById("coupons")
-                        ?.scrollIntoView({ behavior: "smooth" });
+                      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
                     }}
                   >
                     <Search size={21} />
@@ -604,6 +600,7 @@ export default function Home() {
               </div>
             </section>
 
+            <section className="section"><div className="container"><SectionHeading title="اقرأ قبل أن تتسوق" eyebrow="المدونة" href="/blog" link="كل الأدلة"/><ArticleCards/></div></section>
             <section className="newsletter-section">
               <div className="container newsletter-inner">
                 <div>
@@ -652,6 +649,8 @@ export default function Home() {
           </div>
           <div>
             <h3>مساعدة</h3>
+            <Link href="/blog">المدونة</Link>
+            <Link href="/search">البحث الشامل</Link>
             <Link href="/faq">الأسئلة الشائعة</Link>
             <Link href="/how-it-works">طريقة استخدام الكوبونات</Link>
             <Link href="/report">الإبلاغ عن كوبون</Link>

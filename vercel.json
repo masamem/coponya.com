@@ -4,6 +4,14 @@
   "buildCommand": "pnpm run check && pnpm run build",
   "outputDirectory": "dist/public",
   "rewrites": [
+    { "source": "/stores", "destination": "/stores/index.html" },
+    { "source": "/coupons", "destination": "/coupons/index.html" },
+    { "source": "/categories", "destination": "/categories/index.html" },
+    { "source": "/deals", "destination": "/deals/index.html" },
+    { "source": "/blog", "destination": "/blog/index.html" },
+    { "source": "/blog/use-coupon", "destination": "/blog/use-coupon/index.html" },
+    { "source": "/blog/compare-total", "destination": "/blog/compare-total/index.html" },
+    { "source": "/blog/shopping-checklist", "destination": "/blog/shopping-checklist/index.html" },
     {
       "source": "/(.*)",
       "destination": "/index.html"
