@@ -380,6 +380,7 @@ export default function CatalogPage({
       {store&&<StoreArticle store={store} related={stores.filter(s=>s.name!==store.name).slice(0,4)}/>}
       {location === "/stores" && (
         <>
+          <p className="results-count">{stores.length} متجر · {coupons.length} كوبون متاح</p>
           <label className="catalog-search">
             <Search size={20} />
             <input
@@ -390,9 +391,17 @@ export default function CatalogPage({
               aria-label="ابحث باسم المتجر"
             />
           </label>
+          <label className="filter-label">ترتيب المتاجر
+            <select aria-label="ترتيب المتاجر" value={sort} onChange={e => setSort(e.target.value)}>
+              <option value="default">حسب الاسم</option><option value="available">الأكثر كوبونات</option>
+            </select>
+          </label>
           <div className="all-stores">
             {stores
               .filter((s) => matchesSearch(s.name, query))
+              .sort((a, b) => sort === "available"
+                ? coupons.filter(c => c.store === b.name).length - coupons.filter(c => c.store === a.name).length
+                : a.name.localeCompare(b.name, "ar"))
               .map((s) => (
                 <Link
                   href={`/stores/${encodeURIComponent(s.name)}`}
