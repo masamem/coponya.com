@@ -273,7 +273,7 @@ export default function Home() {
             >
               التصنيفات
             </Link>
-            <Link href="/blog" aria-current={location.startsWith("/blog") ? "page" : undefined}>دليل التوفير</Link>
+            <Link href="/blog" aria-current={location.startsWith("/blog") ? "page" : undefined}>المدونة</Link>
           </nav>
           <div className="header-actions">
             <Link
@@ -600,7 +600,7 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="section"><div className="container"><SectionHeading title="اقرأ قبل أن تتسوق" eyebrow="دليل التوفير" href="/blog" link="كل الأدلة"/><ArticleCards/></div></section>
+            <section className="section"><div className="container"><SectionHeading title="اقرأ قبل أن تتسوق" eyebrow="المدونة" href="/blog" link="كل الأدلة"/><ArticleCards/></div></section>
             <section className="newsletter-section">
               <div className="container newsletter-inner">
                 <div>
@@ -649,7 +649,7 @@ export default function Home() {
           </div>
           <div>
             <h3>مساعدة</h3>
-            <Link href="/blog">دليل التوفير</Link>
+            <Link href="/blog">المدونة</Link>
             <Link href="/search">البحث الشامل</Link>
             <Link href="/faq">الأسئلة الشائعة</Link>
             <Link href="/how-it-works">طريقة استخدام الكوبونات</Link>

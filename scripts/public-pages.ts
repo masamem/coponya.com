@@ -9,11 +9,11 @@ const routes = [
   { path: "/coupons", title: "الكوبونات — كوبونيا", description: "اكتشف أكواد الخصم واقرأ الشروط قبل استخدام الكوبون.", body: "" },
   { path: "/categories", title: "تصنيفات التسوق — كوبونيا", description: "تصفح الكوبونات حسب اهتماماتك.", body: "" },
   { path: "/deals", title: "العروض — كوبونيا", description: "تصفح العروض المتاحة وتحقق من تفاصيلها قبل الشراء.", body: "" },
-  { path: "/blog", title: "دليل التوفير — كوبونيا", description: "أدلة أصلية تساعدك على استخدام الكوبونات ومقارنة العروض.", body: articles.map(a => `<article><h2><a href="/blog/${a.slug}">${escape(a.title)}</a></h2><p>${escape(a.description)}</p></article>`).join("") },
+  { path: "/blog", title: "المدونة — كوبونيا", description: "أدلة أصلية تساعدك على استخدام الكوبونات ومقارنة العروض.", body: articles.map(a => `<article><h2><a href="/blog/${a.slug}">${escape(a.title)}</a></h2><p>${escape(a.description)}</p></article>`).join("") },
   ...articles.map(a => ({ path: `/blog/${a.slug}`, title: `${a.title} — كوبونيا`, description: a.description,
     body: a.sections.map(([h, p]) => `<section><h2>${escape(h)}</h2><p>${escape(p)}</p></section>`).join("") })),
 ];
-const nav = '<nav aria-label="التنقل الرئيسي"><a href="/">كوبونيا</a> · <a href="/stores">المتاجر</a> · <a href="/coupons">الكوبونات</a> · <a href="/categories">التصنيفات</a> · <a href="/blog">دليل التوفير</a></nav>';
+const nav = '<nav aria-label="التنقل الرئيسي"><a href="/">كوبونيا</a> · <a href="/stores">المتاجر</a> · <a href="/coupons">الكوبونات</a> · <a href="/categories">التصنيفات</a> · <a href="/blog">المدونة</a></nav>';
 for (const route of routes) {
   const url = origin + route.path;
   const article = articles.find(a => route.path === `/blog/${a.slug}`);
