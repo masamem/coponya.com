@@ -1,5 +1,7 @@
+import { trackPage } from "./tracking";
 export function applyPageMetadata(title: string, description: string, path: string, options: { noindex?: boolean; structuredData?: unknown } = {}) {
   document.title = title;
+  trackPage(path);
   const setMeta = (attribute: "name" | "property", key: string, content: string) => {
     let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
     if (!element) { element = document.createElement("meta"); element.setAttribute(attribute, key); document.head.append(element); }

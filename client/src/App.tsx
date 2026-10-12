@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import CookieConsent from "./components/CookieConsent";
 
 function Router() {
   return <Home />;
@@ -17,6 +18,7 @@ export default function App() {
         <TooltipProvider>
           <Toaster />
           <CatalogProvider><Router /></CatalogProvider>
+          <CookieConsent />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

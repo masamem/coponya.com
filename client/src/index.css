@@ -422,3 +422,17 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .article-card h2 a:hover { color:#146b5b; text-decoration:underline; }
 @media(min-width:768px) { .editorial-hero { padding-block:3rem 7rem; } .editorial-body { margin-top:-4rem; } .editorial-body .guide-article { padding:2.5rem 3rem; } .article-next-step { flex-direction:row; align-items:center; justify-content:space-between; } }
 @media(min-width:1024px) { .main-nav a, .submit-nav-link { white-space:nowrap; } }
+.cookie-banner { position:fixed; z-index:80; inset-inline:1rem; bottom:5.5rem; max-width:1120px; margin-inline:auto; padding:1.25rem; border:1px solid #cfdfd4; border-radius:1.25rem; background:#fff; box-shadow:0 8px 48px #123a2630; max-height:70dvh; overflow:auto; }
+.cookie-banner h2 { font-size:1.25rem; color:#146b5b; margin-bottom:.5rem; }
+.cookie-banner p { font-size:.9rem; line-height:1.9; }
+.cookie-banner a { text-decoration:underline; color:#146b5b; }
+.cookie-actions { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
+.cookie-actions .button { flex:1; white-space:nowrap; font-size:.85rem; }
+.cookie-settings-button { position:fixed; z-index:60; bottom:5rem; inset-inline-end:1rem; padding:.5rem .8rem; border:1px solid #cfdfd4; border-radius:.75rem; background:#fff; color:#146b5b; font-size:.75rem; box-shadow:0 3px 12px #123a2615; }
+.cookie-overlay { position:fixed; inset:0; background:#102d2590; z-index:90; }
+.cookie-dialog { position:fixed; z-index:91; top:50%; left:50%; transform:translate(-50%,-50%); width:min(560px,calc(100vw - 2rem)); max-height:85dvh; overflow:auto; background:#fff; border-radius:1.25rem; padding:1.5rem; line-height:1.9; }
+.cookie-dialog h2 { color:#146b5b; font-size:1.4rem; }
+.cookie-dialog p { margin-block:.7rem; font-size:.9rem; }
+.cookie-dialog label { display:flex; gap:.75rem; align-items:flex-start; padding-block:.8rem; border-top:1px solid #e3eae5; }
+.cookie-dialog input { margin-top:.5rem; flex-shrink:0; accent-color:#146b5b; width:18px; height:18px; }
+@media(min-width:768px) { .cookie-banner { bottom:1.5rem; } .cookie-settings-button { bottom:1rem; } }
