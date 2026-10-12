@@ -1,4 +1,6 @@
+import { shoppingArticles } from "./shoppingArticles";
 export const articles = [
+  ...shoppingArticles,
   {
     slug: "use-coupon", title: "من الكود إلى الخصم: خطوات بسيطة قبل الدفع", category: "الكوبونات",
     description: "دليل عملي لقراءة شروط الكوبون وتطبيقه والتأكد من إجمالي طلبك.",
