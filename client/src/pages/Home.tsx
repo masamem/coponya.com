@@ -40,8 +40,7 @@ import {
 } from "lucide-react";
 
 const logoUrl = "/brand/coponya-logo.svg?v=20261018-3";
-const heroUrl =
-  "https://d2xsxph8kpxj0f.cloudfront.net/310519663890167905/YhatHEeNFLBL9m3u6y3Nwp/sahm-hero-fixpfM4RqYnrUecg2f4VDV.webp";
+const heroUrl = "/brand/seasonal/merchant-gifts-2026.webp";
 const spotlightUrl =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663890167905/YhatHEeNFLBL9m3u6y3Nwp/sahm-savings-spotlight-knrB4G87CxRHwAHAo2WEjz.webp";
 
@@ -82,65 +81,55 @@ function SectionHeading({
   );
 }
 
-function BannerSlideshow({ isLive }: { isLive: boolean }) {
+function BannerSlideshow() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [stopped, setStopped] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const changeSlide = (direction: number) => setActive((current) => (current + direction + 4) % 4);
   useEffect(() => {
-    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => setActive((current) => (current + 1) % 4), 3000);
+    if (paused || stopped || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % 4), 7000);
     return () => window.clearInterval(timer);
-  }, [paused]);
+  }, [paused, stopped]);
   return (
     <section className="hero-visual hero-slideshow" aria-label="بنرات كوبونيا" aria-roledescription="عرض شرائح"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}
       onTouchStart={(event) => setTouchStart(event.touches[0].clientX)}
       onTouchEnd={(event) => { if (touchStart !== null) { const distance = event.changedTouches[0].clientX - touchStart; if (Math.abs(distance) > 45) changeSlide(distance > 0 ? 1 : -1); } setTouchStart(null); }}>
-                <div className="hero-slide hero-slide--original" hidden={active !== 0}>
-                  <img src={heroUrl} alt="رسوم تجريدية لأكواد الخصم والتسوق" />
-                  <div className="floating-receipt">
-                    <span className="receipt-icon">
-                      <Check size={17} />
-                    </span>
-                    <div>
-                      <strong>اختياراتك للتوفير</strong>
-                      <small>اكتشف تفاصيل الكوبون</small>
-                    </div>
-                  </div>
-                  <div className="floating-save">
-                    <span>{isLive ? "اكتشف فرص التوفير" : "توفير تجريبي"}</span>
-                    <strong>{isLive ? "كوبونيا" : <RiyalAmount value={186} />}</strong>
-                    <small>{isLive ? "اختر كوبونك" : "مثال توضيحي"}</small>
-                  </div>
-                </div>
-              <Link href="/coupons" className="hero-slide discovery-banner discovery-banner--green" hidden={active !== 1}>
-                <span className="discovery-banner__eyebrow">قبل ما تكمل طلبك</span>
-                <h2>مرّ على كوبونيا</h2>
-                <p>ابحث عن كود متجرك واطّلع على شروطه قبل الدفع.</p>
-                <span className="discovery-banner__cta">استكشف الكوبونات <ArrowLeft size={17} /></span>
-                <Ticket className="discovery-banner__art" aria-hidden="true" />
+                <Link href="/deals" className="hero-slide hero-slide--original seasonal-slide festive-slide" hidden={active !== 0}>
+                  <img src={heroUrl} alt="" width="1200" height="600" fetchPriority="high"/>
+                  <div className="festive-slide__heading"><span>اختيارات الموسم مع كوبونيا</span><h2>كل موسم<br/>له اختياراته</h2><span className="festive-slide__cta">استكشف العروض <ArrowLeft size={15}/></span></div>
+                  <div className="festive-slide__brands" aria-label="نون، ماتش للعطور، أمازون، ترينديول">{[{id:"noon",name:"نون"},{id:"match",name:"ماتش للعطور"},{id:"amazon",name:"أمازون"},{id:"trendyol",name:"ترينديول"}].map(brand => <span key={brand.id}><img src={`/brand/merchants/${brand.id}.png`} alt="" width="32" height="32"/><strong>{brand.name}</strong></span>)}</div>
+                </Link>
+              <Link href="/stores/noon%20-%20%D9%86%D9%88%D9%86" className="hero-slide discovery-banner noon-slide" hidden={active !== 1}>
+                <img className="noon-slide__logo" src="/brand/merchants/noon.png" alt="نون" width="64" height="64"/>
+                <span className="discovery-banner__eyebrow">كوبونات نون على كوبونيا</span>
+                <h2>استرداد نقدي 10% من نون بحد أقصى 75 ريال</h2>
+                <p>تعرّف على تفاصيل الكوبون وشروط الاستخدام.</p>
+                <span className="discovery-banner__cta">شاهد كوبونات نون <ArrowLeft size={17}/></span>
               </Link>
-              <Link href="/stores" className="hero-slide discovery-banner discovery-banner--orange" hidden={active !== 2}>
-                <span className="discovery-banner__eyebrow">متجرك المفضل أقرب</span>
-                <h2>ابدأ باسم المتجر</h2>
-                <p>تصفح المتاجر ووصل إلى كوبوناتها في مكان واحد.</p>
-                <span className="discovery-banner__cta">تصفح المتاجر <ArrowLeft size={17} /></span>
+              <Link href="/categories/المنزل" className="hero-slide discovery-banner discovery-banner--orange" hidden={active !== 2}>
+                <span className="discovery-banner__eyebrow">وقت اللمسات الدافئة</span>
+                <h2>جدّد أجواء بيتك للموسم</h2>
+                <p>قارن الاختيارات وتصفح كوبونات المنزل المتاحة.</p>
+                <span className="discovery-banner__cta">كوبونات المنزل <ArrowLeft size={17} /></span>
                 <Store className="discovery-banner__art" aria-hidden="true" />
               </Link>
-              <Link href="/favorites" className="hero-slide discovery-banner discovery-banner--cream" hidden={active !== 3}>
-                <span className="discovery-banner__eyebrow">اختياراتك لك</span>
-                <h2>احفظه لوقت الشراء</h2>
-                <p>اضغط على القلب وارجع لكوبوناتك المفضلة بسهولة.</p>
-                <span className="discovery-banner__cta">افتح المفضلة <ArrowLeft size={17} /></span>
+              <Link href="/categories/السفر" className="hero-slide discovery-banner discovery-banner--cream" hidden={active !== 3}>
+                <span className="discovery-banner__eyebrow">طلعات وأجواء ألطف</span>
+                <h2>خطّط لرحلتك القادمة بذكاء</h2>
+                <p>استكشف كوبونات السفر وراجع التفاصيل قبل الحجز.</p>
+                <span className="discovery-banner__cta">كوبونات السفر <ArrowLeft size={17} /></span>
                 <Heart className="discovery-banner__art" aria-hidden="true" />
               </Link>
 
       <div className="hero-slideshow__controls">
+        <button type="button" className="seasonal-pause" aria-label={stopped ? "تشغيل التنقل التلقائي" : "إيقاف التنقل التلقائي"} aria-pressed={stopped} onClick={() => setStopped(v => !v)}>{stopped ? "▶" : "Ⅱ"}</button>
         <button type="button" aria-label="البنر السابق" onClick={() => changeSlide(-1)}><ChevronRight size={18} /></button>
         <div className="hero-slideshow__dots" role="group" aria-label="اختيار البنر">
-          {["البنر الأساسي", "استكشف الكوبونات", "تصفح المتاجر", "المفضلة"].map((label, index) => (
+          {["اختيارات الموسم", "عرض نون", "المنزل", "السفر"].map((label, index) => (
             <button key={label} type="button" aria-label={label} aria-current={active === index ? "true" : undefined} onClick={() => setActive(index)} />
           ))}
         </div>
@@ -375,7 +364,7 @@ export default function Home() {
                     </span>
                   </div>
                 </div>
-                <BannerSlideshow isLive={isLive} />
+                <BannerSlideshow />
               </div>
               <div className="hero-stats container">
                 <div>

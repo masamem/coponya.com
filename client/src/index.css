@@ -514,3 +514,67 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 }
 .coupon-ticket__info h3 { font-weight:700; }
 .coupon-reveal__store { border:1px solid var(--olive); color:var(--olive); }
+
+/* Seasonal refresh of the existing homepage slideshow. */
+.seasonal-slide { color:var(--ink); background:#fffaf1; }
+.hero-slide.seasonal-slide > img { height:66%; object-fit:cover; object-position:center 48%; }
+.seasonal-slide__badge { position:absolute; top:18px; inset-inline-start:18px; padding:7px 12px; border:1px solid #fff8; border-radius:20px; color:#365a4b; background:#fffcf2ed; font-size:11px; font-weight:650; }
+.seasonal-slide__copy { position:absolute; bottom:0; left:0; right:0; padding:20px 28px 66px; background:#fffaf1; border-top:1px solid #eadfcc; }
+.seasonal-slide__copy > span:first-child { display:block; color:#93612f; font-size:10px; letter-spacing:.02em; margin-bottom:6px; }
+.seasonal-slide__copy h2 { color:var(--olive); font-size:25px; line-height:1.5; margin:0 0 5px; font-weight:700; }
+.seasonal-slide__copy p { color:var(--muted); font-size:12px; line-height:1.8; margin:0 0 10px; }
+.seasonal-slide__cta { display:inline-flex; align-items:center; gap:8px; color:var(--olive); font-size:12px; font-weight:650; }
+.hero-slideshow .discovery-banner { padding:38px 32px 78px; }
+.hero-slideshow .discovery-banner h2 { max-width:90%; font-size:29px; line-height:1.5; }
+.hero-slideshow .discovery-banner__cta { padding:10px 16px; border-radius:24px; background:#ffffffed; color:#173832; font-size:12px; }
+.hero-slideshow .discovery-banner--orange { background:#efd7b5; }
+.hero-slideshow .discovery-banner--cream { background:#e9eee5; }
+.hero-slideshow .discovery-banner__art { width:200px; height:200px; opacity:.08; }
+.hero-slideshow__controls .seasonal-pause { border-inline-end:1px solid #d4ded6; border-radius:0; font-size:14px; }
+.hero-slide:focus-visible { outline:3px solid var(--olive); outline-offset:-4px; }
+@media(max-width:700px) {
+  .hero-slideshow { height:360px; min-height:360px; }
+  .hero-slide.seasonal-slide > img { height:60%; }
+  .seasonal-slide__badge { top:12px; inset-inline-start:12px; padding:5px 10px; font-size:10px; }
+  .seasonal-slide__copy { padding:16px 20px 62px; }
+  .seasonal-slide__copy h2 { font-size:22px; }
+  .seasonal-slide__copy p { font-size:11px; margin-bottom:7px; }
+  .hero-slideshow .discovery-banner { padding:28px 26px 74px; }
+  .hero-slideshow .discovery-banner h2 { font-size:26px; }
+}
+
+/* Festive merchant banner; logos remain real image assets, separate from the artwork. */
+.hero-slide.festive-slide > img { height:100%; object-fit:cover; object-position:center; }
+.festive-slide__heading { position:absolute; top:25px; left:22%; right:22%; text-align:center; color:#173832; }
+.festive-slide__heading > span:first-child { display:block; font-size:10px; font-weight:650; margin-bottom:7px; }
+.festive-slide__heading h2 { font-size:29px; line-height:1.35; font-weight:750; margin:0 0 10px; }
+.festive-slide__cta { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:650; padding:7px 12px; background:#fffcf1df; border:1px solid #b9c4ae; border-radius:22px; }
+.festive-slide__brands { position:absolute; bottom:61px; left:20px; right:20px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.festive-slide__brands > span { display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 5px; min-width:0; border:1px solid #fff9; border-radius:10px; background:#fffef5f2; box-shadow:0 3px 12px #73372012; }
+.festive-slide__brands img { width:28px; height:28px; object-fit:contain; border-radius:6px; flex-shrink:0; }
+.festive-slide__brands strong { font-size:10px; font-weight:650; color:#253d30; }
+@media(max-width:700px) { .festive-slide__heading { top:24px; left:20%; right:20%; }.festive-slide__heading h2 { font-size:25px; }.festive-slide__heading > span:first-child { font-size:9px; }.festive-slide__brands { left:12px; right:12px; gap:5px; bottom:60px; }.festive-slide__brands > span { flex-direction:column; gap:4px; padding:7px 3px; }.festive-slide__brands img { width:25px; height:25px; }.festive-slide__brands strong { font-size:9px; } }
+/* Horizontal composition following the updated product-stage reference. */
+.hero-slide.festive-slide { background:#f4e6d0; }
+.hero-slide.festive-slide > img { height:80%; object-fit:cover; object-position:center; }
+.festive-slide__heading { top:55px; right:25px; left:auto; width:40%; text-align:right; }
+.festive-slide__heading h2 { font-size:30px; margin-bottom:14px; }
+.festive-slide__heading > span:first-child { max-width:150px; line-height:1.7; }
+.festive-slide__cta { background:#146b5b; border-color:#146b5b; color:#fff; }
+.festive-slide__brands { bottom:63px; }
+@media(max-width:700px) { .festive-slide__heading { top:35px; right:18px; left:auto; width:39%; }.festive-slide__heading h2 { font-size:24px; }.festive-slide__heading > span:first-child { font-size:9px; }.festive-slide__cta { padding:7px 9px; font-size:10px; }.hero-slide.festive-slide > img { height:76%; object-fit:cover; object-position:45% center; } }
+@media(max-width:360px) { .festive-slide__heading { top:25px; right:12px; width:47%; }.festive-slide__heading h2 { font-size:20px; line-height:1.4; margin-bottom:9px; }.festive-slide__heading > span:first-child { font-size:8px; }.festive-slide__cta { white-space:nowrap; font-size:9px; padding:7px 8px; gap:3px; }.festive-slide__brands strong { font-size:8px; } }
+
+/* Published Noon offer links directly to the existing Coponya store page. */
+.hero-slideshow .noon-slide { background:#fff5b3; color:#202c25; padding:28px 32px 75px; }
+.noon-slide__logo { display:block; position:relative; z-index:1; width:58px; height:58px; border-radius:14px; margin-bottom:14px; }
+.hero-slideshow .noon-slide .discovery-banner__eyebrow { opacity:1; color:#5d623d; margin-bottom:8px; }
+.hero-slideshow .noon-slide h2 { max-width:96%; font-size:26px; line-height:1.55; margin-bottom:10px; }
+.hero-slideshow .noon-slide p { max-width:100%; color:#5b6149; opacity:1; font-size:12px; margin-bottom:16px; }
+.hero-slideshow .noon-slide .discovery-banner__cta { background:#146b5b; color:#fff; padding:10px 18px; }
+@media(max-width:700px) { .hero-slideshow .noon-slide { padding:22px 24px 70px; }.noon-slide__logo { width:48px; height:48px; margin-bottom:10px; }.hero-slideshow .noon-slide h2 { font-size:22px; }.hero-slideshow .noon-slide p { font-size:11px; margin-bottom:12px; } }
+@media(max-width:360px) { .hero-slideshow .noon-slide h2 { font-size:20px; }.hero-slideshow .noon-slide { padding:18px 20px 66px; }.noon-slide__logo { width:42px; height:42px; } }
+.hero-slideshow .noon-slide { background-image:linear-gradient(to left,#fff5b3 0%,#fff5b3ed 40%,#fff5b33b 76%),url('/brand/seasonal/merchant-gifts-2026.webp'); background-size:cover; background-position:center; }
+.hero-slideshow .noon-slide h2 { max-width:65%; font-weight:700; }
+.hero-slideshow .noon-slide p { max-width:65%; }
+@media(max-width:700px) { .hero-slideshow .noon-slide { background-image:linear-gradient(to left,#fff5b3f5,#fff5b3db),url('/brand/seasonal/merchant-gifts-2026.webp'); }.hero-slideshow .noon-slide h2,.hero-slideshow .noon-slide p { max-width:100%; } }
