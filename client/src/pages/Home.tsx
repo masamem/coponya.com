@@ -1,12 +1,12 @@
 import Discovery, { ArticleCards } from "@/components/Discovery";
-import { couponAffiliateUrl, openCouponAffiliate } from "@/lib/couponAffiliate";
+import CouponDialog from "@/components/CouponDialog";
 import { applyPageMetadata } from "@/lib/pageMetadata";
 import { StoreLogo } from "@/components/StoreLogo";
 import { RiyalAmount } from "@/components/RiyalAmount";
 /* سوق الضوء: Arabic editorial commerce, Coponya Olive + apricot, verification-led hierarchy, RTL-first. */
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
-import * as Dialog from "@radix-ui/react-dialog";
+
 import { toast } from "sonner";
 import CatalogPage from "./CatalogPage";
 import { CouponCard } from "@/components/CouponCard";
@@ -157,7 +157,7 @@ export default function Home() {
   const [modalCoupon, setModalCoupon] = useState<
     (typeof coupons)[number] | null
   >(null);
-  const [copied, setCopied] = useState(false);
+
   const [favorites, setFavorites] = useState<string[]>(() => {
     const saved = readSaved<unknown>("sahm-favorites", []);
     return Array.isArray(saved)
@@ -179,8 +179,10 @@ export default function Home() {
         { noindex: location === "/admin" });
     }
   }, [location]);
+  const couponTrigger = useRef<HTMLElement | null>(null);
   const openCoupon = (coupon: (typeof coupons)[number]) => {
-    setCopied(false);
+
+    couponTrigger.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setModalCoupon(coupon);
   };
   const goSearch = () => {
@@ -209,18 +211,6 @@ export default function Home() {
         ? current.filter((item) => item !== name)
         : [...current, name],
     );
-  const copyCode = async (code: string) => {
-    try {
-      if (!navigator.clipboard) throw new Error();
-      const copy = navigator.clipboard.writeText(code);
-      if (modalCoupon) openCouponAffiliate(modalCoupon);
-      await copy;
-      setCopied(true);
-      toast.success("تم نسخ الكود");
-    } catch {
-      toast.error("تعذر النسخ. حدد الكود وانسخه يدوياً.");
-    }
-  };
 
   if (location === "/admin") return <Suspense fallback={<p className="container" role="status">جارٍ تحميل لوحة الإدارة…</p>}><Admin /></Suspense>;
   return (
@@ -689,71 +679,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <Dialog.Root
-        open={!!modalCoupon}
-        onOpenChange={(open) => {
-          if (!open) setModalCoupon(null);
-        }}
-      >
-        <Dialog.Portal>
-          <Dialog.Overlay className="modal-backdrop" />
-          {modalCoupon && (
-            <Dialog.Content className="coupon-modal accessible-modal" dir="rtl">
-              <Dialog.Close
-                className="modal-close icon-button"
-                aria-label="إغلاق"
-              >
-                <X size={19} />
-              </Dialog.Close>
-              <StoreLogo
-                initial={modalCoupon.initial}
-                logoUrl={modalCoupon.logoUrl}
-                tone={modalCoupon.tone}
-              />
-              <span className="modal-verified">{modalCoupon.isDemo === false ? (modalCoupon.verifiedAt ? "تمت المراجعة" : "كوبون خصم") : "كوبون تجريبي"}</span>
-              <Dialog.Title>{modalCoupon.title}</Dialog.Title>
-              <Dialog.Description>{modalCoupon.description}</Dialog.Description>
-              <div className="modal-code" tabIndex={0}>
-                <span>كود الخصم</span>
-                <strong dir="ltr">{modalCoupon.code}</strong>
-              </div>
-              <button
-                className="button button--primary modal-copy"
-                onClick={() => copyCode(modalCoupon.code)}
-              >
-                {copied ? (
-                  <>
-                    <Check size={18} /> تم نسخ الكود
-                  </>
-                ) : (
-                  <>
-                    <Copy size={18} /> {modalCoupon && couponAffiliateUrl(modalCoupon) ? "نسخ الكود وفتح نون" : "نسخ الكود"}
-                  </>
-                )}
-              </button>
-              <Dialog.Close asChild>
-                <Link
-                  href={`/stores/${encodeURIComponent(modalCoupon.store)}`}
-                  className="button button--dark modal-store"
-                >
-                  صفحة المتجر <ArrowLeft size={17} />
-                </Link>
-              </Dialog.Close>
-              <div className="coupon-conditions">
-                {modalCoupon.websiteUrl && <a className="button button--outline" href={modalCoupon.websiteUrl} target="_blank" rel="noopener noreferrer sponsored">زيارة المتجر</a>}
-                {modalCoupon.expiresAt && <p>ينتهي بتاريخ {modalCoupon.expiresAt}</p>}
-                <strong>شروط الاستخدام</strong>
-                <p>
-                  {modalCoupon.isDemo === false ? modalCoupon.terms : "مثال توضيحي لتجربة الموقع. لا تستخدم هذا الكود باعتباره عرضاً فعلياً."}
-                </p>
-                <Link href={`/report?code=${modalCoupon.code}`}>
-                  الإبلاغ عن مشكلة
-                </Link>
-              </div>
-            </Dialog.Content>
-          )}
-        </Dialog.Portal>
-      </Dialog.Root>
+      <CouponDialog coupon={modalCoupon} onClose={() => setModalCoupon(null)} returnFocusTo={couponTrigger.current}/>
     </div>
   );
 }
