@@ -40,7 +40,7 @@ import {
 } from "lucide-react";
 
 const logoUrl = "/brand/coponya-logo.svg?v=20261018-3";
-const heroUrl = "/brand/seasonal/autumn-winter-2026.webp";
+const heroUrl = "/brand/seasonal/merchant-gifts-2026.webp";
 const spotlightUrl =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663890167905/YhatHEeNFLBL9m3u6y3Nwp/sahm-savings-spotlight-knrB4G87CxRHwAHAo2WEjz.webp";
 
@@ -98,17 +98,17 @@ function BannerSlideshow() {
       onFocus={() => setPaused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}
       onTouchStart={(event) => setTouchStart(event.touches[0].clientX)}
       onTouchEnd={(event) => { if (touchStart !== null) { const distance = event.changedTouches[0].clientX - touchStart; if (Math.abs(distance) > 45) changeSlide(distance > 0 ? 1 : -1); } setTouchStart(null); }}>
-                <Link href="/deals" className="hero-slide hero-slide--original seasonal-slide" hidden={active !== 0}>
-                  <img src={heroUrl} alt="حقيبة تسوق خضراء ووشاح صوفي وهدية بألوان خريفية دافئة" width="1200" height="800" fetchPriority="high"/>
-                  <span className="seasonal-slide__badge">اختيارات الخريف والشتاء</span>
-                  <div className="seasonal-slide__copy"><span>موسم جديد، اختيارات أذكى</span><h2>استقبل البرد بدفء التوفير</h2><p>اكتشف الكوبونات المتاحة قبل تجهيز احتياجات الموسم.</p><span className="seasonal-slide__cta">استكشف العروض <ArrowLeft size={16}/></span></div>
+                <Link href="/deals" className="hero-slide hero-slide--original seasonal-slide festive-slide" hidden={active !== 0}>
+                  <img src={heroUrl} alt="" width="1200" height="600" fetchPriority="high"/>
+                  <div className="festive-slide__heading"><span>اختيارات الموسم مع كوبونيا</span><h2>كل موسم<br/>له اختياراته</h2><span className="festive-slide__cta">استكشف العروض <ArrowLeft size={15}/></span></div>
+                  <div className="festive-slide__brands" aria-label="نون، ماتش للعطور، أمازون، ترينديول">{[{id:"noon",name:"نون"},{id:"match",name:"ماتش للعطور"},{id:"amazon",name:"أمازون"},{id:"trendyol",name:"ترينديول"}].map(brand => <span key={brand.id}><img src={`/brand/merchants/${brand.id}.png`} alt="" width="32" height="32"/><strong>{brand.name}</strong></span>)}</div>
                 </Link>
-              <Link href="/categories/أزياء" className="hero-slide discovery-banner discovery-banner--green" hidden={active !== 1}>
-                <span className="discovery-banner__eyebrow">إطلالة الموسم تبدأ هنا</span>
-                <h2>جهّز خزانتك للأجواء الأبرد</h2>
-                <p>تصفح كوبونات الأزياء واقرأ الشروط قبل اختيارك.</p>
-                <span className="discovery-banner__cta">كوبونات الأزياء <ArrowLeft size={17} /></span>
-                <Ticket className="discovery-banner__art" aria-hidden="true" />
+              <Link href="/stores/noon%20-%20%D9%86%D9%88%D9%86" className="hero-slide discovery-banner noon-slide" hidden={active !== 1}>
+                <img className="noon-slide__logo" src="/brand/merchants/noon.png" alt="نون" width="64" height="64"/>
+                <span className="discovery-banner__eyebrow">كوبونات نون على كوبونيا</span>
+                <h2>استرداد نقدي 10% من نون بحد أقصى 75 ريال</h2>
+                <p>تعرّف على تفاصيل الكوبون وشروط الاستخدام.</p>
+                <span className="discovery-banner__cta">شاهد كوبونات نون <ArrowLeft size={17}/></span>
               </Link>
               <Link href="/categories/المنزل" className="hero-slide discovery-banner discovery-banner--orange" hidden={active !== 2}>
                 <span className="discovery-banner__eyebrow">وقت اللمسات الدافئة</span>
@@ -129,7 +129,7 @@ function BannerSlideshow() {
         <button type="button" className="seasonal-pause" aria-label={stopped ? "تشغيل التنقل التلقائي" : "إيقاف التنقل التلقائي"} aria-pressed={stopped} onClick={() => setStopped(v => !v)}>{stopped ? "▶" : "Ⅱ"}</button>
         <button type="button" aria-label="البنر السابق" onClick={() => changeSlide(-1)}><ChevronRight size={18} /></button>
         <div className="hero-slideshow__dots" role="group" aria-label="اختيار البنر">
-          {["اختيارات الموسم", "أزياء الموسم", "المنزل", "السفر"].map((label, index) => (
+          {["اختيارات الموسم", "عرض نون", "المنزل", "السفر"].map((label, index) => (
             <button key={label} type="button" aria-label={label} aria-current={active === index ? "true" : undefined} onClick={() => setActive(index)} />
           ))}
         </div>
