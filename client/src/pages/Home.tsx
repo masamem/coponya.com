@@ -52,7 +52,7 @@ function BrandMark({ compact = false, inverse = false }: { compact?: boolean; in
       className={`brand-mark ${compact ? "brand-mark--compact" : ""} ${inverse ? "brand-mark--inverse" : ""}`}
       aria-label="كوبونيا، الرئيسية"
     >
-      <img className="brand-mark__logo" src={logoUrl} alt="كوبونيا Coponya" width="1356" height="535" />
+      <img className="brand-mark__logo" src={inverse ? "/brand/coponya-footer.png" : logoUrl} alt="كوبونيا Coponya" width="1356" height="535" />
     </Link>
   );
 }

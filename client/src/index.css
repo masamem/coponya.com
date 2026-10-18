@@ -437,5 +437,3 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .cookie-dialog input { margin-top:.5rem; flex-shrink:0; accent-color:#146b5b; width:18px; height:18px; }
 @media(min-width:768px) { .cookie-banner { bottom:1.5rem; } .cookie-settings-button { bottom:1rem; } }
 
-/* Keep the supplied full-color logo readable against the dark footer. */
-.footer-brand .brand-mark--inverse { padding:8px 12px; border-radius:8px; background:#fff; }
