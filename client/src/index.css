@@ -514,3 +514,31 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 }
 .coupon-ticket__info h3 { font-weight:700; }
 .coupon-reveal__store { border:1px solid var(--olive); color:var(--olive); }
+
+/* Seasonal refresh of the existing homepage slideshow. */
+.seasonal-slide { color:var(--ink); background:#fffaf1; }
+.hero-slide.seasonal-slide > img { height:66%; object-fit:cover; object-position:center 48%; }
+.seasonal-slide__badge { position:absolute; top:18px; inset-inline-start:18px; padding:7px 12px; border:1px solid #fff8; border-radius:20px; color:#365a4b; background:#fffcf2ed; font-size:11px; font-weight:650; }
+.seasonal-slide__copy { position:absolute; bottom:0; left:0; right:0; padding:20px 28px 66px; background:#fffaf1; border-top:1px solid #eadfcc; }
+.seasonal-slide__copy > span:first-child { display:block; color:#93612f; font-size:10px; letter-spacing:.02em; margin-bottom:6px; }
+.seasonal-slide__copy h2 { color:var(--olive); font-size:25px; line-height:1.5; margin:0 0 5px; font-weight:700; }
+.seasonal-slide__copy p { color:var(--muted); font-size:12px; line-height:1.8; margin:0 0 10px; }
+.seasonal-slide__cta { display:inline-flex; align-items:center; gap:8px; color:var(--olive); font-size:12px; font-weight:650; }
+.hero-slideshow .discovery-banner { padding:38px 32px 78px; }
+.hero-slideshow .discovery-banner h2 { max-width:90%; font-size:29px; line-height:1.5; }
+.hero-slideshow .discovery-banner__cta { padding:10px 16px; border-radius:24px; background:#ffffffed; color:#173832; font-size:12px; }
+.hero-slideshow .discovery-banner--orange { background:#efd7b5; }
+.hero-slideshow .discovery-banner--cream { background:#e9eee5; }
+.hero-slideshow .discovery-banner__art { width:200px; height:200px; opacity:.08; }
+.hero-slideshow__controls .seasonal-pause { border-inline-end:1px solid #d4ded6; border-radius:0; font-size:14px; }
+.hero-slide:focus-visible { outline:3px solid var(--olive); outline-offset:-4px; }
+@media(max-width:700px) {
+  .hero-slideshow { height:360px; min-height:360px; }
+  .hero-slide.seasonal-slide > img { height:60%; }
+  .seasonal-slide__badge { top:12px; inset-inline-start:12px; padding:5px 10px; font-size:10px; }
+  .seasonal-slide__copy { padding:16px 20px 62px; }
+  .seasonal-slide__copy h2 { font-size:22px; }
+  .seasonal-slide__copy p { font-size:11px; margin-bottom:7px; }
+  .hero-slideshow .discovery-banner { padding:28px 26px 74px; }
+  .hero-slideshow .discovery-banner h2 { font-size:26px; }
+}
