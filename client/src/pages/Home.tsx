@@ -84,14 +84,13 @@ function SectionHeading({
 function BannerSlideshow() {
   const [active, setActive] = useState(1);
   const [paused, setPaused] = useState(false);
-  const [stopped, setStopped] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const changeSlide = (direction: number) => setActive((current) => (current + direction + 4) % 4);
   useEffect(() => {
-    if (paused || stopped || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = window.setInterval(() => setActive((current) => (current + 1) % 4), 3000);
     return () => window.clearInterval(timer);
-  }, [paused, stopped]);
+  }, [paused]);
   return (
     <section className="hero-visual hero-slideshow" aria-label="بنرات كوبونيا" aria-roledescription="عرض شرائح"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
@@ -126,7 +125,6 @@ function BannerSlideshow() {
               </Link>
 
       <div className="hero-slideshow__controls">
-        <button type="button" className="seasonal-pause" aria-label={stopped ? "تشغيل التنقل التلقائي" : "إيقاف التنقل التلقائي"} aria-pressed={stopped} onClick={() => setStopped(v => !v)}>{stopped ? "▶" : "Ⅱ"}</button>
         <button type="button" aria-label="البنر السابق" onClick={() => changeSlide(-1)}><ChevronRight size={18} /></button>
         <div className="hero-slideshow__dots" role="group" aria-label="اختيار البنر">
           {["اختيارات الموسم", "عرض نون", "المنزل", "السفر"].map((label, index) => (
