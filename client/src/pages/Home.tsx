@@ -82,14 +82,14 @@ function SectionHeading({
 }
 
 function BannerSlideshow() {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(1);
   const [paused, setPaused] = useState(false);
   const [stopped, setStopped] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const changeSlide = (direction: number) => setActive((current) => (current + direction + 4) % 4);
   useEffect(() => {
     if (paused || stopped || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => setActive((current) => (current + 1) % 4), 7000);
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % 4), 3000);
     return () => window.clearInterval(timer);
   }, [paused, stopped]);
   return (
