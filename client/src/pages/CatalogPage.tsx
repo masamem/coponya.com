@@ -1,7 +1,7 @@
 import { applyPageMetadata } from "@/lib/pageMetadata";
 import { storeMetadata, storeStructuredData } from "@/lib/storeSeo";
 import { StoreLogo } from "@/components/StoreLogo";
-import { RiyalAmount } from "@/components/RiyalAmount";
+import TopOffers from "@/components/TopOffers";
 /* سوق الضوء: searchable store pages and readable Arabic metadata. */
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
@@ -27,7 +27,7 @@ const pages: Record<string, [string, string]> = {
     "تصفح الكوبونات",
     "ابحث عن كود أو متجر، واختر التصنيف المناسب لك.",
   ],
-  "/deals": ["العروض", "استكشف العروض التجريبية وتفاصيل كل متجر."],
+  "/deals": ["عروض تستحقّ المشاهدة", "اكتشف العروض والكوبونات، وتعرّف على التفاصيل قبل التسوق."],
   "/categories": ["التصنيفات", "كل اهتماماتك، في مكان واحد."],
   "/favorites": [
     "كوبوناتك المفضلة",
@@ -222,7 +222,7 @@ export default function CatalogPage({
   onFavorite: (code: string) => void;
   onReveal: (coupon: Coupon) => void;
 }) {
-  const { coupons, stores, categories, deals, isLive, loading } = useCatalog();
+  const { coupons, stores, categories, isLive, loading } = useCatalog();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState("default");
@@ -244,7 +244,7 @@ export default function CatalogPage({
     ? categories.find((c) => c[0] === detail)
     : undefined;
   const livePages: Record<string, [string,string]> = {
-    "/deals": ["العروض", "العروض المباشرة ستظهر عند إضافتها."],
+    "/deals": ["عروض تستحقّ المشاهدة", "اكتشف العروض والكوبونات، وتعرّف على التفاصيل قبل التسوق."],
     "/privacy": ["سياسة الخصوصية", "معلومات عن البيانات والخدمات المستخدمة."],
   };
   const info = store
@@ -450,34 +450,7 @@ export default function CatalogPage({
           ))}
         </div>
       )}
-      {location === "/deals" && (
-        <div className="deal-grid">
-          {!deals.length && <p>لا توجد عروض مباشرة متاحة حالياً.</p>}
-          {deals.map((d) => (
-            <article className={`deal-card deal-card--${d.tone}`} key={d.brand}>
-              <div className="deal-art">
-                <div className="deal-art__disc" />
-              </div>
-              <div className="deal-content">
-                <span>{d.brand} · عرض تجريبي</span>
-                <h2>
-                  {d.title} {d.discount}
-                </h2>
-                <div className="price-row">
-                  <strong><RiyalAmount value={d.newPrice} /></strong>
-                  <del><RiyalAmount value={d.oldPrice} /></del>
-                </div>
-                <Link
-                  className="button button--outline"
-                  href={`/stores/${encodeURIComponent(d.brand)}`}
-                >
-                  تفاصيل المتجر <ArrowLeft size={16} />
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      )}
+      {location === "/deals" && <TopOffers onReveal={onReveal}/>}
       {location === "/submit-coupon" && <SubmitCoupon />}
       {location === "/account" && <Profile />}
       {["/contact", "/report"].includes(location) && (
