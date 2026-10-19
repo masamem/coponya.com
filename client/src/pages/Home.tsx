@@ -595,51 +595,28 @@ export default function Home() {
         )}
       </main>
 
-      <footer className="site-footer">
-        <div className="container footer-grid">
-          <div className="footer-brand">
-            <BrandMark inverse />
-            <p>
-              كوبونيا (COPONYA)
-              منصة سعودية لأكواد الخصم والعروض، تساعدك تتسوق بذكاء وتوفّر أكثر.
-            </p>
-            <nav aria-label="حسابات كوبونيا على التواصل الاجتماعي" className="footer-socials">
+      <footer className="site-footer signature-footer">
+        <div className="container signature-footer__content">
+          <div className="signature-footer__invite">
+            <div><span className="signature-footer__eyebrow">كوبونيا · أوفر لك</span><h2>كل توفير يبدأ بكوبونيا</h2></div>
+            <Link href="/coupons" className="signature-footer__cta">اكتشف أحدث الكوبونات <span aria-hidden="true">←</span></Link>
+          </div>
+          <div className="signature-footer__main">
+            <div className="footer-brand"><BrandMark inverse /><p>اختيارات أذكى، وتوفير يستاهل.</p></div>
+            <nav className="signature-footer__links" aria-label="روابط كوبونيا">
+              <Link href="/about">عن كوبونيا</Link><Link href="/stores">المتاجر</Link><Link href="/deals">العروض</Link><Link href="/blog">المدونة</Link><Link href="/contact">تواصل معنا</Link>
+            </nav>
+            <div className="signature-footer__social">            <nav aria-label="حسابات كوبونيا على التواصل الاجتماعي" className="footer-socials">
               <a href="https://www.instagram.com/coponya.sa/" target="_blank" rel="noopener noreferrer" aria-label="كوبونيا على Instagram — يفتح في نافذة جديدة"><Instagram size={21} aria-hidden="true"/></a>
               <a href="https://www.tiktok.com/@coponya" target="_blank" rel="noopener noreferrer" aria-label="كوبونيا على TikTok — يفتح في نافذة جديدة"><svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.05.86.13V9.4a6.34 6.34 0 0 0-5.12 10.73 6.34 6.34 0 0 0 10.6-4.72V8.42a8.16 8.16 0 0 0 4.77 1.53V6.53a4.85 4.85 0 0 1-1-.16Z"/></svg></a>
-            </nav>
+            </nav></div>
           </div>
-          <div>
-            <h3>المؤسسة</h3>
-            <Link href="/about">من نحن</Link>
-            <Link href="/contact">تواصل معنا</Link>
-            <Link href="/submit-coupon">أضف كوبونك</Link>
-            <Link href="/privacy">سياسة الخصوصية</Link>
-            <Link href="/terms">الشروط والأحكام</Link>
-          </div>
-          <div>
-            <h3>الكوبونات</h3>
-            <Link href="/coupons">أحدث الكوبونات</Link>
-            <Link href="/stores">أشهر المتاجر</Link>
-            <Link href="/deals">العروض</Link>
-            <Link href="/categories">التصنيفات</Link>
-          </div>
-          <div>
-            <h3>مساعدة</h3>
-            <Link href="/blog">المدونة</Link>
-            <Link href="/search">البحث الشامل</Link>
-            <Link href="/faq">الأسئلة الشائعة</Link>
-            <Link href="/how-it-works">طريقة استخدام الكوبونات</Link>
-            <Link href="/report">الإبلاغ عن كوبون</Link>
-            <Link href="/admin">لوحة الإدارة</Link>
+          <div className="signature-footer__bottom">
+            <p>© {new Date().getFullYear()} كوبونيا. جميع الحقوق محفوظة.</p>
+            <nav aria-label="السياسات والمساعدة"><Link href="/privacy">الخصوصية</Link><Link href="/terms">الشروط والأحكام</Link><Link href="/faq">المساعدة</Link></nav>
           </div>
         </div>
-        <div className="container footer-bottom">
-          <p className="footer-message">لا تدفع السعر الكامل بعد اليوم. كوبونيا وجهتك لاكتشاف كوبونات الخصم والعروض لأشهر المتاجر الإلكترونية، لتتسوق بثقة وتوفّر أكثر في كل عملية شراء.</p>
-          <p>© {new Date().getFullYear()} جميع الحقوق محفوظة كوبونيا.</p>
-        </div>
-      </footer>
-
-      <div className="mobile-bottom-nav">
+      </footer>  <div className="mobile-bottom-nav">
         <Link href="/" aria-current={location === "/" ? "page" : undefined}>
           <Store size={18} />
           <span>الرئيسية</span>
