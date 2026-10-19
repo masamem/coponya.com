@@ -600,8 +600,8 @@ export default function Home() {
           <div className="footer-brand">
             <BrandMark inverse />
             <p>
-              كوبونيا يساعدك تجد الكوبون المناسب في الوقت المناسب، لتتسوق بذكاء
-              وتوفّر أكثر.
+              كوبونيا (COPONYA)
+              منصة سعودية لأكواد الخصم والعروض، تساعدك تتسوق بذكاء وتوفّر أكثر.
             </p>
             <nav aria-label="حسابات كوبونيا على التواصل الاجتماعي" className="footer-socials">
               <a href="https://www.instagram.com/coponya.sa/" target="_blank" rel="noopener noreferrer" aria-label="كوبونيا على Instagram — يفتح في نافذة جديدة"><Instagram size={21} aria-hidden="true"/></a>
@@ -609,7 +609,7 @@ export default function Home() {
             </nav>
           </div>
           <div>
-            <h3>عن الموقع</h3>
+            <h3>المؤسسة</h3>
             <Link href="/about">من نحن</Link>
             <Link href="/contact">تواصل معنا</Link>
             <Link href="/submit-coupon">أضف كوبونك</Link>
@@ -634,12 +634,8 @@ export default function Home() {
           </div>
         </div>
         <div className="container footer-bottom">
-          <span>
-            © {new Date().getFullYear()} كوبونيا. جميع الحقوق محفوظة.
-          </span>
-          <span>
-            صُنع في السعودية <span className="saudi-dot" />
-          </span>
+          <p className="footer-message">لا تدفع السعر الكامل بعد اليوم. كوبونيا وجهتك لاكتشاف كوبونات الخصم والعروض لأشهر المتاجر الإلكترونية، لتتسوق بثقة وتوفّر أكثر في كل عملية شراء.</p>
+          <p>© {new Date().getFullYear()} جميع الحقوق محفوظة كوبونيا.</p>
         </div>
       </footer>
 
