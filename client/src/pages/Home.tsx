@@ -252,20 +252,6 @@ export default function Home() {
             <Link href="/blog" aria-current={location.startsWith("/blog") ? "page" : undefined}>المدونة</Link>
           </nav>
           <div className="header-actions">
-            <Link
-              href="/submit-coupon"
-              className="button button--primary button--small submit-nav-link"
-            >
-              أضف كوبونك
-            </Link>
-            <button
-              className="header-search-button"
-              onClick={goSearch}
-              aria-label="ابحث عن متجر أو كوبون"
-            >
-              <Search size={18} />
-              <span>ابحث عن متجر أو كوبون...</span>
-            </button>
             <button
               className="icon-button header-icon"
               aria-label="المفضلة"
@@ -600,6 +586,10 @@ export default function Home() {
           <div className="signature-footer__invite">
             <div><span className="signature-footer__eyebrow">كوبونيا · أوفر لك</span><h2>كل توفير يبدأ بكوبونيا</h2></div>
             <Link href="/coupons" className="signature-footer__cta">اكتشف أحدث الكوبونات <span aria-hidden="true">←</span></Link>
+          </div>
+          <div className="signature-footer__tools">
+            <Link href="/submit-coupon" className="footer-submit">أضف كوبونك</Link>
+            <button type="button" className="footer-search" onClick={goSearch} aria-label="ابحث عن متجر أو كوبون"><Search size={18} aria-hidden="true"/><span>ابحث عن متجر أو كوبون...</span></button>
           </div>
           <div className="signature-footer__main">
             <div className="footer-brand"><BrandMark inverse /><p>اختيارات أذكى، وتوفير يستاهل.</p></div>
