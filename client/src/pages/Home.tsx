@@ -584,7 +584,7 @@ export default function Home() {
       <footer className="site-footer signature-footer">
         <div className="container signature-footer__content">
           <div className="signature-footer__invite">
-            <div><span className="signature-footer__eyebrow">كوبونيا · أوفر لك</span><h2>كل توفير يبدأ بكوبونيا</h2></div>
+            <div><h2>كل توفير يبدأ بكوبونيا</h2></div>
             <Link href="/coupons" className="signature-footer__cta">اكتشف أحدث الكوبونات <span aria-hidden="true">←</span></Link>
           </div>
           <div className="signature-footer__tools">
