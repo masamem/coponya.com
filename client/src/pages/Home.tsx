@@ -39,7 +39,7 @@ import {
   Zap,
 } from "lucide-react";
 
-const logoUrl = "/brand/coponya-logo.svg?v=20261018-3";
+const logoUrl = "/brand/coponya-logo.svg?v=20261019-1";
 const heroUrl = "/brand/seasonal/merchant-gifts-2026.webp";
 const spotlightUrl =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663890167905/YhatHEeNFLBL9m3u6y3Nwp/sahm-savings-spotlight-knrB4G87CxRHwAHAo2WEjz.webp";
@@ -51,7 +51,7 @@ function BrandMark({ compact = false, inverse = false }: { compact?: boolean; in
       className={`brand-mark ${compact ? "brand-mark--compact" : ""} ${inverse ? "brand-mark--inverse" : ""}`}
       aria-label="كوبونيا، الرئيسية"
     >
-      <img className="brand-mark__logo" src={inverse ? "/brand/coponya-footer.svg?v=20261018-3" : logoUrl} alt="كوبونيا Coponya" width="1356" height="535" />
+      <img className="brand-mark__logo" src={inverse ? "/brand/coponya-footer.svg?v=20261019-1" : logoUrl} alt="كوبونيا Coponya" width="1356" height="535" />
     </Link>
   );
 }
