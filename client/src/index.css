@@ -578,3 +578,9 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .hero-slideshow .noon-slide h2 { max-width:65%; font-weight:700; }
 .hero-slideshow .noon-slide p { max-width:65%; }
 @media(max-width:700px) { .hero-slideshow .noon-slide { background-image:linear-gradient(to left,#fff5b3f5,#fff5b3db),url('/brand/seasonal/merchant-gifts-2026.webp'); }.hero-slideshow .noon-slide h2,.hero-slideshow .noon-slide p { max-width:100%; } }
+
+/* Proportional header and footer branding, sized to the reference's visual footprint. */
+.brand-mark__logo, .brand-mark--compact .brand-mark__logo { width:145px; height:auto; max-width:100%; }
+.footer-brand .brand-mark__logo { width:170px; height:auto; }
+@media(max-width:980px) { .site-header .brand-mark__logo { width:125px; height:auto; } }
+@media(max-width:700px) { .brand-mark__logo, .brand-mark--compact .brand-mark__logo { width:125px; height:auto; }.footer-brand .brand-mark__logo { width:150px; height:auto; } }
