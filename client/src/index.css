@@ -2,64 +2,16 @@
 @import "tw-animate-css";
 
 @font-face {
-  font-family: 'F37 Sonic Arabic';
-  src: url('/fonts/f37-sonic-arabic/f37-sonic-arabic-trial-light.otf') format('opentype');
+  font-family: 'Alexandria';
+  src: url('/fonts/alexandria/Alexandria-Variable.ttf') format('truetype');
   font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'F37 Sonic Arabic';
-  src: url('/fonts/f37-sonic-arabic/f37-sonic-arabic-trial-regular.otf') format('opentype');
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'F37 Sonic Arabic';
-  src: url('/fonts/f37-sonic-arabic/f37-sonic-arabic-trial-medium.otf') format('opentype');
-  font-style: normal;
-  font-weight: 500 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'F37 Sonic Arabic';
-  src: url('/fonts/f37-sonic-arabic/f37-sonic-arabic-trial-bold.otf') format('opentype');
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'F37 Sonic Arabic';
-  src: url('/fonts/f37-sonic-arabic/f37-sonic-arabic-trial-extrabold.otf') format('opentype');
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'F37 Sonic Arabic';
-  src: url('/fonts/f37-sonic-arabic/f37-sonic-arabic-trial-black.otf') format('opentype');
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'F37 Sonic Arabic';
-  src: url('/fonts/f37-sonic-arabic/f37-sonic-arabic-trial-ultrablack.otf') format('opentype');
-  font-style: normal;
-  font-weight: 950;
+  font-weight: 100 900;
   font-display: swap;
 }
 
 @theme {
-  --font-sans: 'F37 Sonic Arabic', system-ui, sans-serif;
-  --font-mono: 'F37 Sonic Arabic', system-ui, sans-serif;
+  --font-sans: 'Alexandria', system-ui, sans-serif;
+  --font-mono: 'Alexandria', system-ui, sans-serif;
 }
 
 
