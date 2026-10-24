@@ -1,3 +1,4 @@
+import { fetchStoreSitemapPaths, sitemapXml } from "./storeSitemap";
 import { siteBrand, siteBrandStructuredData } from "../client/src/lib/siteBrand";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { articles } from "../client/src/lib/articles";
@@ -27,6 +28,9 @@ for (const route of routes) {
   const directory = `dist/public${route.path === "/" ? "" : route.path}`;
   mkdirSync(directory, { recursive: true }); writeFileSync(`${directory}/index.html`, html);
 }
-writeFileSync("dist/public/sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(r => `<url><loc>${origin}${r.path}</loc></url>`).join("")}</urlset>`);
+const storePaths = await fetchStoreSitemapPaths(process.env.VITE_SUPABASE_URL, process.env.VITE_SUPABASE_PUBLISHABLE_KEY);
+writeFileSync("dist/public/sitemap.xml", sitemapXml(origin, [...routes.map(route => route.path), ...storePaths]));
+console.log(`Included ${storePaths.length} active store URLs in sitemap.`);
+
 writeFileSync("dist/public/robots.txt", `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /account\nDisallow: /favorites\nDisallow: /search\nSitemap: ${origin}/sitemap.xml\n`);
 console.log(`Generated ${routes.length} public HTML pages and sitemap.`);
