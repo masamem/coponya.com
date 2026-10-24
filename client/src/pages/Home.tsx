@@ -1,3 +1,4 @@
+import { siteBrand } from "@/lib/siteBrand";
 import Discovery, { ArticleCards } from "@/components/Discovery";
 import CouponDialog from "@/components/CouponDialog";
 import { applyPageMetadata } from "@/lib/pageMetadata";
@@ -161,8 +162,8 @@ export default function Home() {
     setQuery("");
     window.scrollTo(0, 0);
     if (location === "/" || location === "/admin") {
-      applyPageMetadata(location === "/admin" ? "إدارة كوبونيا" : "Coponya — كوبونيا | كوبونات وعروض السعودية",
-        "كوبونيا — اكتشف الكوبونات والعروض وتصفح المتاجر واحفظ اختياراتك المفضلة.", location,
+      applyPageMetadata(location === "/admin" ? "إدارة كوبونيا" : siteBrand.title,
+        siteBrand.description, location,
         { noindex: location === "/admin" });
     }
   }, [location]);
@@ -298,8 +299,7 @@ export default function Home() {
                     <em>أحدث أكواد الخصم</em>
                   </h1>
                   <p>
-                    اكتشف أفضل كوبونات وأكواد الخصم لمتاجرك المفضلة في السعودية،
-                    في تجربة سهلة وواضحة.
+                    {siteBrand.description}
                   </p>
                   <form
                     className="hero-search"
@@ -563,7 +563,7 @@ export default function Home() {
             </section>
 
             <section className="section"><div className="container"><SectionHeading title="اقرأ قبل أن تتسوق" eyebrow="المدونة" href="/blog" link="كل الأدلة"/><ArticleCards limit={3}/></div></section>
-            <section className="newsletter-section">
+            <section className="newsletter-section" data-nosnippet>
               <div className="container newsletter-inner">
                 <div>
                   <span className="eyebrow">عروضك في مكان واحد</span>
@@ -592,7 +592,7 @@ export default function Home() {
             <button type="button" className="footer-search" onClick={goSearch} aria-label="ابحث عن متجر أو كوبون"><Search size={18} aria-hidden="true"/><span>ابحث عن متجر أو كوبون...</span></button>
           </div>
           <div className="signature-footer__main">
-            <div className="footer-brand"><BrandMark inverse /><p>اختيارات أذكى، وتوفير يستاهل.</p></div>
+            <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) — أكواد خصم وكوبونات متاجر السعودية.</p></div>
             <nav className="signature-footer__links" aria-label="روابط كوبونيا">
               <Link href="/about">عن كوبونيا</Link><Link href="/stores">المتاجر</Link><Link href="/deals">العروض</Link><Link href="/blog">المدونة</Link><Link href="/contact">تواصل معنا</Link>
             </nav>
