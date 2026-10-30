@@ -1,0 +1,7 @@
+# Coponya category artwork
+
+Generated with the built-in ImageGen tool. The original PNG sprite is saved at `client/public/brand/category-icons-3d.png`. `CategoryIcon.tsx` selects the appropriate cell by category name, so RTL layout and category reordering do not change the mapping.
+
+## Generation prompt
+
+Use case stylized-concept. Create a single website UI sprite sheet of exactly eight 3D category icons arranged on an exact 4 column by 2 row grid, equal square cells, landscape aspect ratio 2:1. No labels, text, borders or cards. Pure white background. Each isolated icon centered precisely in its own cell, generous identical 20% padding, no overlap. Row 1 left to right: fashion shopping bag, electronics headphones, food delivery burger in takeaway bag, travel airplane with suitcase. Row 2 left to right: beauty perfume bottle, home small house, kids teddy bear, sport football with sneaker. Coponya Saudi coupon brand palette: deep forest teal #146B5B, warm orange #FF9045, ivory white and mint. All eight use the same premium soft rounded clay and frosted glass 3D aesthetic with gentle specular highlights, subtle ambient occlusion, soft shadows, playful polished shapes, restrained orange accents on predominantly teal objects. Match supplied reference's dimensional softness. Render high quality icon sprite, entire objects visible, consistent camera and lighting. Each cell exactly quarter image width and half image height.

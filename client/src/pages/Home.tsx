@@ -1,3 +1,4 @@
+import { CategoryIcon } from "@/components/CategoryIcon";
 import { siteBrand } from "@/lib/siteBrand";
 import Discovery, { ArticleCards } from "@/components/Discovery";
 import CouponDialog from "@/components/CouponDialog";
@@ -458,16 +459,13 @@ export default function Home() {
                   href="/categories"
                 />
                 <div className="category-grid">
-                  {categories.map(([name, count, icon]) => (
+                  {categories.map(([name]) => (
                     <Link
                       href={`/categories/${encodeURIComponent(name)}`}
                       className="category-card"
                       key={name}
                     >
-                      <span className="category-icon">
-                        {icon}
-                        <i>كوبونيا</i>
-                      </span>
+                      <CategoryIcon name={name} />
                       <strong>{name}</strong>
                       <small>
                         {coupons.filter((c) => c.category === name).length}{" "}

@@ -1,3 +1,4 @@
+import { CategoryIcon } from "@/components/CategoryIcon";
 import { applyPageMetadata } from "@/lib/pageMetadata";
 import { storeMetadata, storeStructuredData } from "@/lib/storeSeo";
 import { StoreLogo } from "@/components/StoreLogo";
@@ -434,13 +435,13 @@ export default function CatalogPage({
       )}
       {location === "/categories" && (
         <div className="category-grid">
-          {categories.map(([name, , icon]) => (
+          {categories.map(([name]) => (
             <Link
               href={`/categories/${encodeURIComponent(name)}`}
               className="category-card"
               key={name}
             >
-              <span className="category-icon">{icon}</span>
+              <CategoryIcon name={name} />
               <strong>{name}</strong>
               <small>
                 {coupons.filter((c) => c.category === name).length} كوبون
