@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+.affiliate-disclosure { margin:14px 0; font-size:12px; line-height:1.9; }
+.coupon-reveal .affiliate-disclosure { color:var(--muted); }
+.signature-footer .affiliate-disclosure { color:#d4e4dd; }
+
 @font-face {
   font-family: 'Alexandria';
   src: url('/fonts/alexandria/Alexandria-Variable.ttf') format('truetype');

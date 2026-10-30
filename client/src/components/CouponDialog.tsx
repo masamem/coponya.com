@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AffiliateDisclosure from "./AffiliateDisclosure";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Link } from "wouter";
 import { X, Tag, Check, ChevronDown, ArrowUpLeft } from "lucide-react";
@@ -26,6 +27,7 @@ export default function CouponDialog({ coupon, onClose, returnFocusTo }: { coupo
       {coupon.code && <div className="coupon-reveal__code"><strong dir="ltr" tabIndex={0} aria-label={`كود الخصم ${coupon.code}`}>{coupon.code}</strong><button className="button button--primary" onClick={copy}>{copied ? <><Check size={15}/> تم النسخ</> : "نسخ"}</button></div>}
       <p className="coupon-reveal__hint" role="status" aria-live="polite">{copied ? (coupon.isDemo !== false ? "تم نسخ الكود التجريبي." : "تم نسخ الكود، يمكنك استخدامه عند الدفع.") : coupon.isDemo !== false ? "هذا كود تجريبي لتوضيح تجربة الموقع." : coupon.code ? `انسخ الكود ثم انتقل إلى ${coupon.store}.` : "راجع تفاصيل العرض لدى المتجر."}</p>
       {storeUrl ? <a href={storeUrl} target="_blank" rel="noopener noreferrer sponsored" className="button button--outline coupon-reveal__store">الانتقال إلى المتجر <ArrowUpLeft size={16}/><span className="sr-only">يفتح في نافذة جديدة</span></a> : <Dialog.Close asChild><Link href={`/stores/${encodeURIComponent(coupon.store)}`} className="button button--outline coupon-reveal__store">صفحة المتجر</Link></Dialog.Close>}
+      {coupon.isDemo === false && <AffiliateDisclosure />}
       <details className="coupon-reveal__details"><summary>عرض التفاصيل <ChevronDown size={14} aria-hidden="true"/></summary><div><h3>شروط الاستخدام</h3><p>{coupon.isDemo !== false ? "مثال توضيحي لتجربة الموقع. لا تستخدم هذا الكود باعتباره عرضاً فعلياً." : coupon.terms || "راجع شروط المتجر والمنتجات المشمولة قبل استخدام الكود."}</p>{coupon.expiresAt && <p>ينتهي بتاريخ {coupon.expiresAt}</p>}<Link href={`/report?code=${encodeURIComponent(coupon.code)}`} onClick={onClose}>الإبلاغ عن مشكلة</Link></div></details>
     </div>
   </Dialog.Content>}</Dialog.Portal></Dialog.Root>;
