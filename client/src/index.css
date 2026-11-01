@@ -663,3 +663,21 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
   .category-card:has(.category-icon--3d) { transition:none; }
   .category-card:has(.category-icon--3d):hover { transform:none; }
 }
+
+/* Savings steps: numbers stay in document flow above the titles at every width. */
+.savings-guide { padding-block:64px; background:var(--paper); }
+.savings-guide__heading { text-align:center; max-width:760px; margin:0 auto 32px; }
+.savings-guide__heading h2 { margin:0 0 12px; color:var(--olive-dark); font-size:clamp(25px,3vw,36px); line-height:1.6; }
+.savings-guide__heading p { margin:0; color:var(--muted); font-size:17px; line-height:1.9; }
+.savings-guide__cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; list-style:none; margin:0; padding:0; }
+.savings-guide__card { display:flex; flex-direction:column; align-items:flex-start; min-width:0; padding:28px; border:1px solid var(--line); border-radius:24px; background:#fff; box-shadow:0 12px 30px rgba(20,60,48,.06); overflow-wrap:anywhere; }
+.savings-guide__number { display:block; position:static; flex:none; margin:0 0 16px; color:#6a8d84; font-size:36px; font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+.savings-guide__card h3 { margin:0 0 12px; color:var(--olive); font-size:21px; line-height:1.7; }
+.savings-guide__card p { margin:0; color:var(--muted); font-size:16px; line-height:1.9; }
+@media(max-width:700px) {
+  .savings-guide { padding-block:40px; }
+  .savings-guide__cards { grid-template-columns:1fr; gap:16px; }
+  .savings-guide__card { padding:24px; }
+  .savings-guide__heading p { font-size:16px; }
+  .savings-guide__card h3 { font-size:20px; }
+}
