@@ -525,39 +525,29 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="how-section">
+            <section className="savings-guide" aria-labelledby="savings-guide-title">
               <div className="container">
-                <div className="how-copy">
-                  <span className="eyebrow">ثلاث خطوات فقط</span>
-                  <h2>التوفير صار أسهل</h2>
-                  <p>
-                    من أول بحث إلى آخر خطوة عند الدفع، نخلّي تجربة الكوبون واضحة
-                    وسريعة.
-                  </p>
-                  <Link href="/coupons" className="button button--light">
-                    استكشف الكوبونات <ArrowLeft size={16} />
-                  </Link>
-                </div>
-                <div className="steps">
-                  <div className="step">
-                    <span>01</span>
-                    <Store size={23} />
-                    <strong>اختر المتجر</strong>
-                    <p>ابحث عن متجرك المفضل وتصفح عروضه.</p>
-                  </div>
-                  <div className="step">
-                    <span>02</span>
-                    <Copy size={23} />
-                    <strong>انسخ كود الخصم</strong>
-                    <p>اختر الكود الأنسب لك وانسخه بضغطة.</p>
-                  </div>
-                  <div className="step">
-                    <span>03</span>
-                    <ShoppingBagIcon />
-                    <strong>استخدمه عند الدفع</strong>
-                    <p>الصق الكود واستمتع بتوفيرك.</p>
-                  </div>
-                </div>
+                <header className="savings-guide__heading">
+                  <h2 id="savings-guide-title">كيف تساعدك كوبونيا في التوفير؟</h2>
+                  <p>ثلاث خطوات بسيطة تساعدك على مقارنة العروض واختيار ما يناسب مشترياتك.</p>
+                </header>
+                <ol className="savings-guide__cards">
+                  <li className="savings-guide__card">
+                    <span className="savings-guide__number" aria-hidden="true" dir="ltr">01</span>
+                    <h3>ابحث عن متجرك المفضّل</h3>
+                    <p>استعرض المتاجر الإلكترونية وتصفّح أكواد الخصم والعروض المتاحة مع شروط استخدامها.</p>
+                  </li>
+                  <li className="savings-guide__card">
+                    <span className="savings-guide__number" aria-hidden="true" dir="ltr">02</span>
+                    <h3>قارن العروض والأسعار</h3>
+                    <p>قارن التكلفة النهائية لسلتك، بما فيها الشحن، وتأكد من شروط الكوبون قبل الشراء.</p>
+                  </li>
+                  <li className="savings-guide__card">
+                    <span className="savings-guide__number" aria-hidden="true" dir="ltr">03</span>
+                    <h3>طبّق الخصم وتحقّق من الإجمالي</h3>
+                    <p>انسخ الكود وأدخله في صفحة الدفع لدى المتجر، ثم تأكد من تطبيق الخصم قبل إتمام الطلب.</p>
+                  </li>
+                </ol>
               </div>
             </section>
 
@@ -632,8 +622,4 @@ export default function Home() {
       <CouponDialog coupon={modalCoupon} onClose={() => setModalCoupon(null)} returnFocusTo={couponTrigger.current}/>
     </div>
   );
-}
-
-function ShoppingBagIcon() {
-  return <span className="custom-step-icon">⌂</span>;
 }
