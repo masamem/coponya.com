@@ -25,19 +25,19 @@ export default function SupermarketStores() {
               {[0, 1].map(copy => (
                 <div className="supermarket-set" key={copy} aria-hidden={copy === 1 ? true : undefined}>
                   {stores.filter((_, index) => index % 2 === row).map(store => (
-                    <a className="supermarket-store" key={store.name} href={store.href}
-                      target="_blank" rel="noopener noreferrer" tabIndex={copy ? -1 : undefined}>
+                    <div className="supermarket-store" key={store.name}>
                       <span className="supermarket-logo"><img src={store.image} alt={store.name} width="108" height="108" loading="lazy" decoding="async" /></span>
                       <span className="supermarket-name">{store.name}</span>
-                    </a>
+                    </div>
                   ))}
                 </div>
               ))}
             </div>
           ))}
         </div>
-        <a className="supermarket-all text-link" href="https://qooty.net/en" target="_blank" rel="noopener noreferrer">جميع عروض المتاجر على قوتي ←</a>
+        <span className="supermarket-all">جميع عروض المتاجر على قوتي</span>
       </div>
     </section>
   );
 }
+
