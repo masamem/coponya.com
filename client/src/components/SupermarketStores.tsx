@@ -1,10 +1,7 @@
-import { useState } from "react";
-import { Pause, Play } from "lucide-react";
 import stores from "@/lib/supermarketStores.json";
 import "./SupermarketStores.css";
 
 export default function SupermarketStores() {
-  const [paused, setPaused] = useState(false);
   return (
     <section className="supermarket-stores section" aria-labelledby="supermarket-heading">
       <div className="container">
@@ -14,12 +11,8 @@ export default function SupermarketStores() {
             <h2 id="supermarket-heading">عروض المتاجر والسوبرماركت</h2>
             <p>قريبًا على كوبونيا — عروض من متاجرك المفضلة</p>
           </div>
-          <button type="button" className="supermarket-pause" aria-pressed={paused}
-            onClick={() => setPaused(!paused)} aria-label={paused ? "تشغيل حركة المتاجر" : "إيقاف حركة المتاجر مؤقتًا"}>
-            {paused ? <Play size={16} /> : <Pause size={16} />}
-          </button>
         </div>
-        <div className={`supermarket-window${paused ? " is-paused" : ""}`}>
+        <div className="supermarket-window">
           {[0, 1].map(row => (
             <div className={`supermarket-track${row ? " supermarket-track--reverse" : ""}`} key={row}>
               {[0, 1].map(copy => (
