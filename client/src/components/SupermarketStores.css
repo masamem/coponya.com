@@ -1,0 +1,16 @@
+.supermarket-stores { background:#fff; padding-block:34px; }
+.supermarket-stores .heading-copy p { margin:8px 0 0; color:var(--muted); font-size:13px; }
+.supermarket-pause { display:grid; place-items:center; width:36px; height:36px; flex:none; border:1px solid var(--line); border-radius:50%; color:var(--olive); background:#fff; }
+.supermarket-window { overflow:hidden; direction:ltr; }
+.supermarket-track { display:flex; width:max-content; animation:supermarket-loop 82s linear infinite; margin-bottom:18px; }
+.supermarket-track--reverse { animation-direction:reverse; animation-duration:89s; }
+.supermarket-set { display:flex; gap:16px; padding-right:16px; }
+.supermarket-store { display:flex; flex-direction:column; width:108px; flex:none; color:inherit; text-decoration:none; text-align:center; }
+.supermarket-logo { display:grid; place-items:center; width:108px; height:108px; padding:10px; border:1px solid #e6ece8; border-radius:10px; background:#fff; }
+.supermarket-logo img { display:block; width:100%; height:100%; object-fit:contain; }
+.supermarket-name { margin-top:7px; font-size:11px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.supermarket-window:hover .supermarket-track,.supermarket-window:focus-within .supermarket-track,.supermarket-window.is-paused .supermarket-track { animation-play-state:paused; }
+.supermarket-all { display:table; margin:4px auto 0; font-size:12px; }
+@keyframes supermarket-loop { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+@media(max-width:600px) { .supermarket-logo { width:90px; height:90px; padding:8px; } .supermarket-store { width:90px; } .supermarket-pause { min-width:44px; min-height:44px; } }
+@media(prefers-reduced-motion:reduce) { .supermarket-track { animation:none; } .supermarket-window { overflow-x:auto; } .supermarket-set[aria-hidden] { display:none; } }

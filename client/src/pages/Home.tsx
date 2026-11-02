@@ -1,4 +1,5 @@
 import { CategoryIcon } from "@/components/CategoryIcon";
+import SupermarketStores from "@/components/SupermarketStores";
 import AffiliateDisclosure from "@/components/AffiliateDisclosure";
 import { siteBrand } from "@/lib/siteBrand";
 import Discovery, { ArticleCards } from "@/components/Discovery";
@@ -371,6 +372,8 @@ export default function Home() {
                 </div>
               </div>
             </section>
+
+            <SupermarketStores />
 
             <section className="section stores-section">
               <div className="container">
