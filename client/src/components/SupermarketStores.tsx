@@ -12,7 +12,7 @@ export default function SupermarketStores() {
           <div className="heading-copy">
             <span className="eyebrow">عروض التسوق اليومية</span>
             <h2 id="supermarket-heading">عروض المتاجر والسوبرماركت</h2>
-            <p>تصفح أحدث العروض من متاجرك المفضلة عبر قوتي</p>
+            <p>قريبًا على كوبونيا — عروض من متاجرك المفضلة</p>
           </div>
           <button type="button" className="supermarket-pause" aria-pressed={paused}
             onClick={() => setPaused(!paused)} aria-label={paused ? "تشغيل حركة المتاجر" : "إيقاف حركة المتاجر مؤقتًا"}>
@@ -35,7 +35,7 @@ export default function SupermarketStores() {
             </div>
           ))}
         </div>
-        <span className="supermarket-all">جميع عروض المتاجر على قوتي</span>
+        <span className="supermarket-all">عروض المتاجر قريبًا</span>
       </div>
     </section>
   );
