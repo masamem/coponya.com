@@ -639,16 +639,16 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
   flex-shrink:0;
   margin:0 0 15px;
   overflow:hidden;
-  border:1px solid #edf2ef;
-  border-radius:26%;
+  border:0;
+  border-radius:50%;
   background:#fff;
-  box-shadow:0 5px 14px rgba(20,107,91,.06), inset 0 0 0 2px #fff;
+  box-shadow:none;
 }
 .category-icon__art {
   display:block;
-  width:90%;
+  width:100%;
   aspect-ratio:1;
-  background-image:url('/brand/category-icons-3d.png');
+  background-image:url('/brand/category-icons-circles.jpg');
   background-size:400% 200%;
   background-repeat:no-repeat;
 }
