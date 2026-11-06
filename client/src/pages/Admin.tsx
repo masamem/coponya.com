@@ -3,6 +3,7 @@ import { storeSeoDefaults, storeMetadata } from "@/lib/storeSeo";
 import { uploadStoreLogo } from "@/lib/storeLogo";
 import { StoreLogo } from "@/components/StoreLogo";
 import { StoreOverview, StoreArticle } from "@/components/StoreProfile";
+import { ReviewModeration } from "@/components/ReviewModeration";
 import { useState } from "react";
 import { Link } from "wouter";
 import { BackendError, backendConfigured, backendRequest, type StoreRecord, type CouponRecord } from "@/lib/backend";
@@ -39,7 +40,8 @@ export default function Admin() {
       } catch(error) { await backendRequest("/auth/v1/logout",{method:"POST",token:session.access_token}).catch(()=>{}); throw error; }
     });}}><h2>تسجيل دخول الإدارة</h2><label>البريد الإلكتروني<input name="email" type="email" dir="ltr" required autoComplete="username" /></label><label>كلمة المرور<input name="password" type="password" required autoComplete="current-password" /></label><button disabled={busy} className="button button--primary">{busy?"جارٍ الدخول…":"تسجيل الدخول"}</button><p>الجلسة مؤقتة في هذه الصفحة؛ بعد إعادة تحميلها يلزم تسجيل الدخول مجدداً.</p></form> : <>
       <div className="admin-toolbar"><button className="button button--outline" disabled={busy} aria-pressed={tab==="stores"} onClick={()=>setTab("stores")}>المتاجر ({stores.length})</button><button className="button button--outline" disabled={busy} aria-pressed={tab==="coupons"} onClick={()=>setTab("coupons")}>الكوبونات ({coupons.length})</button><button disabled={busy} className="button button--outline" onClick={()=>void run(async()=>{try { await backendRequest("/auth/v1/logout",{method:"POST",token}); } finally { setToken("");setStores([]);setCoupons([]); }})}>تسجيل الخروج</button></div>
-      <div className="admin-layout">
+      {import.meta.env.VITE_STORE_REVIEWS === "true" && <button className="button button--outline" disabled={busy} aria-pressed={tab==="reviews"} onClick={()=>setTab("reviews")}>التقييمات والبلاغات</button>}
+      {tab === "reviews" ? <ReviewModeration token={token} /> : <div className="admin-layout">
       {tab==="stores" ? <>
         <form className="content-panel support-form" onSubmit={e=>{e.preventDefault();void run(async()=>{ const {id,...body}=store; body.initial = Array.from(body.name.trim()).slice(0,2).join("") || "م"; const url = new URL(body.website_url); if(url.protocol!=="https:" || url.username || url.password) throw new Error("استخدم رابط متجر آمن يبدأ بـ https:// بدون بيانات دخول."); if(body.logo_url) { const logo = new URL(body.logo_url); if(logo.protocol!=="https:" || logo.username || logo.password) throw new Error("استخدم رابط شعار يبدأ بـ https:// بدون بيانات دخول."); } await backendRequest(`/rest/v1/stores${id?`?id=eq.${id}`:""}`,{method:id?"PATCH":"POST",token,body});setStore(blankStore);await load(token);setNotice("تم حفظ المتجر.");});}}>
           <h2>{store.id?"تعديل المتجر":"متجر جديد"}</h2>
@@ -98,7 +100,7 @@ export default function Admin() {
         </form>
         <div className="admin-list">{!coupons.length&&<p>لا توجد كوبونات بعد.</p>}{coupons.map(c=><article className="content-panel" key={c.id}><h2>{c.title}</h2><p>{stores.find(s=>s.id===c.store_id)?.name} · {c.published?"محدد للنشر":"مسودة"}</p><p dir="ltr">{c.code} · {c.discount}</p><button className="button button--outline" onClick={()=>setCoupon({...c,expires_at:c.expires_at||""})}>تعديل</button></article>)}</div>
       </>}
-      </div>
+      </div>}
     </>}
     {notice&&<p className="admin-notice" role="status">{notice}</p>}
   </section>;
