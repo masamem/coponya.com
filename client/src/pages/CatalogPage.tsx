@@ -16,6 +16,7 @@ import {
 } from "@/lib/catalog";
 import { CouponCard } from "@/components/CouponCard";
 import { StoreOverview, StoreArticle } from "@/components/StoreProfile";
+import { StoreReviews } from "@/components/StoreReviews";
 import SubmitCoupon from "@/components/SubmitCoupon";
 
 const pages: Record<string, [string, string]> = {
@@ -378,6 +379,7 @@ export default function CatalogPage({
           )}
         </>
       )}
+      {store?.id && import.meta.env.VITE_STORE_REVIEWS === "true" && <StoreReviews key={store.id} storeId={store.id} />}
       {store&&<StoreArticle store={store} related={stores.filter(s=>s.name!==store.name).slice(0,4)}/>}
       {location === "/stores" && (
         <>
