@@ -47,6 +47,8 @@ import {
 
 /** The earlier header is hidden for now; flip to true to restore it. */
 const SHOW_LEGACY_HEADER = false;
+/** The earlier homepage hero is hidden for now; flip to true to restore it. */
+const SHOW_LEGACY_HERO = false;
 
 const logoUrl = "/brand/coponya-logo.svg?v=20261030-colors";
 const heroUrl = "/brand/seasonal/merchant-gifts-2026.webp";
@@ -366,56 +368,60 @@ export default function Home() {
           />
         ) : (
           <>
-            <section className="hero-section">
-              <div className="hero-texture" />
-              <div className="container hero-grid">
-                <div className="hero-copy">
-                  <span className="hero-kicker">
-                    <Sparkles size={15} /> وجهتك الأذكى للتوفير
-                  </span>
-                  <h1>
-                    وفر أكثر مع
-                    <br />
-                    <em>أحدث أكواد الخصم</em>
-                  </h1>
-                  <p>
-                    {siteBrand.description}
-                  </p>
-                  <div className="hero-proof">
-                    <div className="proof-avatars">
-                      <span>أ</span>
-                      <span>ر</span>
-                      <span>ن</span>
-                      <span>+</span>
-                    </div>
-                    <span>
-                      <strong>بخطوة واحدة</strong> احفظ كوبونك المفضل
+            {/* Previous hero (headline, slideshow, stats) kept for later: set SHOW_LEGACY_HERO to true to bring it back. */}
+            {SHOW_LEGACY_HERO && (
+              <section className="hero-section">
+                <div className="hero-texture" />
+                <div className="container hero-grid">
+                  <div className="hero-copy">
+                    <span className="hero-kicker">
+                      <Sparkles size={15} /> وجهتك الأذكى للتوفير
                     </span>
+                    <h1>
+                      وفر أكثر مع
+                      <br />
+                      <em>أحدث أكواد الخصم</em>
+                    </h1>
+                    <p>
+                      {siteBrand.description}
+                    </p>
+                    <div className="hero-proof">
+                      <div className="proof-avatars">
+                        <span>أ</span>
+                        <span>ر</span>
+                        <span>ن</span>
+                        <span>+</span>
+                      </div>
+                      <span>
+                        <strong>بخطوة واحدة</strong> احفظ كوبونك المفضل
+                      </span>
+                    </div>
+                  </div>
+                  <BannerSlideshow />
+                </div>
+                <div className="hero-stats container">
+                  <div>
+                    <strong>{coupons.length}</strong>
+                    <span>{isLive ? "كوبونات متاحة" : "أكواد تجريبية"}</span>
+                  </div>
+                  <div>
+                    <strong>{stores.length}</strong>
+                    <span>{isLive ? "متاجر متاحة" : "متاجر تجريبية"}</span>
+                  </div>
+                  <div>
+                    <strong>{categories.length}</strong>
+                    <span>تصنيفات</span>
+                  </div>
+                  <div>
+                    <strong>بسهولة</strong>
+                    <span>بحث وحفظ</span>
                   </div>
                 </div>
-                <BannerSlideshow />
-              </div>
-              <div className="hero-stats container">
-                <div>
-                  <strong>{coupons.length}</strong>
-                  <span>{isLive ? "كوبونات متاحة" : "أكواد تجريبية"}</span>
-                </div>
-                <div>
-                  <strong>{stores.length}</strong>
-                  <span>{isLive ? "متاجر متاحة" : "متاجر تجريبية"}</span>
-                </div>
-                <div>
-                  <strong>{categories.length}</strong>
-                  <span>تصنيفات</span>
-                </div>
-                <div>
-                  <strong>بسهولة</strong>
-                  <span>بحث وحفظ</span>
-                </div>
-              </div>
-            </section>
+              </section>
+            )}
 
-            <section className="promo-banner container" aria-label="كل توفير يبدأ بكوبونيا">
+            <section className="promo-banner container" aria-labelledby="home-title">
+              <h1 id="home-title" className="sr-only">كل توفير يبدأ بكوبونيا — أكواد خصم وكوبونات متاجر السعودية</h1>
               <Link href="/coupons" className="promo-banner__link">
                 <picture>
                   <source media="(max-width: 700px)" srcSet="/brand/banners/coponya-banner-mobile.webp" width={1500} height={840} />
@@ -423,7 +429,7 @@ export default function Home() {
                     src="/brand/banners/coponya-banner-desktop.webp"
                     width={2712}
                     height={632}
-                    loading="lazy"
+                    fetchPriority="high"
                     decoding="async"
                     alt="كل توفير يبدأ بكوبونيا — ليش تدفع السعر كامل؟ كودك جاهز، انسخه ووفّر في ثوانٍ. اكتشف كوبونك الآن"
                   />

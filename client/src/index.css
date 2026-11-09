@@ -716,7 +716,7 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
   .topbar__links > div:last-child a:last-child { border-bottom:0; }
 }
 /* Brand promo banner under the hero (desktop and mobile art via <picture>). */
-.promo-banner { padding-top:40px; }
+.promo-banner { padding-top:32px; }
 .promo-banner__link { display:block; overflow:hidden; border-radius:20px; box-shadow:var(--shadow-sm); transition:transform .2s var(--ease), box-shadow .2s var(--ease); }
 .promo-banner__link:hover { transform:translateY(-2px); box-shadow:var(--shadow); }
 .promo-banner__link:focus-visible { outline:3px solid var(--apricot); outline-offset:3px; }
