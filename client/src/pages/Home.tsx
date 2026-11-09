@@ -644,7 +644,7 @@ export default function Home() {
             <button type="button" className="footer-search" onClick={goSearch} aria-label="ابحث عن متجر أو كوبون"><Search size={18} aria-hidden="true"/><span>ابحث عن متجر أو كوبون...</span></button>
           </div>
           <div className="signature-footer__main">
-            <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) منصة سعودية تساعدك على إيجاد أكواد الخصم والعروض لمتاجرك المفضلة وبخطوات واضحة.</p></div>
+            <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) منصة سعودية تساعدك على إيجاد أكواد الخصم والعروض لمتاجرك المفضلة وبخطوات واضحة</p></div>
             <nav className="signature-footer__links" aria-labelledby="footer-links-title">
               <h2 id="footer-links-title" className="footer-links-title">روابط تهمك</h2>
               <div className="footer-links-list">
