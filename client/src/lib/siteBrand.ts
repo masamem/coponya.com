@@ -4,7 +4,7 @@ export const siteBrand = {
   origin: "https://coponya.com",
   title: "كوبونيا | Coponya — أكواد خصم وكوبونات متاجر السعودية",
   description: "كوبونيا (Coponya) منصة عربية لاكتشاف أكواد الخصم وكوبونات المتاجر في السعودية. تصفح العروض، واقرأ شروط الكوبون، وانسخ الكود لاستخدامه لدى المتجر.",
-  socialProfiles: ["https://www.instagram.com/coponya.sa/", "https://www.tiktok.com/@coponya"],
+  socialProfiles: ["https://www.instagram.com/coponya.sa/", "https://www.tiktok.com/@coponya", "https://www.snapchat.com/add/coponya", "https://www.pinterest.com/coponya/"],
 } as const;
 
 export function siteBrandStructuredData() {
