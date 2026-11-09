@@ -691,20 +691,18 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .topbar { background:#fff; }
 .topbar__main { display:flex; align-items:center; gap:clamp(20px,4vw,64px); min-height:96px; }
 .topbar__main .brand-mark { flex:none; }
-.topbar__search { display:flex; align-items:center; gap:12px; flex:1; max-width:760px; height:56px; padding:0 20px; border:1px solid transparent; border-radius:10px; background:#ECECEC; color:#3F4A47; }
-.topbar__search:focus-within { border-color:var(--olive); background:#fff; box-shadow:0 0 0 3px var(--olive-soft); }
-.topbar__search input { flex:1; min-width:0; height:100%; border:0; outline:0; background:transparent; color:var(--ink); font:inherit; font-size:18px; }
-.topbar__search input::placeholder { color:#4A5552; opacity:1; }
-.topbar__search input::-webkit-search-cancel-button { display:none; }
 .topbar__nav { background:#F5F5F5; border-top:1px solid #EFEFEF; box-shadow:0 2px 4px rgba(0,0,0,.06); }
 .topbar__links { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:62px; }
 .topbar__links > div { display:flex; align-items:center; gap:clamp(20px,3vw,44px); }
 .topbar__links a { color:#2A2F2E; font-size:19px; font-weight:500; white-space:nowrap; }
 .topbar__links a:hover, .topbar__links a[aria-current="page"] { color:var(--olive); }
+.topbar__search-wrap { position:relative; flex:1; max-width:760px; }
+.topbar__search-wrap .hero-search { max-width:none; box-shadow:0 8px 22px rgba(72,102,92,.08); }
+.topbar__search-wrap .search-discovery { position:absolute; z-index:30; top:calc(100% + 8px); right:0; left:0; max-width:none; margin:0; box-shadow:var(--shadow); }
 .topbar__mobile-actions { display:none; }
 @media (max-width:700px) {
   .topbar__main { justify-content:space-between; min-height:76px; gap:12px; }
-  .topbar__search { display:none; }
+  .topbar__search-wrap { display:none; }
   .topbar__mobile-actions { display:flex; align-items:center; gap:10px; }
   .topbar__round { display:grid; place-items:center; width:52px; height:52px; border-radius:50%; background:#ECECEC; color:#1E2A28; }
   .topbar__round:hover, .topbar__round[aria-expanded="true"] { background:var(--olive-soft); color:var(--olive); }
