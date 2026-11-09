@@ -599,7 +599,7 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 
 /* User-approved two-column footer arrangement. */
 .signature-footer::before { display:none; }
-.signature-footer__content { display:grid; grid-template-columns:minmax(300px,1fr) minmax(340px,1.45fr); grid-template-areas:"brand tools" "social links" "disc disc" "bottom bottom"; column-gap:72px; row-gap:26px; padding-top:40px; }
+.signature-footer__content { display:grid; grid-template-columns:minmax(300px,1fr) minmax(340px,1.45fr); grid-template-areas:"brand links" "social tools" "disc disc" "bottom bottom"; column-gap:72px; row-gap:26px; padding-top:40px; }
 .signature-footer__invite,.signature-footer__main { display:contents; }
 .signature-footer__main > .footer-brand { grid-area:brand; }
 .signature-footer__invite > div { grid-area:tagline; align-self:center; }
@@ -615,7 +615,7 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 
 /* Revised reference: one aligned row of footer actions and links. */
 @media(min-width:1101px) {
- .signature-footer__content { grid-template-columns:minmax(290px,1fr) minmax(300px,1.1fr) auto; grid-template-areas:"brand . ." "social links tools" "disc disc disc" "bottom bottom bottom"; column-gap:30px; row-gap:34px; }
+ .signature-footer__content { grid-template-columns:minmax(290px,1fr) minmax(300px,1.1fr) auto; grid-template-areas:"brand links ." "social links tools" "disc disc disc" "bottom bottom bottom"; column-gap:30px; row-gap:34px; }
  .signature-footer__content::after { display:none; }
  .signature-footer__tools { padding:0; border:0; align-self:center; }
  .signature-footer__links { padding:0; justify-content:center; gap:12px 22px; }
@@ -729,3 +729,4 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .footer-links-title { margin:0; color:var(--apricot); font-size:16px; font-weight:700; }
 .footer-links-list { display:flex; flex-direction:column; gap:10px; }
 @media (max-width:700px) { .site-footer .signature-footer__links { align-items:center; } .footer-links-list { align-items:center; } }
+@media (min-width:701px) { .site-footer .signature-footer__links { align-self:start; padding-top:4px; } }
