@@ -730,3 +730,7 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .footer-links-list { display:flex; flex-direction:column; gap:10px; }
 @media (max-width:700px) { .site-footer .signature-footer__links { align-items:center; } .footer-links-list { align-items:center; } }
 @media (min-width:701px) { .site-footer .signature-footer__links { align-self:start; justify-self:center; padding-top:4px; } }
+/* Footer call to action for merchants: brand orange, opens /submit-coupon. */
+.site-footer .footer-add-store { display:inline-flex; align-items:center; gap:12px; min-height:48px; margin:0; padding:0 26px; border-radius:12px; background:var(--apricot); color:#173832; font-size:16px; font-weight:700; box-shadow:0 8px 20px rgba(0,0,0,.18); transition:background .2s var(--ease), transform .2s var(--ease); }
+.site-footer .footer-add-store:hover { background:#FFB273; color:#173832; transform:translateY(-1px); }
+.site-footer .footer-add-store:focus-visible { outline:3px solid #fff; outline-offset:3px; }
