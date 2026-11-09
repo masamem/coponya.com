@@ -18,6 +18,10 @@
     { "source": "/deals", "destination": "/deals/index.html" },
     { "source": "/blog", "destination": "/blog/index.html" },
     { "source": "/blog/:slug", "destination": "/blog/:slug/index.html" },
+    { "source": "/about", "destination": "/about/index.html" },
+    { "source": "/terms", "destination": "/terms/index.html" },
+    { "source": "/privacy", "destination": "/privacy/index.html" },
+    { "source": "/complaints", "destination": "/complaints/index.html" },
     { "source": "/stores/:slug", "destination": "/api/store-page?slug=:slug" },
     {
       "source": "/(.*)",

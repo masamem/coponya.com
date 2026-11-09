@@ -2,6 +2,7 @@ import { storePath } from "@/lib/storeSlug";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import SupermarketStores from "@/components/SupermarketStores";
 import AffiliateDisclosure from "@/components/AffiliateDisclosure";
+import OperatorFooter from "@/components/OperatorFooter";
 import { siteBrand } from "@/lib/siteBrand";
 import Discovery, { ArticleCards } from "@/components/Discovery";
 import CouponDialog from "@/components/CouponDialog";
@@ -595,9 +596,10 @@ export default function Home() {
             </nav></div>
           </div>
           <AffiliateDisclosure />
+          <OperatorFooter />
           <div className="signature-footer__bottom">
             <p>© {new Date().getFullYear()} كوبونيا. جميع الحقوق محفوظة.</p>
-            <nav aria-label="السياسات والمساعدة"><Link href="/privacy">الخصوصية</Link><Link href="/terms">الشروط والأحكام</Link><Link href="/faq">المساعدة</Link></nav>
+            <nav aria-label="السياسات والمساعدة"><Link href="/privacy">الخصوصية</Link><Link href="/terms">الشروط والأحكام</Link><Link href="/complaints">الشكاوى والمقترحات</Link><Link href="/faq">المساعدة</Link></nav>
           </div>
         </div>
       </footer>  <div className="mobile-bottom-nav">

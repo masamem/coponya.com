@@ -4,6 +4,11 @@
 .affiliate-disclosure { margin:14px 0; font-size:12px; line-height:1.9; }
 .coupon-reveal .affiliate-disclosure { color:var(--muted); }
 .signature-footer .affiliate-disclosure { color:#d4e4dd; }
+.operator-footer { margin:0 0 14px; font-size:12px; line-height:1.9; color:#d4e4dd; }
+.operator-footer a { color:inherit; text-decoration:underline; }
+.legal-content section + section { margin-top:22px; }
+.legal-content ul { padding-inline-start:20px; list-style:disc; display:grid; gap:6px; }
+.legal-updated { font-size:13px; color:var(--muted); }
 
 @font-face {
   font-family: 'Alexandria';
