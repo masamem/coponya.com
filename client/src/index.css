@@ -692,9 +692,9 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .topbar__main { display:flex; align-items:center; gap:clamp(20px,4vw,64px); min-height:96px; }
 .topbar__main .brand-mark { flex:none; }
 .topbar__nav { background:#F5F5F5; border-top:1px solid #EFEFEF; box-shadow:0 2px 4px rgba(0,0,0,.06); }
-.topbar__links { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:62px; }
+.topbar__links { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:54px; }
 .topbar__links > div { display:flex; align-items:center; gap:clamp(20px,3vw,44px); }
-.topbar__links a { color:#2A2F2E; font-size:19px; font-weight:500; white-space:nowrap; }
+.topbar__links a { color:#2A2F2E; font-size:16px; font-weight:500; white-space:nowrap; }
 .topbar__links a:hover, .topbar__links a[aria-current="page"] { color:var(--olive); }
 .topbar__search-wrap { position:relative; flex:0 1 500px; margin-inline-start:auto; }
 .topbar__search-wrap .hero-search { max-width:none; height:52px; padding:5px 6px 5px 5px; border-radius:12px; box-shadow:0 6px 16px rgba(72,102,92,.07); }
