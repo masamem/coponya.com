@@ -645,8 +645,11 @@ export default function Home() {
           </div>
           <div className="signature-footer__main">
             <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) منصة سعودية تساعدك على إيجاد أكواد الخصم والعروض لمتاجرك المفضلة وبخطوات واضحة.</p></div>
-            <nav className="signature-footer__links" aria-label="روابط كوبونيا">
-              <Link href="/about">عن كوبونيا</Link><Link href="/stores">المتاجر</Link><Link href="/deals">العروض</Link><Link href="/blog">المدونة</Link><Link href="/contact">تواصل معنا</Link>
+            <nav className="signature-footer__links" aria-labelledby="footer-links-title">
+              <h2 id="footer-links-title" className="footer-links-title">روابط تهمك</h2>
+              <div className="footer-links-list">
+                <Link href="/about">من نحن</Link><Link href="/privacy">سياسة الخصوصية</Link><Link href="/contact">تواصل معنا</Link>
+              </div>
             </nav>
             <div className="signature-footer__social">            <nav aria-label="حسابات كوبونيا على التواصل الاجتماعي" className="footer-socials">
               <a href="https://www.instagram.com/coponya.sa/" target="_blank" rel="noopener noreferrer" aria-label="كوبونيا على Instagram — يفتح في نافذة جديدة"><Instagram size={21} aria-hidden="true"/></a>
