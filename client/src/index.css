@@ -735,5 +735,5 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .site-footer .footer-add-store:hover { background:#FFB273; color:#173832; transform:translateY(-1px); }
 .site-footer .footer-add-store:focus-visible { outline:3px solid #fff; outline-offset:3px; }
 @media (min-width:1101px) { .signature-footer__tools { align-self:start; margin-top:67px; } }
-.site-footer .footer-copyright-link { display:inline; width:auto; margin:0; color:rgba(255,255,255,.86); font-weight:600; text-decoration:none; }
-.site-footer .footer-copyright-link:hover { color:#fff; text-decoration:underline; text-underline-offset:3px; }
+.site-footer .signature-footer__bottom .footer-copyright-link { display:inline; width:auto; margin:0; color:rgba(255,255,255,.86); font-weight:600; text-decoration:none; }
+.site-footer .signature-footer__bottom .footer-copyright-link:hover { color:#fff; text-decoration:underline; text-underline-offset:3px; }
