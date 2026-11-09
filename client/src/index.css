@@ -599,22 +599,24 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 
 /* User-approved two-column footer arrangement. */
 .signature-footer::before { display:none; }
-.signature-footer__content { display:grid; grid-template-columns:minmax(300px,1fr) minmax(340px,1.45fr); grid-template-areas:"brand cta" "tagline tools" "social links" "bottom bottom"; column-gap:72px; row-gap:26px; padding-top:40px; }
+.signature-footer__content { display:grid; grid-template-columns:minmax(300px,1fr) minmax(340px,1.45fr); grid-template-areas:"brand tools" "social links" "disc disc" "bottom bottom"; column-gap:72px; row-gap:26px; padding-top:40px; }
 .signature-footer__invite,.signature-footer__main { display:contents; }
 .signature-footer__main > .footer-brand { grid-area:brand; }
 .signature-footer__invite > div { grid-area:tagline; align-self:center; }
 .site-footer .signature-footer__cta { grid-area:cta; justify-self:end; align-self:start; margin-top:8px; }
-.signature-footer__tools { grid-area:tools; align-self:start; justify-content:flex-end; padding-top:26px; border-top:1px solid #ffffff25; }
+.signature-footer__tools { grid-area:tools; align-self:center; justify-content:flex-end; }
 .signature-footer__links { grid-area:links; justify-content:flex-end; align-self:center; padding-bottom:6px; }
 .signature-footer__social { grid-area:social; padding:8px 0; }
 .signature-footer__bottom { grid-area:bottom; margin-top:60px; }
+.signature-footer__content > .affiliate-disclosure { grid-area:disc; margin:0; }
+.signature-footer__content > .operator-footer { grid-column:1 / -1; }
 @media(max-width:980px) and (min-width:701px) { .signature-footer__content { column-gap:32px; grid-template-columns:minmax(250px,1fr) minmax(300px,1.2fr); } .signature-footer__invite h2 { font-size:27px; } .signature-footer__links { gap:10px 16px; } }
-@media(max-width:700px) { .signature-footer__content { grid-template-columns:minmax(0,1fr); grid-template-areas:"brand" "tagline" "cta" "tools" "links" "social" "bottom"; gap:22px; padding-top:30px; text-align:center; } .signature-footer__main > .footer-brand { justify-self:center; } .signature-footer__invite > div { justify-self:center; } .site-footer .signature-footer__cta { justify-self:center; margin:0; } .signature-footer__tools { justify-content:center; padding-top:22px; } .signature-footer__links { justify-content:center; padding:0; } .signature-footer__social { padding:0; justify-self:center; } .signature-footer__bottom { margin-top:6px; } }
+@media(max-width:700px) { .signature-footer__content { grid-template-columns:minmax(0,1fr); grid-template-areas:"brand" "tools" "links" "social" "disc" "bottom"; gap:22px; padding-top:30px; text-align:center; } .signature-footer__main > .footer-brand { justify-self:center; } .signature-footer__invite > div { justify-self:center; } .site-footer .signature-footer__cta { justify-self:center; margin:0; } .signature-footer__tools { justify-content:center; padding-top:22px; } .signature-footer__links { justify-content:center; padding:0; } .signature-footer__social { padding:0; justify-self:center; } .signature-footer__bottom { margin-top:6px; } }
 
 /* Revised reference: one aligned row of footer actions and links. */
 @media(min-width:1101px) {
- .signature-footer__content { grid-template-columns:minmax(290px,1fr) minmax(300px,1.1fr) auto; grid-template-areas:"brand cta cta" "tagline divider divider" "social links tools" "bottom bottom bottom"; column-gap:30px; row-gap:34px; }
- .signature-footer__content::after { content:""; grid-area:divider; align-self:center; border-top:1px solid #ffffff25; }
+ .signature-footer__content { grid-template-columns:minmax(290px,1fr) minmax(300px,1.1fr) auto; grid-template-areas:"brand . ." "social links tools" "disc disc disc" "bottom bottom bottom"; column-gap:30px; row-gap:34px; }
+ .signature-footer__content::after { display:none; }
  .signature-footer__tools { padding:0; border:0; align-self:center; }
  .signature-footer__links { padding:0; justify-content:center; gap:12px 22px; }
  .signature-footer__invite h2 { font-size:32px; }

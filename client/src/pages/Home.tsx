@@ -639,10 +639,6 @@ export default function Home() {
 
       <footer className="site-footer signature-footer">
         <div className="container signature-footer__content">
-          <div className="signature-footer__invite">
-            <div><h2>كل توفير يبدأ بكوبونيا</h2></div>
-            <Link href="/coupons" className="signature-footer__cta">اكتشف أحدث الكوبونات <span aria-hidden="true">←</span></Link>
-          </div>
           <div className="signature-footer__tools">
             <Link href="/submit-coupon" className="footer-submit">أضف كوبونك</Link>
             <button type="button" className="footer-search" onClick={goSearch} aria-label="ابحث عن متجر أو كوبون"><Search size={18} aria-hidden="true"/><span>ابحث عن متجر أو كوبون...</span></button>
