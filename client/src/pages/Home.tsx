@@ -217,18 +217,43 @@ export default function Home() {
       <header className="site-header topbar">
         <div className="container topbar__main">
           <BrandMark />
-          <form
-            className="topbar__search"
-            role="search"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const q = String(new FormData(e.currentTarget).get("q") || "").trim();
-              navigate(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
-            }}
-          >
-            <Search size={20} aria-hidden="true" />
-            <input name="q" type="search" placeholder="البحث عن المتاجر" aria-label="البحث عن المتاجر" autoComplete="off" />
-          </form>
+          <div className="topbar__search-wrap">
+            <form
+              className="hero-search"
+              role="search"
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+              }}
+            >
+              <Search size={21} />
+              <input
+                aria-label="ابحث عن متجر أو كوبون"
+                id="hero-search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="ابحث عن متجر أو كود خصم..."
+              />
+              <button type="submit">
+                ابحث عن كوبون <ArrowLeft size={17} />
+              </button>
+            </form>
+            {query.trim() && (
+              <div className="search-discovery">
+                <p role="status">{matchingStores.length} متجر · {filteredCoupons.length} كوبون مطابق</p>
+                {matchingStores.length > 0 && (
+                  <nav aria-label="المتاجر المطابقة للبحث">
+                    {matchingStores.map((store) => (
+                      <Link key={store.name} href={storePath(store.name)}>
+                        <Store size={16} /> {store.name} <ArrowLeft size={14} />
+                      </Link>
+                    ))}
+                  </nav>
+                )}
+                <button className="text-link" onClick={() => setQuery("")}>مسح البحث <X size={14} /></button>
+              </div>
+            )}
+          </div>
           <div className="topbar__mobile-actions">
             <button type="button" className="topbar__round" onClick={goSearch} aria-label="البحث عن المتاجر">
               <Search size={24} aria-hidden="true" />
@@ -356,41 +381,6 @@ export default function Home() {
                   <p>
                     {siteBrand.description}
                   </p>
-                  <form
-                    className="hero-search"
-                    role="search"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      navigate(`/search?q=${encodeURIComponent(query.trim())}`);
-                    }}
-                  >
-                    <Search size={21} />
-                    <input
-                      aria-label="ابحث عن متجر أو كوبون"
-                      id="hero-search"
-                      value={query}
-                      onChange={(event) => setQuery(event.target.value)}
-                      placeholder="ابحث عن متجر أو كود خصم..."
-                    />
-                    <button type="submit">
-                      ابحث عن كوبون <ArrowLeft size={17} />
-                    </button>
-                  </form>
-                  {query.trim() && (
-                    <div className="search-discovery">
-                      <p role="status">{matchingStores.length} متجر · {filteredCoupons.length} كوبون مطابق</p>
-                      {matchingStores.length > 0 && (
-                        <nav aria-label="المتاجر المطابقة للبحث">
-                          {matchingStores.map((store) => (
-                            <Link key={store.name} href={storePath(store.name)}>
-                              <Store size={16} /> {store.name} <ArrowLeft size={14} />
-                            </Link>
-                          ))}
-                        </nav>
-                      )}
-                      <button className="text-link" onClick={() => setQuery("")}>مسح البحث <X size={14} /></button>
-                    </div>
-                  )}
                   <div className="hero-proof">
                     <div className="proof-avatars">
                       <span>أ</span>
