@@ -1,3 +1,4 @@
+import { storePath } from "../client/src/lib/storeSlug";
 type Fetcher = typeof fetch;
 const pageSize = 1000;
 
@@ -31,7 +32,7 @@ export async function fetchStoreSitemapPaths(
       if (row.active && row.name.trim()) names.add(row.name);
     }
     if (rows.length < pageSize) {
-      return [...names].sort().map(name => `/stores/${encodeURIComponent(name)}`);
+      return [...new Set([...names].sort().map(storePath))];
     }
   }
   throw new Error("Store sitemap pagination limit exceeded.");

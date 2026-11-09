@@ -3,6 +3,14 @@
   "framework": "vite",
   "buildCommand": "pnpm run check && pnpm run build",
   "outputDirectory": "dist/public",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.coponya.com" }],
+      "destination": "https://coponya.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/stores", "destination": "/stores/index.html" },
     { "source": "/coupons", "destination": "/coupons/index.html" },
@@ -10,6 +18,7 @@
     { "source": "/deals", "destination": "/deals/index.html" },
     { "source": "/blog", "destination": "/blog/index.html" },
     { "source": "/blog/:slug", "destination": "/blog/:slug/index.html" },
+    { "source": "/stores/:slug", "destination": "/api/store-page?slug=:slug" },
     {
       "source": "/(.*)",
       "destination": "/index.html"

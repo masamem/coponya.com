@@ -1,14 +1,16 @@
 import { describe, expect, it, vi } from "vitest";
 import { fetchStoreSitemapPaths, sitemapXml } from "./storeSitemap";
+import { storePath } from "../client/src/lib/storeSlug";
 const response = (rows: unknown) => new Response(JSON.stringify(rows), { status: 200 });
 describe("public store sitemap", () => {
-  it("includes only active non-empty names, deduplicates, and encodes names as one route segment", async () => {
+  it("includes only active non-empty names, deduplicates, and uses the short store URL", async () => {
     const fetcher = vi.fn().mockResolvedValue(response([
       {name:"اي هيرب & أكثر/عروض",active:true}, {name:"hidden",active:false},
       {name:"اي هيرب & أكثر/عروض",active:true}, {name:" ",active:true},
     ]));
     const paths = await fetchStoreSitemapPaths("https://example.supabase.co", "public-key", fetcher);
-    expect(paths).toEqual(["/stores/" + encodeURIComponent("اي هيرب & أكثر/عروض")]);
+    expect(paths).toEqual([storePath("اي هيرب & أكثر/عروض")]);
+    expect(paths[0]).not.toContain("%2F");
     const [url, options] = fetcher.mock.calls[0];
     expect(url.searchParams.get("active")).toBe("eq.true");
     expect(options.headers).toEqual({apikey:"public-key"});

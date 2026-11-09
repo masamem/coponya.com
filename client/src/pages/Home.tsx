@@ -1,3 +1,4 @@
+import { storePath } from "@/lib/storeSlug";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import SupermarketStores from "@/components/SupermarketStores";
 import AffiliateDisclosure from "@/components/AffiliateDisclosure";
@@ -106,7 +107,7 @@ function BannerSlideshow() {
                   <div className="festive-slide__heading"><span>اختيارات الموسم مع كوبونيا</span><h2>كل موسم<br/>له اختياراته</h2><span className="festive-slide__cta">استكشف العروض <ArrowLeft size={15}/></span></div>
                   <div className="festive-slide__brands" aria-label="نون، ماتش للعطور، أمازون، ترينديول">{[{id:"noon",name:"نون"},{id:"match",name:"ماتش للعطور"},{id:"amazon",name:"أمازون"},{id:"trendyol",name:"ترينديول"}].map(brand => <span key={brand.id}><img src={`/brand/merchants/${brand.id}.png`} alt="" width="32" height="32"/><strong>{brand.name}</strong></span>)}</div>
                 </Link>
-              <Link href="/stores/noon%20-%20%D9%86%D9%88%D9%86" className="hero-slide discovery-banner noon-slide" hidden={active !== 1}>
+              <Link href={storePath("noon - نون")} className="hero-slide discovery-banner noon-slide" hidden={active !== 1}>
                 <img className="noon-slide__logo" src="/brand/merchants/noon.png" alt="نون" width="64" height="64"/>
                 <span className="discovery-banner__eyebrow">كوبونات نون على كوبونيا</span>
                 <h2>استرداد نقدي 10% من نون بحد أقصى 75 ريال</h2>
@@ -330,7 +331,7 @@ export default function Home() {
                       {matchingStores.length > 0 && (
                         <nav aria-label="المتاجر المطابقة للبحث">
                           {matchingStores.map((store) => (
-                            <Link key={store.name} href={`/stores/${encodeURIComponent(store.name)}`}>
+                            <Link key={store.name} href={storePath(store.name)}>
                               <Store size={16} /> {store.name} <ArrowLeft size={14} />
                             </Link>
                           ))}
@@ -386,7 +387,7 @@ export default function Home() {
                 <div className="store-rail">
                   {stores.map((store) => (
                     <Link
-                      href={`/stores/${encodeURIComponent(store.name)}`}
+                      href={storePath(store.name)}
                       className="store-card"
                       key={store.name}
                     >
@@ -515,7 +516,7 @@ export default function Home() {
                           className="button button--outline button--small"
                           onClick={() =>
                             navigate(
-                              `/stores/${encodeURIComponent(deal.brand)}`,
+                              storePath(deal.brand),
                             )
                           }
                         >

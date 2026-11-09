@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { parseFaq, storeMetadata, storeSeoDefaults, storeStructuredData } from "./storeSeo";
 import { mapCatalog } from "./liveCatalog";
 import type { Store } from "./catalog";
+import { storePath } from "./storeSlug";
 const store: Store = { name: "متجر عربي", initial: "م", tone: "olive", count: "", discount: "" };
 describe("store SEO", () => {
   it("uses editor overrides, trims them, and falls back for older stores", () => {
@@ -19,7 +20,7 @@ describe("store SEO", () => {
     const profile = { ...store, faq: "سؤال بلا إجابة\n\nكيف؟\nجواب\nتكملة\n\n\nإجابة بدون سؤال" };
     expect(parseFaq(profile.faq)).toEqual([{ question: "كيف؟", answer: "جواب\nتكملة" }]);
     const data = storeStructuredData(profile, "https://coponya.com");
-    expect(JSON.stringify(data)).toContain(encodeURIComponent(store.name));
+    expect(JSON.stringify(data)).toContain("https://coponya.com" + storePath(store.name));
     expect(data["@graph"].find(item => item["@type"] === "FAQPage")).toMatchObject({ mainEntity: [{ name: "كيف؟", acceptedAnswer: { text: "جواب\nتكملة" } }] });
     expect(storeStructuredData(store, "https://coponya.com")["@graph"].some(item => item["@type"] === "FAQPage")).toBe(false);
   });
