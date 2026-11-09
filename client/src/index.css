@@ -705,7 +705,7 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
   .topbar__main { flex-wrap:wrap; gap:10px; min-height:0; padding-block:10px; }
   .topbar__search { flex-basis:100%; max-width:none; height:46px; padding:0 14px; }
   .topbar__search input { font-size:15px; }
-  .topbar__links { min-height:48px; gap:12px; overflow-x:auto; }
-  .topbar__links > div { gap:18px; }
-  .topbar__links a { font-size:15px; }
+  .topbar__links { min-height:48px; gap:8px; justify-content:space-between; }
+  .topbar__links > div { display:contents; }
+  .topbar__links a { font-size:clamp(13px,4vw,15px); }
 }
