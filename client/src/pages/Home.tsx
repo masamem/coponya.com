@@ -229,8 +229,23 @@ export default function Home() {
             <Search size={20} aria-hidden="true" />
             <input name="q" type="search" placeholder="البحث عن المتاجر" aria-label="البحث عن المتاجر" autoComplete="off" />
           </form>
+          <div className="topbar__mobile-actions">
+            <button type="button" className="topbar__round" onClick={goSearch} aria-label="البحث عن المتاجر">
+              <Search size={24} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className="topbar__round"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+              aria-expanded={menuOpen}
+              aria-controls="topbar-nav"
+            >
+              {menuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+            </button>
+          </div>
         </div>
-        <nav className="topbar__nav" aria-label="التنقل الرئيسي">
+        <nav id="topbar-nav" className={`topbar__nav ${menuOpen ? "topbar__nav--open" : ""}`} aria-label="التنقل الرئيسي">
           <div className="container topbar__links">
             <div>
               <Link href="/stores" aria-current={location === "/stores" ? "page" : undefined}>جميع المتاجر</Link>
