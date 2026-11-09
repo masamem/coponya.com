@@ -2,6 +2,7 @@ import { fetchStoreSitemapPaths, sitemapXml } from "./storeSitemap";
 import { siteBrand, siteBrandStructuredData } from "../client/src/lib/siteBrand";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { articles } from "../client/src/lib/articles";
+import { legalPages, legalPageHtml, legalUpdated } from "../client/src/lib/legal";
 const origin = siteBrand.origin;
 const escape = (s: string) => s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 const shell = readFileSync("dist/public/index.html", "utf8");
@@ -12,6 +13,8 @@ const routes = [
   { path: "/categories", title: "تصنيفات التسوق — كوبونيا", description: "تصفح الكوبونات حسب اهتماماتك.", body: "" },
   { path: "/deals", title: "العروض — كوبونيا", description: "تصفح العروض المتاحة وتحقق من تفاصيلها قبل الشراء.", body: "" },
   { path: "/blog", title: "المدونة — كوبونيا", description: "أدلة أصلية تساعدك على استخدام الكوبونات ومقارنة العروض.", body: articles.map(a => `<article><h2><a href="/blog/${a.slug}">${escape(a.title)}</a></h2><p>${escape(a.description)}</p></article>`).join("") },
+  ...Object.entries(legalPages).map(([path, page]) => ({ path, title: `${page.title} — كوبونيا`, description: page.description,
+    body: `<p>آخر تحديث: ${legalUpdated}</p>${legalPageHtml(page, escape)}` })),
   ...articles.map(a => ({ path: `/blog/${a.slug}`, title: `${a.title} — كوبونيا`, description: a.description,
     body: a.sections.map(([h, p]) => `<section><h2>${escape(h)}</h2><p>${escape(p)}</p></section>`).join("") })),
 ];
