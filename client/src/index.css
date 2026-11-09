@@ -696,8 +696,10 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .topbar__links > div { display:flex; align-items:center; gap:clamp(20px,3vw,44px); }
 .topbar__links a { color:#2A2F2E; font-size:19px; font-weight:500; white-space:nowrap; }
 .topbar__links a:hover, .topbar__links a[aria-current="page"] { color:var(--olive); }
-.topbar__search-wrap { position:relative; flex:1; max-width:760px; }
-.topbar__search-wrap .hero-search { max-width:none; box-shadow:0 8px 22px rgba(72,102,92,.08); }
+.topbar__search-wrap { position:relative; flex:0 1 500px; margin-inline-start:clamp(24px,8vw,140px); }
+.topbar__search-wrap .hero-search { max-width:none; height:52px; padding:5px 6px 5px 5px; border-radius:12px; box-shadow:0 6px 16px rgba(72,102,92,.07); }
+.topbar__search-wrap .hero-search > svg { margin:0 10px; width:19px; height:19px; }
+.topbar__search-wrap .hero-search button { height:40px; padding:0 14px; border-radius:9px; }
 .topbar__search-wrap .search-discovery { position:absolute; z-index:30; top:calc(100% + 8px); right:0; left:0; max-width:none; margin:0; box-shadow:var(--shadow); }
 .topbar__mobile-actions { display:none; }
 @media (max-width:700px) {
