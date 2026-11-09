@@ -415,6 +415,22 @@ export default function Home() {
               </div>
             </section>
 
+            <section className="promo-banner container" aria-label="كل توفير يبدأ بكوبونيا">
+              <Link href="/coupons" className="promo-banner__link">
+                <picture>
+                  <source media="(max-width: 700px)" srcSet="/brand/banners/coponya-banner-mobile.webp" width={1500} height={840} />
+                  <img
+                    src="/brand/banners/coponya-banner-desktop.webp"
+                    width={2712}
+                    height={632}
+                    loading="lazy"
+                    decoding="async"
+                    alt="كل توفير يبدأ بكوبونيا — ليش تدفع السعر كامل؟ كودك جاهز، انسخه ووفّر في ثوانٍ. اكتشف كوبونك الآن"
+                  />
+                </picture>
+              </Link>
+            </section>
+
             <SupermarketStores />
 
             <section className="section stores-section">
