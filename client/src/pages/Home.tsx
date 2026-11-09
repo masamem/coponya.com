@@ -643,7 +643,7 @@ export default function Home() {
             <Link href="/submit-coupon" className="footer-add-store">أضف متجرك <span aria-hidden="true">←</span></Link>
           </div>
           <div className="signature-footer__main">
-            <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) منصة سعودية تساعدك على إيجاد أكواد الخصم والعروض لمتاجرك المفضلة وبخطوات واضحة</p></div>
+            <div className="footer-brand"><BrandMark inverse /><p>كل طلب فرصة للتوفير. مع كوبونيا تجدون أكواد الخصم والعروض المناسبة لأشهر المتاجر الإلكترونية في السعودية، بخطوات واضحة وبدون تسجيل أو رسوم</p></div>
             <nav className="signature-footer__links" aria-labelledby="footer-links-title">
               <h2 id="footer-links-title" className="footer-links-title">روابط تهمك</h2>
               <div className="footer-links-list">
