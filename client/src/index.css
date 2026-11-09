@@ -577,7 +577,7 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .site-footer .signature-footer__cta:hover { color:#173832; background:#ffd1a7; }
 .signature-footer__main { display:grid; grid-template-columns:1fr 1.5fr auto; align-items:center; gap:32px; padding:34px 0; }
 .signature-footer .footer-brand .brand-mark__logo { width:140px; height:auto; }
-.signature-footer .footer-brand p { margin:10px 0 0; color:#b7d2c8; font-size:13px; }
+.signature-footer .footer-brand p { max-width:430px; margin:12px 0 0; color:#fff; font-size:15px; font-weight:300; line-height:2.2; }
 .signature-footer__links { display:flex; flex-wrap:wrap; justify-content:center; gap:12px 24px; }
 .site-footer .signature-footer__links a { width:auto; margin:0; font-size:14px; }
 .signature-footer__bottom { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:18px 0 22px; border-top:1px solid #ffffff18; color:#b7d2c8; font-size:12px; }
