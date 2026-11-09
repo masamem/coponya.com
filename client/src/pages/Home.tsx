@@ -640,8 +640,7 @@ export default function Home() {
       <footer className="site-footer signature-footer">
         <div className="container signature-footer__content">
           <div className="signature-footer__tools">
-            <Link href="/submit-coupon" className="footer-submit">أضف كوبونك</Link>
-            <button type="button" className="footer-search" onClick={goSearch} aria-label="ابحث عن متجر أو كوبون"><Search size={18} aria-hidden="true"/><span>ابحث عن متجر أو كوبون...</span></button>
+            <Link href="/submit-coupon" className="footer-add-store">أضف متجرك <span aria-hidden="true">←</span></Link>
           </div>
           <div className="signature-footer__main">
             <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) منصة سعودية تساعدك على إيجاد أكواد الخصم والعروض لمتاجرك المفضلة وبخطوات واضحة</p></div>
