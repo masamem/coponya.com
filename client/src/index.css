@@ -686,3 +686,26 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
   .savings-guide__heading p { font-size:16px; }
   .savings-guide__card h3 { font-size:20px; }
 }
+
+/* Top bar: logo + store search, then a light navigation strip (two link groups). */
+.topbar { background:#fff; }
+.topbar__main { display:flex; align-items:center; gap:clamp(20px,4vw,64px); min-height:96px; }
+.topbar__main .brand-mark { flex:none; }
+.topbar__search { display:flex; align-items:center; gap:12px; flex:1; max-width:760px; height:56px; padding:0 20px; border:1px solid transparent; border-radius:10px; background:#ECECEC; color:#3F4A47; }
+.topbar__search:focus-within { border-color:var(--olive); background:#fff; box-shadow:0 0 0 3px var(--olive-soft); }
+.topbar__search input { flex:1; min-width:0; height:100%; border:0; outline:0; background:transparent; color:var(--ink); font:inherit; font-size:18px; }
+.topbar__search input::placeholder { color:#4A5552; opacity:1; }
+.topbar__search input::-webkit-search-cancel-button { display:none; }
+.topbar__nav { background:#F5F5F5; border-top:1px solid #EFEFEF; box-shadow:0 2px 4px rgba(0,0,0,.06); }
+.topbar__links { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:62px; }
+.topbar__links > div { display:flex; align-items:center; gap:clamp(20px,3vw,44px); }
+.topbar__links a { color:#2A2F2E; font-size:19px; font-weight:500; white-space:nowrap; }
+.topbar__links a:hover, .topbar__links a[aria-current="page"] { color:var(--olive); }
+@media (max-width:700px) {
+  .topbar__main { flex-wrap:wrap; gap:10px; min-height:0; padding-block:10px; }
+  .topbar__search { flex-basis:100%; max-width:none; height:46px; padding:0 14px; }
+  .topbar__search input { font-size:15px; }
+  .topbar__links { min-height:48px; gap:12px; overflow-x:auto; }
+  .topbar__links > div { gap:18px; }
+  .topbar__links a { font-size:15px; }
+}

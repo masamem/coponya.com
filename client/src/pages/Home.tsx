@@ -45,6 +45,9 @@ import {
   Zap,
 } from "lucide-react";
 
+/** The earlier header is hidden for now; flip to true to restore it. */
+const SHOW_LEGACY_HEADER = false;
+
 const logoUrl = "/brand/coponya-logo.svg?v=20261030-colors";
 const heroUrl = "/brand/seasonal/merchant-gifts-2026.webp";
 const spotlightUrl =
@@ -211,70 +214,102 @@ export default function Home() {
       <a className="skip-link" href="#main-content">
         تجاوز إلى المحتوى
       </a>
-      <header className="site-header">
-        <div className="container header-inner">
-          <button
-            className="mobile-menu-button icon-button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
-            aria-expanded={menuOpen}
-            aria-controls="main-nav"
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+      <header className="site-header topbar">
+        <div className="container topbar__main">
           <BrandMark />
-          <nav
-            id="main-nav"
-            className={`main-nav ${menuOpen ? "main-nav--open" : ""}`}
-            aria-label="التنقل الرئيسي"
+          <form
+            className="topbar__search"
+            role="search"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const q = String(new FormData(e.currentTarget).get("q") || "").trim();
+              navigate(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
+            }}
           >
-            <Link href="/" aria-current={location === "/" ? "page" : undefined}>
-              الرئيسية
-            </Link>
-            <Link
-              href="/stores"
-              aria-current={location === "/stores" ? "page" : undefined}
-            >
-              المتاجر
-            </Link>
-            <Link
-              href="/coupons"
-              aria-current={location === "/coupons" ? "page" : undefined}
-            >
-              الكوبونات
-            </Link>
-            <Link
-              href="/deals"
-              aria-current={location === "/deals" ? "page" : undefined}
-            >
-              العروض <span className="nav-new">جديد</span>
-            </Link>
-            <Link
-              href="/categories"
-              aria-current={location === "/categories" ? "page" : undefined}
-            >
-              التصنيفات
-            </Link>
-            <Link href="/blog" aria-current={location.startsWith("/blog") ? "page" : undefined}>المدونة</Link>
-          </nav>
-          <div className="header-actions">
-            <button
-              className="icon-button header-icon"
-              aria-label="المفضلة"
-              onClick={() => navigate("/favorites")}
-            >
-              <Heart size={19} />
-            </button>
-            <button
-              className="icon-button header-icon"
-              aria-label="الحساب"
-              onClick={() => navigate("/account")}
-            >
-              <UserRound size={19} />
-            </button>
-          </div>
+            <Search size={20} aria-hidden="true" />
+            <input name="q" type="search" placeholder="البحث عن المتاجر" aria-label="البحث عن المتاجر" autoComplete="off" />
+          </form>
         </div>
+        <nav className="topbar__nav" aria-label="التنقل الرئيسي">
+          <div className="container topbar__links">
+            <div>
+              <Link href="/stores" aria-current={location === "/stores" ? "page" : undefined}>جميع المتاجر</Link>
+              <Link href="/coupons" aria-current={location === "/coupons" ? "page" : undefined}>الكوبونات</Link>
+            </div>
+            <div>
+              <Link href="/deals" aria-current={location === "/deals" ? "page" : undefined}>العروض</Link>
+              <Link href="/blog" aria-current={location.startsWith("/blog") ? "page" : undefined}>المدونة</Link>
+            </div>
+          </div>
+        </nav>
       </header>
+      {/* Previous header (home, categories, favorites and account icons, mobile menu) kept for later: set SHOW_LEGACY_HEADER to true to bring it back. */}
+      {SHOW_LEGACY_HEADER && (
+        <header className="site-header">
+          <div className="container header-inner">
+            <button
+              className="mobile-menu-button icon-button"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "إغلاق القائمة" : "فتح القائمة"}
+              aria-expanded={menuOpen}
+              aria-controls="main-nav"
+            >
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+            <BrandMark />
+            <nav
+              id="main-nav"
+              className={`main-nav ${menuOpen ? "main-nav--open" : ""}`}
+              aria-label="التنقل الرئيسي"
+            >
+              <Link href="/" aria-current={location === "/" ? "page" : undefined}>
+                الرئيسية
+              </Link>
+              <Link
+                href="/stores"
+                aria-current={location === "/stores" ? "page" : undefined}
+              >
+                المتاجر
+              </Link>
+              <Link
+                href="/coupons"
+                aria-current={location === "/coupons" ? "page" : undefined}
+              >
+                الكوبونات
+              </Link>
+              <Link
+                href="/deals"
+                aria-current={location === "/deals" ? "page" : undefined}
+              >
+                العروض <span className="nav-new">جديد</span>
+              </Link>
+              <Link
+                href="/categories"
+                aria-current={location === "/categories" ? "page" : undefined}
+              >
+                التصنيفات
+              </Link>
+              <Link href="/blog" aria-current={location.startsWith("/blog") ? "page" : undefined}>المدونة</Link>
+            </nav>
+            <div className="header-actions">
+              <button
+                className="icon-button header-icon"
+                aria-label="المفضلة"
+                onClick={() => navigate("/favorites")}
+              >
+                <Heart size={19} />
+              </button>
+              <button
+                className="icon-button header-icon"
+                aria-label="الحساب"
+                onClick={() => navigate("/account")}
+              >
+                <UserRound size={19} />
+              </button>
+            </div>
+          </div>
+        </header>
+      )}
 
       {!isLive && <div className="demo-banner">نسخة تجريبية — المتاجر والأكواد أمثلة للتصفح وليست عروضاً مؤكدة.</div>}
       {loading && <p className="catalog-notice" role="status">جارٍ تحميل المتاجر والكوبونات…</p>}
