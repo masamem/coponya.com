@@ -1,4 +1,5 @@
 import type { Store } from "./catalog";
+import { storePath } from "./storeSlug";
 
 export type StoreSeo = {
   seoTitle?: string;
@@ -39,7 +40,7 @@ export function storeMetadata(store: Store) {
 }
 
 export function storeStructuredData(store: Store, origin: string) {
-  const url = `${origin}/stores/${encodeURIComponent(store.name)}`;
+  const url = `${origin}${storePath(store.name)}`;
   const faq = parseFaq(store.faq);
   return {
     "@context": "https://schema.org",

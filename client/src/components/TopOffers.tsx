@@ -1,3 +1,4 @@
+import { storePath } from "@/lib/storeSlug";
 import { Link } from "wouter";
 import { ArrowLeft, Tag } from "lucide-react";
 import { useCatalog } from "@/contexts/CatalogContext";
@@ -38,7 +39,7 @@ export default function TopOffers({ onReveal }: { onReveal: (coupon: Coupon) => 
           <h2>{offer.discount ? <><span className="top-offer__discount" dir="auto">{offer.discount}</span><span className="top-offer__title">{offer.title}</span></> : offer.title}</h2>
           <p>{offer.description}</p>
           {offer.newPrice && <div className="top-offer__prices"><strong><RiyalAmount value={offer.newPrice}/></strong><del><RiyalAmount value={offer.oldPrice}/></del></div>}
-          {offer.coupon ? <button className="button button--primary top-offer__cta" onClick={() => onReveal(offer.coupon!)} aria-label={`عرض تفاصيل ${offer.title} لدى ${offer.brand}`}>{offer.coupon.code ? "إظهار الكود" : "عرض التفاصيل"}<ArrowLeft size={18} aria-hidden="true"/></button> : <Link className="button button--primary top-offer__cta" href={`/stores/${encodeURIComponent(offer.brand)}`}>تفاصيل العرض <ArrowLeft size={18} aria-hidden="true"/></Link>}
+          {offer.coupon ? <button className="button button--primary top-offer__cta" onClick={() => onReveal(offer.coupon!)} aria-label={`عرض تفاصيل ${offer.title} لدى ${offer.brand}`}>{offer.coupon.code ? "إظهار الكود" : "عرض التفاصيل"}<ArrowLeft size={18} aria-hidden="true"/></button> : <Link className="button button--primary top-offer__cta" href={storePath(offer.brand)}>تفاصيل العرض <ArrowLeft size={18} aria-hidden="true"/></Link>}
         </div>
       </article>)}
     </div>}

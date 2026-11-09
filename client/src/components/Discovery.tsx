@@ -1,3 +1,4 @@
+import { storePath } from "@/lib/storeSlug";
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { articles } from "@/lib/articles";
@@ -46,7 +47,7 @@ export default function Discovery({ location, favorites, onFavorite, onReveal }:
         <label className="catalog-search"><input id="discovery-search" type="search" aria-label="البحث الشامل" placeholder="اسم متجر، كود، تصنيف أو دليل" value={query} onChange={e => setQuery(e.target.value)} maxLength={120}/><button className="button button--primary">بحث</button></label>
       </form>
       <p className="results-count" role="status">{query.trim() ? `${count} نتيجة` : "اكتب كلمة للبحث في جميع الأقسام"}</p>
-      {foundStores.length > 0 && <><h2>المتاجر</h2><div className="discovery-links">{foundStores.map(s => <Link key={s.name} href={`/stores/${encodeURIComponent(s.name)}`}>{s.name} ←</Link>)}</div></>}
+      {foundStores.length > 0 && <><h2>المتاجر</h2><div className="discovery-links">{foundStores.map(s => <Link key={s.name} href={storePath(s.name)}>{s.name} ←</Link>)}</div></>}
       {foundCategories.length > 0 && <><h2>التصنيفات</h2><div className="discovery-links">{foundCategories.map(c => <Link key={c[0]} href={`/categories/${encodeURIComponent(c[0])}`}>{c[0]} ←</Link>)}</div></>}
       {foundCoupons.length > 0 && <><h2>الكوبونات</h2><div className="coupon-grid">{foundCoupons.map(c => <CouponCard key={`${c.store}:${c.code}`} coupon={c} favorite={favorites.includes(c.code)} onFavorite={() => onFavorite(c.code)} onReveal={onReveal}/>)}</div></>}
       {query.trim() && foundArticles.length > 0 && <><h2>الأدلة</h2><ArticleCards items={foundArticles}/></>}

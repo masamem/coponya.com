@@ -1,3 +1,5 @@
+import { findStoreBySegment, storePath } from "@/lib/storeSlug";
+import { navigate } from "wouter/use-browser-location";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { applyPageMetadata } from "@/lib/pageMetadata";
 import { storeMetadata, storeStructuredData } from "@/lib/storeSeo";
@@ -238,9 +240,14 @@ export default function CatalogPage({
   } catch {
     /* handled as missing page */
   }
-  const store = location.startsWith("/stores/")
-    ? stores.find((s) => s.name === detail)
-    : undefined;
+  const storeMatch = location.startsWith("/stores/")
+    ? findStoreBySegment(stores, detail)
+    : { store: undefined, legacy: false };
+  const store = storeMatch.store;
+  useEffect(() => {
+    // Old links used the full encoded store name; move them to the short URL.
+    if (store && storeMatch.legacy) navigate(storePath(store.name), { replace: true });
+  }, [store, storeMatch.legacy]);
   const categoryDetail = location.startsWith("/categories/")
     ? categories.find((c) => c[0] === detail)
     : undefined;
@@ -405,7 +412,7 @@ export default function CatalogPage({
                 : a.name.localeCompare(b.name, "ar"))
               .map((s) => (
                 <Link
-                  href={`/stores/${encodeURIComponent(s.name)}`}
+                  href={storePath(s.name)}
                   key={s.name}
                   className="store-card"
                 >

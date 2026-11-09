@@ -1,3 +1,4 @@
+import { storePath } from "@/lib/storeSlug";
 import { storeSeoDefaults, storeMetadata } from "@/lib/storeSeo";
 /* سوق الضوء: readable RTL administration with explicit publish controls. */
 import { uploadStoreLogo } from "@/lib/storeLogo";
@@ -58,7 +59,7 @@ export default function Admin() {
             {([['about','نبذة عن المتجر'],['products','المنتجات والأقسام'],['shipping','الشحن والتوصيل'],['payment','طرق الدفع'],['returns_policy','الاستبدال والاسترجاع'],['faq','الأسئلة الشائعة']] as const).map(([key,label])=><label key={key}>{label}<textarea rows={key==='about'?6:4} maxLength={key==='about'?12000:4000} value={store[key]} onChange={e=>setStore({...store,[key]:e.target.value})}/>{key==='faq'&&<small>اكتب السؤال في أول سطر والإجابة تحته. افصل كل سؤال وإجابته عن التالي بسطر فارغ.</small>}</label>)}
             <button type="button" className="button button--outline" aria-expanded={preview} onClick={()=>setPreview(!preview)}>{preview?"إغلاق المعاينة":"معاينة المحتوى قبل النشر"}</button>
             {preview&&<div className="store-editor-preview"><StoreOverview store={profile} couponCount={coupons.filter(c=>c.store_id===store.id&&c.published).length}/><StoreArticle store={profile} related={[]}/></div>}
-            {store.name&&<Link className="text-link" href={`/stores/${encodeURIComponent(store.name)}`} target="_blank">عرض صفحة المتجر بعد الحفظ</Link>}
+            {store.name&&<Link className="text-link" href={storePath(store.name)} target="_blank">عرض صفحة المتجر بعد الحفظ</Link>}
           </fieldset>
           <fieldset className="store-editor"><legend>تحسين ظهور المتجر في البحث</legend>
             <p>الكلمات المفتاحية خطة تحريرية، ولا تُضاف كحشو إلى الصفحة. أضف معلومات مؤكدة في وصف المتجر والأسئلة الشائعة أعلاه.</p>
@@ -74,7 +75,7 @@ export default function Admin() {
             {([['supporting_keywords','الكلمات المساندة'],['long_tail_keywords','عبارات البحث الطويلة'],['article_ideas','اقتراحات مقالات']] as const).map(([key,label])=><label key={key}>{label}<textarea rows={3} maxLength={4000} value={store[key]} onChange={e=>setStore({...store,[key]:e.target.value})}/><small>عبارة واحدة في كل سطر. المقترحات تحتاج مراجعة وليست بيانات حجم بحث.</small></label>)}
             <label>SEO title<input maxLength={120} value={store.seo_title} placeholder={storeSeoDefaults(store.name||'المتجر').seoTitle} onChange={e=>setStore({...store,seo_title:e.target.value})}/><small>{store.seo_title.length}/120 — استهدف عنواناً واضحاً ومختصراً.</small></label>
             <label>Meta description<textarea rows={3} maxLength={300} value={store.meta_description} onChange={e=>setStore({...store,meta_description:e.target.value})}/><small>{store.meta_description.length}/300 — اكتب وصفاً طبيعياً دون وعود بخصم غير مؤكد.</small></label>
-            <div className="seo-preview" aria-label="معاينة نتيجة البحث"><small>معاينة تقريبية — قد يغيّر محرك البحث النص</small><p dir="ltr">coponya.com/stores/{encodeURIComponent(store.name)}</p><h3>{storeMetadata(profile).title}</h3><p>{storeMetadata(profile).description}</p></div>
+            <div className="seo-preview" aria-label="معاينة نتيجة البحث"><small>معاينة تقريبية — قد يغيّر محرك البحث النص</small><p dir="ltr">coponya.com{storePath(store.name)}</p><h3>{storeMetadata(profile).title}</h3><p>{storeMetadata(profile).description}</p></div>
           </fieldset>
           <label className="admin-checkbox"><input type="checkbox" checked={store.active} onChange={e=>setStore({...store,active:e.target.checked})}/>إظهار المتجر للزوار</label>
           <button disabled={busy} className="button button--primary">حفظ المتجر</button><button type="button" disabled={busy} className="text-link" onClick={()=>setStore(blankStore)}>إلغاء التعديل</button>
