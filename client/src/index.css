@@ -727,5 +727,5 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 /* Footer "روابط تهمك": brand-orange heading over the useful links. */
 .site-footer .signature-footer__links { flex-direction:column; align-items:flex-start; gap:12px; }
 .footer-links-title { margin:0; color:var(--apricot); font-size:16px; font-weight:700; }
-.footer-links-list { display:flex; flex-wrap:wrap; gap:10px 24px; }
-@media (max-width:700px) { .site-footer .signature-footer__links { align-items:center; } .footer-links-list { justify-content:center; } }
+.footer-links-list { display:flex; flex-direction:column; gap:10px; }
+@media (max-width:700px) { .site-footer .signature-footer__links { align-items:center; } .footer-links-list { align-items:center; } }
