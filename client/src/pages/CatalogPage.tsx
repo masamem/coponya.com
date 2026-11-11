@@ -309,11 +309,11 @@ export default function CatalogPage({
         <span>{info?.[0] || "الصفحة غير موجودة"}</span>
       </nav>
       {store ? <StoreOverview store={store} couponCount={coupons.filter(c=>c.store===store.name).length}/> : <div className="page-heading">
-        <span className="eyebrow">كوبونيا · أوفر لك، أسرع لك</span>
+        {location !== "/about" && <span className="eyebrow">كوبونيا · أوفر لك، أسرع لك</span>}
         <h1>{info?.[0] || "الصفحة غير موجودة"}</h1>
-        <p>
+        {location !== "/about" && <p>
           {info?.[1] || "ربما تغير الرابط. عد إلى الرئيسية أو تصفح الكوبونات."}
-        </p>
+        </p>}
       </div>}
       {!info && (
         <Link href="/" className="button button--primary">
