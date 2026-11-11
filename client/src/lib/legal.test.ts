@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { legalPageHtml, legalPages, operator, operatorLines } from "./legal";
+import { legalPageHtml, legalPages, legalTextParts, operator, operatorLines } from "./legal";
 
 describe("legal pages", () => {
   it("covers the pages the Ministry of Commerce checklist expects", () => {
@@ -28,5 +28,11 @@ describe("legal pages", () => {
   it("escapes text in the prerendered HTML", () => {
     const html = legalPageHtml({ title: "t", description: "d", sections: [["<b>", ["a & b", ["<i>"]]]] }, s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"));
     expect(html).toBe("<section><h2>&lt;b&gt;</h2><p>a &amp; b</p><ul><li>&lt;i&gt;</li></ul></section>");
+  });
+  it("renders inline links and keeps plain text", () => {
+    expect(legalTextParts("تعرض [أكواد الخصم](/coupons) هنا")).toEqual(["تعرض ", { label: "أكواد الخصم", href: "/coupons" }, " هنا"]);
+    const html = legalPageHtml({ title: "t", description: "d", sections: [["h", ["a [b](/x) <c>"]]] }, s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+    expect(html).toContain('<a href="/x">b</a>');
+    expect(html).toContain("&lt;c&gt;");
   });
 });

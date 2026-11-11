@@ -1,5 +1,5 @@
 import { findStoreBySegment, storePath } from "@/lib/storeSlug";
-import { legalPages, legalUpdated, type LegalPage } from "@/lib/legal";
+import { legalPages, legalTextParts, legalUpdated, type LegalPage } from "@/lib/legal";
 import { navigate } from "wouter/use-browser-location";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { applyPageMetadata } from "@/lib/pageMetadata";
@@ -81,6 +81,10 @@ const faqs = [
 
 const sectionIcons: Record<string, LucideIcon> = { "كوبونيا": Tag, "ما تقدّمه كوبونيا": BadgeCheck, "أهدافنا": Target };
 
+function LegalText({ text }: { text: string }) {
+  return <>{legalTextParts(text).map((p, i) => typeof p === "string" ? p : <Link key={i} href={p.href} className="legal-link">{p.label}</Link>)}</>;
+}
+
 function LegalContent({ page, icons }: { page: LegalPage; icons?: Record<string, LucideIcon> }) {
   return (
     <div className={`content-panel legal-content${icons ? " legal-content--about" : ""}`}>
@@ -91,8 +95,8 @@ function LegalContent({ page, icons }: { page: LegalPage; icons?: Record<string,
             ? <h2 className="legal-heading--icon"><span className="legal-heading__icon" aria-hidden="true"><Icon size={18} /></span>{heading}</h2>
             : <h2>{heading}</h2>; })()}
           {blocks.map((block, i) => Array.isArray(block)
-            ? <ul key={i}>{block.map(item => <li key={item}>{item}</li>)}</ul>
-            : <p key={i}>{block}</p>)}
+            ? <ul key={i}>{block.map(item => <li key={item}><LegalText text={item} /></li>)}</ul>
+            : <p key={i}><LegalText text={block} /></p>)}
         </section>
       ))}
     </div>
