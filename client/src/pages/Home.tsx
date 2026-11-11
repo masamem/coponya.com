@@ -662,7 +662,6 @@ export default function Home() {
           <OperatorFooter />
           <div className="signature-footer__bottom">
             <p>جميع الحقوق محفوظة <Link href="/" className="footer-copyright-link">كوبونيا</Link> ©</p>
-            <nav aria-label="السياسات والمساعدة"><Link href="/complaints">الشكاوى والمقترحات</Link><Link href="/faq">المساعدة</Link></nav>
           </div>
         </div>
       </footer>  <div className="mobile-bottom-nav">
