@@ -84,7 +84,7 @@ const sectionIcons: Record<string, LucideIcon> = { "كوبونيا": Tag, "ما 
 function LegalContent({ page, icons }: { page: LegalPage; icons?: Record<string, LucideIcon> }) {
   return (
     <div className="content-panel legal-content">
-      <p className="legal-updated">آخر تحديث: {legalUpdated}</p>
+      {!icons && <p className="legal-updated">آخر تحديث: {legalUpdated}</p>}
       {page.sections.map(([heading, blocks]) => (
         <section key={heading}>
           {(() => { const Icon = icons?.[heading]; return Icon
