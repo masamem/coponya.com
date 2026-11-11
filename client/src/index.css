@@ -777,3 +777,5 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .about-hero__url { align-self:flex-end; width:43%; margin:10px 0 0 12.5%; color:#E0913F; font-size:min(8.7px,2.03vw); font-weight:600; letter-spacing:.16em; text-indent:.16em; text-align:center; direction:ltr; text-decoration:none; white-space:nowrap; transition:color .2s var(--ease); }
 .about-hero__url:hover,.about-hero__url:focus-visible { color:#C46A12; text-decoration:underline; text-underline-offset:4px; }
 .about-hero h1.sr-only { position:absolute; margin:-1px; }
+.legal-link { color:var(--olive); font-weight:600; text-decoration:underline; text-decoration-color:rgba(20,107,91,.3); text-underline-offset:4px; transition:color .2s var(--ease),text-decoration-color .2s var(--ease); }
+.legal-link:hover,.legal-link:focus-visible { color:#C46A12; text-decoration-color:currentColor; }
