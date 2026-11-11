@@ -769,3 +769,4 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .legal-heading__icon { display:inline-grid; flex-shrink:0; place-items:center; width:34px; height:34px; border-radius:10px; color:var(--olive); background:var(--apricot-soft); }
 .legal-heading__icon svg { color:#C46A12; }
 @media (max-width:700px) { .about-hero { padding:30px 18px 28px; margin-bottom:22px; } .about-hero:after { width:140px; height:140px; inset:auto -50px -60px auto; } }
+@media (min-width:701px) { .legal-content--about { max-width:none; padding:36px 40px; } }
