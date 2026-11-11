@@ -9,7 +9,7 @@ import TopOffers from "@/components/TopOffers";
 /* سوق الضوء: searchable store pages and readable Arabic metadata. */
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, Search, Heart, SlidersHorizontal } from "lucide-react";
+import { ArrowLeft, Search, Heart, SlidersHorizontal, Tag, BadgeCheck, Target, type LucideIcon } from "lucide-react";
 import { useCatalog } from "@/contexts/CatalogContext";
 import {
   type Coupon,
@@ -79,13 +79,17 @@ const faqs = [
   ],
 ];
 
-function LegalContent({ page }: { page: LegalPage }) {
+const sectionIcons: Record<string, LucideIcon> = { "كوبونيا": Tag, "ما تقدّمه كوبونيا": BadgeCheck, "أهدافنا": Target };
+
+function LegalContent({ page, icons }: { page: LegalPage; icons?: Record<string, LucideIcon> }) {
   return (
     <div className="content-panel legal-content">
       <p className="legal-updated">آخر تحديث: {legalUpdated}</p>
       {page.sections.map(([heading, blocks]) => (
         <section key={heading}>
-          <h2>{heading}</h2>
+          {(() => { const Icon = icons?.[heading]; return Icon
+            ? <h2 className="legal-heading--icon"><span className="legal-heading__icon" aria-hidden="true"><Icon size={18} /></span>{heading}</h2>
+            : <h2>{heading}</h2>; })()}
           {blocks.map((block, i) => Array.isArray(block)
             ? <ul key={i}>{block.map(item => <li key={item}>{item}</li>)}</ul>
             : <p key={i}>{block}</p>)}
@@ -308,7 +312,11 @@ export default function CatalogPage({
         {store&&<><Link href="/stores">المتاجر</Link><span>/</span></>}
         <span>{info?.[0] || "الصفحة غير موجودة"}</span>
       </nav>
-      {store ? <StoreOverview store={store} couponCount={coupons.filter(c=>c.store===store.name).length}/> : <div className="page-heading">
+      {location === "/about" ? <div className="about-hero">
+        <img className="about-hero__logo" src="/brand/coponya-footer.svg?v=20261019-1" alt="كوبونيا Coponya" width="1356" height="535" />
+        <h1>من نحن</h1>
+        <p>كل طلب فرصة للتوفير</p>
+      </div> : store ? <StoreOverview store={store} couponCount={coupons.filter(c=>c.store===store.name).length}/> : <div className="page-heading">
         {location !== "/about" && <span className="eyebrow">كوبونيا · أوفر لك، أسرع لك</span>}
         <h1>{info?.[0] || "الصفحة غير موجودة"}</h1>
         {location !== "/about" && <p>
@@ -520,7 +528,7 @@ export default function CatalogPage({
           </Link>
         </div>
       )}
-      {legalPages[location] && <LegalContent page={legalPages[location]} />}
+      {legalPages[location] && <LegalContent page={legalPages[location]} icons={location === "/about" ? sectionIcons : undefined} />}
     </section>
   );
 }
