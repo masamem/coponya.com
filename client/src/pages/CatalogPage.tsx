@@ -9,7 +9,7 @@ import TopOffers from "@/components/TopOffers";
 /* سوق الضوء: searchable store pages and readable Arabic metadata. */
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, Search, Heart, SlidersHorizontal, Tag, BadgeCheck, Target, FileText, Building2, Database, ListChecks, Share2, Clock, Scale, ShieldCheck, Baby, RefreshCw, type LucideIcon } from "lucide-react";
+import { ArrowLeft, Search, Heart, SlidersHorizontal, Tag, BadgeCheck, Target, Database, Cookie, ExternalLink, RefreshCw, Mail, type LucideIcon } from "lucide-react";
 import { useCatalog } from "@/contexts/CatalogContext";
 import {
   type Coupon,
@@ -83,9 +83,8 @@ const faqs = [
 const styledLegalIcons: Record<string, Record<string, LucideIcon>> = {
   "/about": { "كوبونيا": Tag, "ما تقدّمه كوبونيا": BadgeCheck, "أهدافنا": Target },
   "/privacy": {
-    "مقدمة": FileText, "الجهة المسؤولة عن بياناتك": Building2, "البيانات التي نتعامل معها": Database,
-    "أغراض المعالجة وأساسها": ListChecks, "مشاركة البيانات": Share2, "مدة الاحتفاظ": Clock,
-    "حقوقك": Scale, "حماية البيانات": ShieldCheck, "الأطفال": Baby, "تحديث السياسة": RefreshCw,
+    "المعلومات التي نجمعها": Database, "ملفات تعريف الارتباط (Cookies)": Cookie,
+    "روابط المتاجر الخارجية": ExternalLink, "تحديثات السياسة": RefreshCw, "تواصل معنا": Mail,
   },
 };
 
@@ -100,7 +99,7 @@ function LegalContent({ page, icons, showTitle, showUpdated = true }: { page: Le
       {showUpdated && <p className="legal-updated">آخر تحديث: {legalUpdated}</p>}
       {page.sections.map(([heading, blocks]) => (
         <section key={heading}>
-          {(() => { const Icon = icons?.[heading]; return Icon
+          {heading && (() => { const Icon = icons?.[heading]; return Icon
             ? <h2 className="legal-heading--icon"><span className="legal-heading__icon" aria-hidden="true"><Icon size={18} /></span>{heading}</h2>
             : <h2>{heading}</h2>; })()}
           {blocks.map((block, i) => Array.isArray(block)
