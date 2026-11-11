@@ -2,6 +2,7 @@ import { storePath } from "@/lib/storeSlug";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import SupermarketStores from "@/components/SupermarketStores";
 import OperatorFooter from "@/components/OperatorFooter";
+import { operatorAddress } from "@/lib/legal";
 import { siteBrand } from "@/lib/siteBrand";
 import Discovery, { ArticleCards } from "@/components/Discovery";
 import CouponDialog from "@/components/CouponDialog";
@@ -42,6 +43,7 @@ import {
   UserRound,
   X,
   Zap,
+  MapPin,
 } from "lucide-react";
 
 /** The earlier header is hidden for now; flip to true to restore it. */
@@ -642,7 +644,7 @@ export default function Home() {
             <Link href="/submit-coupon" className="footer-add-store">أضف متجرك <span aria-hidden="true">←</span></Link>
           </div>
           <div className="signature-footer__main">
-            <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) منصة سعودية تساعدك على إيجاد أكواد الخصم والعروض لمتاجرك المفضلة وبخطوات واضحة</p></div>
+            <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) منصة سعودية تساعدك على إيجاد أكواد الخصم والعروض لمتاجرك المفضلة وبخطوات واضحة</p><address className="footer-address"><MapPin size={18} aria-hidden="true" />{operatorAddress()}</address></div>
             <nav className="signature-footer__links" aria-labelledby="footer-links-title">
               <h2 id="footer-links-title" className="footer-links-title">روابط تهمك</h2>
               <div className="footer-links-list">

@@ -18,7 +18,8 @@ export const operator = {
   businessCenterCertificate: "",
   /** Public verification link for the certificate (from business.sa). */
   businessCenterUrl: "",
-  city: "",
+  /** District and city, as shown in the footer and legal pages. */
+  city: "العزيزية، الرياض",
   country: "المملكة العربية السعودية",
   email: "hello@coponya.com",
   supportEmail: "support@coponya.com",
@@ -30,6 +31,11 @@ export const legalUpdated = "2026-11-09";
 export type LegalBlock = string | string[]; // a paragraph, or a bullet list
 export type LegalPage = { title: string; description: string; sections: [string, LegalBlock[]][] };
 
+/** "العزيزية، الرياض، المملكة العربية السعودية" */
+export function operatorAddress(o = operator): string {
+  return [o.city, o.country].filter(Boolean).join("، ");
+}
+
 /** Lines for the "operator details" block; only filled fields appear. */
 export function operatorLines(o = operator): string[] {
   return [
@@ -38,7 +44,7 @@ export function operatorLines(o = operator): string[] {
     o.freelanceDocument && `رقم وثيقة العمل الحر: ${o.freelanceDocument}`,
     o.vatNumber && `الرقم الضريبي: ${o.vatNumber}`,
     o.businessCenterCertificate && `رقم شهادة توثيق التجارة الإلكترونية (المركز السعودي للأعمال): ${o.businessCenterCertificate}`,
-    `العنوان: ${o.city ? `${o.city}، ` : ""}${o.country}`,
+    `العنوان: ${operatorAddress(o)}`,
     `البريد الإلكتروني: ${o.email}`,
     `الشكاوى والدعم: ${o.supportEmail}`,
     o.whatsapp && `واتساب: ${o.whatsapp}`,
