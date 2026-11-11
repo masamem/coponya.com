@@ -144,7 +144,7 @@ export const legalPages: Record<string, LegalPage> = {
       ["ملفات تعريف الارتباط (Cookies)", [
         [
           "نقيس أداء الموقع بشكل إجمالي، مثل عدد الزوار والصفحات الأكثر زيارة، بدون ملفات تعريف ارتباط وبدون التعرّف على هويتك.",
-          "أدوات التحليل والإعلانات الإضافية (Google و Meta) لا تعمل إلا بعد موافقتك، ويمكنك قبولها أو رفضها في أي وقت من «إعدادات Cookies».",
+          "أدوات التحليل والإعلانات الإضافية (Google و Meta) لا تعمل إلا بعد موافقتك، ويمكنك قبولها أو رفضها في أي وقت من [إعدادات Cookies](#cookie-settings).",
         ],
       ]],
       ["روابط المتاجر الخارجية", [
@@ -196,7 +196,7 @@ export const legalPages: Record<string, LegalPage> = {
 
 /** Plain-HTML rendering for build-time prerendering (crawlers, no JS). */
 /** Inline links in legal text: `[label](/path)` (internal paths only). */
-export const legalLinkPattern = /\[([^\]]+)\]\((\/[^)\s]*)\)/g;
+export const legalLinkPattern = /\[([^\]]+)\]\(((?:\/|#)[^)\s]*)\)/g;
 
 /** Splits text into plain strings and `{ label, href }` links. */
 export function legalTextParts(text: string): (string | { label: string; href: string })[] {
