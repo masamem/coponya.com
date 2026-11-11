@@ -315,6 +315,7 @@ export default function CatalogPage({
       {location === "/about" ? <div className="about-hero">
         <img className="about-hero__logo" src="/brand/coponya-logo.svg?v=20261030-colors" alt="كوبونيا Coponya" width="1356" height="535" />
         <h1 className="sr-only">من نحن</h1>
+        <Link href="/" className="about-hero__url">www.coponya.com</Link>
       </div> : store ? <StoreOverview store={store} couponCount={coupons.filter(c=>c.store===store.name).length}/> : <div className="page-heading">
         {location !== "/about" && <span className="eyebrow">كوبونيا · أوفر لك، أسرع لك</span>}
         <h1>{info?.[0] || "الصفحة غير موجودة"}</h1>
