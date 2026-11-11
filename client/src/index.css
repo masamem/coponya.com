@@ -759,11 +759,12 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 }
 
 /* About page: brand banner + section icons */
-.about-hero { position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:28px; padding:40px 24px 36px; border-radius:var(--radius); color:#fff; text-align:center; background:radial-gradient(120% 140% at 100% 0%, #1E7A69 0%, var(--olive-dark) 55%, #0A3F36 100%); box-shadow:var(--shadow); }
-.about-hero:after { position:absolute; inset:auto -60px -80px auto; width:220px; height:220px; border-radius:50%; background:rgba(245,155,82,.16); content:""; }
-.about-hero__logo { position:relative; z-index:1; width:min(190px,48vw); height:auto; }
-.about-hero h1 { position:relative; z-index:1; margin:6px 0 0; color:#fff; font-size:clamp(26px,4vw,40px); font-weight:700; line-height:1.4; }
-.about-hero p { position:relative; z-index:1; margin:0; color:var(--apricot); font-size:clamp(15px,2vw,18px); font-weight:500; }
+.about-hero { position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:28px; padding:40px 24px 36px; border:1px solid #F3E3D2; border-radius:var(--radius); color:var(--ink); text-align:center; background:radial-gradient(120% 140% at 100% 0%, #FFFFFF 0%, var(--paper) 45%, var(--apricot-soft) 100%); box-shadow:var(--shadow-sm); }
+.about-hero:after { position:absolute; inset:auto -60px -80px auto; width:220px; height:220px; border-radius:50%; background:rgba(245,155,82,.14); content:""; }
+.about-hero:before { position:absolute; inset:-70px auto auto -70px; width:180px; height:180px; border-radius:50%; background:rgba(20,107,91,.07); content:""; }
+.about-hero__logo { position:relative; z-index:1; width:min(200px,50vw); height:auto; }
+.about-hero h1 { position:relative; z-index:1; margin:6px 0 0; color:var(--olive-dark); font-size:clamp(26px,4vw,40px); font-weight:700; line-height:1.4; }
+.about-hero p { position:relative; z-index:1; margin:0; color:#C46A12; font-size:clamp(15px,2vw,18px); font-weight:500; }
 .legal-heading--icon { display:flex; align-items:center; gap:10px; }
 .legal-heading__icon { display:inline-grid; flex-shrink:0; place-items:center; width:34px; height:34px; border-radius:10px; color:var(--olive); background:var(--apricot-soft); }
 .legal-heading__icon svg { color:#C46A12; }
