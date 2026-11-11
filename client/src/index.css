@@ -737,3 +737,6 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 @media (min-width:1101px) { .signature-footer__tools { align-self:start; margin-top:67px; } }
 .site-footer .signature-footer__bottom .footer-copyright-link { display:inline; width:auto; margin:0; color:rgba(255,255,255,.86); font-weight:600; text-decoration:none; }
 .site-footer .signature-footer__bottom .footer-copyright-link:hover { color:#fff; text-decoration:underline; text-underline-offset:3px; }
+.signature-footer .footer-address { display:flex; align-items:center; gap:8px; margin-top:10px; color:#fff; font-size:15px; font-weight:300; font-style:normal; }
+.signature-footer .footer-address svg { flex:none; color:var(--apricot); }
+@media (max-width:700px) { .signature-footer .footer-address { justify-content:center; } }
