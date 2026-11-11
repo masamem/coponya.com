@@ -9,7 +9,7 @@ import TopOffers from "@/components/TopOffers";
 /* سوق الضوء: searchable store pages and readable Arabic metadata. */
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, Search, Heart, SlidersHorizontal, Tag, BadgeCheck, Target, type LucideIcon } from "lucide-react";
+import { ArrowLeft, Search, Heart, SlidersHorizontal, Tag, BadgeCheck, Target, FileText, Building2, Database, ListChecks, Share2, Clock, Scale, ShieldCheck, Baby, RefreshCw, type LucideIcon } from "lucide-react";
 import { useCatalog } from "@/contexts/CatalogContext";
 import {
   type Coupon,
@@ -79,16 +79,25 @@ const faqs = [
   ],
 ];
 
-const sectionIcons: Record<string, LucideIcon> = { "كوبونيا": Tag, "ما تقدّمه كوبونيا": BadgeCheck, "أهدافنا": Target };
+/** Pages shown with the brand banner, white panel and section icons. */
+const styledLegalIcons: Record<string, Record<string, LucideIcon>> = {
+  "/about": { "كوبونيا": Tag, "ما تقدّمه كوبونيا": BadgeCheck, "أهدافنا": Target },
+  "/privacy": {
+    "مقدمة": FileText, "الجهة المسؤولة عن بياناتك": Building2, "البيانات التي نتعامل معها": Database,
+    "أغراض المعالجة وأساسها": ListChecks, "مشاركة البيانات": Share2, "مدة الاحتفاظ": Clock,
+    "حقوقك": Scale, "حماية البيانات": ShieldCheck, "الأطفال": Baby, "تحديث السياسة": RefreshCw,
+  },
+};
 
 function LegalText({ text }: { text: string }) {
   return <>{legalTextParts(text).map((p, i) => typeof p === "string" ? p : <Link key={i} href={p.href} className="legal-link">{p.label}</Link>)}</>;
 }
 
-function LegalContent({ page, icons }: { page: LegalPage; icons?: Record<string, LucideIcon> }) {
+function LegalContent({ page, icons, showTitle, showUpdated = true }: { page: LegalPage; icons?: Record<string, LucideIcon>; showTitle?: boolean; showUpdated?: boolean }) {
   return (
     <div className={`content-panel legal-content${icons ? " legal-content--about" : ""}`}>
-      {!icons && <p className="legal-updated">آخر تحديث: {legalUpdated}</p>}
+      {showTitle && <h1 className="legal-title">{page.title}</h1>}
+      {showUpdated && <p className="legal-updated">آخر تحديث: {legalUpdated}</p>}
       {page.sections.map(([heading, blocks]) => (
         <section key={heading}>
           {(() => { const Icon = icons?.[heading]; return Icon
@@ -316,12 +325,12 @@ export default function CatalogPage({
         {store&&<><Link href="/stores">المتاجر</Link><span>/</span></>}
         <span>{info?.[0] || "الصفحة غير موجودة"}</span>
       </nav>
-      {location === "/about" ? <div className="about-hero">
+      {styledLegalIcons[location] ? <div className="about-hero">
         <div className="about-hero__brand">
           <img className="about-hero__logo" src="/brand/coponya-logo.svg?v=20261030-colors" alt="كوبونيا Coponya" width="1356" height="535" />
           <Link href="/" className="about-hero__url">www.coponya.com</Link>
         </div>
-        <h1 className="sr-only">من نحن</h1>
+        {location === "/about" && <h1 className="sr-only">من نحن</h1>}
       </div> : store ? <StoreOverview store={store} couponCount={coupons.filter(c=>c.store===store.name).length}/> : <div className="page-heading">
         {location !== "/about" && <span className="eyebrow">كوبونيا · أوفر لك، أسرع لك</span>}
         <h1>{info?.[0] || "الصفحة غير موجودة"}</h1>
@@ -534,7 +543,7 @@ export default function CatalogPage({
           </Link>
         </div>
       )}
-      {legalPages[location] && <LegalContent page={legalPages[location]} icons={location === "/about" ? sectionIcons : undefined} />}
+      {legalPages[location] && <LegalContent page={legalPages[location]} icons={styledLegalIcons[location]} showTitle={!!styledLegalIcons[location] && location !== "/about"} showUpdated={location !== "/about"} />}
     </section>
   );
 }
