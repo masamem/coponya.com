@@ -542,7 +542,7 @@ export default function CatalogPage({
           </Link>
         </div>
       )}
-      {legalPages[location] && <LegalContent page={legalPages[location]} icons={styledLegalIcons[location]} showTitle={!!styledLegalIcons[location] && location !== "/about"} showUpdated={location !== "/about"} />}
+      {legalPages[location] && <LegalContent page={legalPages[location]} icons={styledLegalIcons[location]} showTitle={!!styledLegalIcons[location] && location !== "/about"} showUpdated={!styledLegalIcons[location]} />}
     </section>
   );
 }
