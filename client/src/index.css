@@ -774,6 +774,6 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .legal-content--about { background:#fff; border-color:#EEF2EF; box-shadow:var(--shadow-sm); }
 .about-hero__brand { position:relative; z-index:1; display:flex; flex-direction:column; width:min(240px,56vw); container-type:inline-size; }
 .about-hero__brand .about-hero__logo { width:100%; }
-.about-hero__url { align-self:flex-end; width:66%; margin-top:12px; color:#E0913F; font-size:5.4cqw; font-weight:600; letter-spacing:.16em; text-align:center; direction:ltr; text-decoration:none; white-space:nowrap; transition:color .2s var(--ease); }
+.about-hero__url { align-self:flex-end; width:66%; margin-top:12px; color:#E8862A; font-size:5.7cqw; font-weight:800; letter-spacing:.09em; text-align:center; direction:ltr; text-decoration:none; white-space:nowrap; transition:color .2s var(--ease); }
 .about-hero__url:hover,.about-hero__url:focus-visible { color:#C46A12; text-decoration:underline; text-underline-offset:4px; }
 .about-hero h1.sr-only { position:absolute; margin:-1px; }
