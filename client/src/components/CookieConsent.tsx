@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { CONSENT_EVENT, CONSENT_KEY, readConsent, saveConsent, trackPage } from "@/lib/tracking";
 
+/** Fire this event (e.g. from the privacy policy) to open the cookie settings dialog. */
+export const OPEN_COOKIE_SETTINGS = "coponya:open-cookie-settings";
+
 export default function CookieConsent() {
   const [choice, setChoice] = useState(readConsent);
   const [open, setOpen] = useState(false);
@@ -14,7 +17,9 @@ export default function CookieConsent() {
     const sync = (e: StorageEvent) => { if (e.key === CONSENT_KEY || e.key === null) location.reload(); };
     window.addEventListener("storage", sync);
     trackPage(location.pathname);
-    return () => { window.removeEventListener(CONSENT_EVENT, update); window.removeEventListener("storage", sync); };
+    const openSettings = () => { const c = readConsent(); setAnalytics(c?.analytics || false); setMarketing(c?.marketing || false); setOpen(true); };
+    window.addEventListener(OPEN_COOKIE_SETTINGS, openSettings);
+    return () => { window.removeEventListener(CONSENT_EVENT, update); window.removeEventListener("storage", sync); window.removeEventListener(OPEN_COOKIE_SETTINGS, openSettings); };
   }, []);
   const save = (a: boolean, m: boolean) => {
     if (!saveConsent(a, m)) { setError("تعذر حفظ اختيارك. الأدوات الاختيارية تظل متوقفة؛ تحقق من إعدادات تخزين المتصفح."); return; }
@@ -26,7 +31,6 @@ export default function CookieConsent() {
       <div className="cookie-actions"><button className="button button--outline" onClick={() => save(false, false)}>رفض الاختياري</button><button className="button button--outline" onClick={() => setOpen(true)}>تخصيص</button><button className="button button--primary" onClick={() => save(true, true)}>قبول الكل</button></div>
       {error && <p role="alert">{error}</p>}
     </section>}
-    <button className="cookie-settings-button" onClick={() => { const c = readConsent(); setAnalytics(c?.analytics || false); setMarketing(c?.marketing || false); setOpen(true); }}>إعدادات Cookies</button>
     <Dialog.Root open={open} onOpenChange={setOpen}><Dialog.Portal><Dialog.Overlay className="cookie-overlay"/><Dialog.Content dir="rtl" className="cookie-dialog">
       <Dialog.Title>إعدادات ملفات الارتباط</Dialog.Title><Dialog.Description>غيّر موافقتك في أي وقت. رفض الأدوات الاختيارية لا يمنع تصفح الكوبونات. الأدوات غير المربوطة بحساباتنا لن تعمل حتى بعد الموافقة.</Dialog.Description>
       <p>الضروري: حفظ اختيار الخصوصية على هذا المتصفح لمدة 180 يوماً.</p>

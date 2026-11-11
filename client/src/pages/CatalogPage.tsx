@@ -1,4 +1,5 @@
 import { findStoreBySegment, storePath } from "@/lib/storeSlug";
+import { OPEN_COOKIE_SETTINGS } from "@/components/CookieConsent";
 import { legalPages, legalTextParts, legalUpdated, type LegalPage } from "@/lib/legal";
 import { navigate } from "wouter/use-browser-location";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -89,7 +90,10 @@ const styledLegalIcons: Record<string, Record<string, LucideIcon>> = {
 };
 
 function LegalText({ text }: { text: string }) {
-  return <>{legalTextParts(text).map((p, i) => typeof p === "string" ? p : <Link key={i} href={p.href} className="legal-link">{p.label}</Link>)}</>;
+  return <>{legalTextParts(text).map((p, i) => typeof p === "string" ? p
+    : p.href === "#cookie-settings"
+      ? <button key={i} type="button" className="legal-link legal-link--button" onClick={() => window.dispatchEvent(new Event(OPEN_COOKIE_SETTINGS))}>{p.label}</button>
+      : <Link key={i} href={p.href} className="legal-link">{p.label}</Link>)}</>;
 }
 
 function LegalContent({ page, icons, showTitle, showUpdated = true }: { page: LegalPage; icons?: Record<string, LucideIcon>; showTitle?: boolean; showUpdated?: boolean }) {
