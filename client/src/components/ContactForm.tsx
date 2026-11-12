@@ -55,12 +55,11 @@ export default function ContactForm() {
         <p className="contact-lead">نسعد بخدمتك دائماً. إذا كان لديك أي استفسار أو اقتراح، أو ترغب في التواصل مع فريق <strong className="contact-brand">كوبونيا</strong>، يرجى تعبئة البيانات أدناه:</p>
         <form className="support-form submission-form contact-form" onSubmit={e => { e.preventDefault(); void submit(e.currentTarget); }}>
           <input className="submission-trap" name="company_site" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-          <label>الاسم<input name="name" autoComplete="name" required minLength={2} maxLength={80} /></label>
-          <label>البريد الإلكتروني<input name="email" type="email" autoComplete="email" dir="ltr" required maxLength={120} /></label>
-          <label><span>رقم الهاتف <small>(اختياري)</small></span><input name="phone" type="tel" autoComplete="tel" dir="ltr" placeholder="05xxxxxxxx" maxLength={20} /></label>
-          <label>الموضوع<input name="subject" required minLength={2} maxLength={120} /></label>
-          <label>رسالتك<textarea name="message" rows={7} required minLength={5} maxLength={3000} /></label>
-          <p className="contact-note"><strong>ملاحظة:</strong> إذا كانت رسالتك عن متجر، يرجى إضافة رابط المتجر إن كان متاحاً، وذلك لتسهيل وصول فريق كوبونيا إليه.</p>
+          <input name="name" aria-label="الاسم" placeholder="الاسم" autoComplete="name" required minLength={2} maxLength={80} />
+          <input name="email" type="email" aria-label="البريد الإلكتروني" placeholder="البريد الإلكتروني" autoComplete="email" required maxLength={120} />
+          <input name="phone" type="tel" aria-label="رقم الهاتف (اختياري)" placeholder="رقم الهاتف (اختياري)" autoComplete="tel" maxLength={20} />
+          <input name="subject" aria-label="الموضوع" placeholder="الموضوع" required minLength={2} maxLength={120} />
+          <textarea name="message" aria-label="رسالتك" placeholder="رسالتك" rows={7} required minLength={5} maxLength={3000} />
           {error && <p className="form-error" role="alert">{error}</p>}
           <button className="button button--primary contact-submit" type="submit" disabled={state === "sending"}>
             {state === "sending" ? "جارٍ الإرسال…" : <>إرسال <ArrowLeft size={16} /></>}

@@ -833,3 +833,7 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .contact-note strong { color:#E07B1F; }
 .contact-submit { justify-self:center !important; min-width:180px; justify-content:center; }
 .admin-message-body { white-space:pre-wrap; padding:12px; border-radius:10px; background:var(--mist); }
+.contact-form > input { max-width:440px; }
+.contact-form input::placeholder,.contact-form textarea::placeholder { color:#9AA5A1; opacity:1; }
+.contact-form input[type=email],.contact-form input[type=tel] { text-align:right; }
+.contact-form input[type=email]:not(:placeholder-shown),.contact-form input[type=tel]:not(:placeholder-shown) { direction:ltr; text-align:left; }
