@@ -13,6 +13,7 @@ const routes = [
   { path: "/categories", title: "تصنيفات التسوق — كوبونيا", description: "تصفح الكوبونات حسب اهتماماتك.", body: "" },
   { path: "/deals", title: "العروض — كوبونيا", description: "تصفح العروض المتاحة وتحقق من تفاصيلها قبل الشراء.", body: "" },
   { path: "/blog", title: "المدونة — كوبونيا", description: "أدلة أصلية تساعدك على استخدام الكوبونات ومقارنة العروض.", body: articles.map(a => `<article><h2><a href="/blog/${a.slug}">${escape(a.title)}</a></h2><p>${escape(a.description)}</p></article>`).join("") },
+  { path: "/submit-coupon", title: "أضف متجرك — كوبونيا", description: "أضف متجرك الإلكتروني وعروضه إلى كوبونيا مجاناً، وصل إلى متسوقين في السعودية يبحثون عن أكواد الخصم.", body: "<p>أرسل بيانات متجرك وأول عرض، ونراجعه قبل نشره. الظهور مجاني، ويبقى المتجر مسؤولاً عن صحة العرض وشروطه.</p>" },
   ...Object.entries(legalPages).map(([path, page]) => ({ path, title: `${page.title} — كوبونيا`, description: page.description,
     body: `<p>آخر تحديث: ${legalUpdated}</p>${legalPageHtml(page, escape)}` })),
   ...articles.map(a => ({ path: `/blog/${a.slug}`, title: `${a.title} — كوبونيا`, description: a.description,

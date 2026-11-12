@@ -790,3 +790,34 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .legal-content .legal-link { color:inherit; font-weight:inherit; text-decoration-color:rgba(31,42,39,.35); }
 .legal-content .legal-link:hover,.legal-content .legal-link:focus-visible { color:#C46A12; text-decoration-color:currentColor; }
 .site-footer .signature-footer__bottom { border-top:0; border-bottom:0; margin-top:0; padding-top:8px; }
+
+/* أضف متجرك */
+.about-hero__title { position:relative; z-index:1; margin:14px 0 0; color:var(--olive-dark); font-size:clamp(22px,3vw,30px); font-weight:700; }
+.submission-form fieldset { display:grid; gap:16px; margin:0; padding:0 0 20px; border:0; border-bottom:1px solid var(--line); }
+.submission-form fieldset:last-of-type { border-bottom:0; padding-bottom:0; }
+.submission-form legend { margin-bottom:14px; padding:0; color:var(--olive-dark); font-size:18px; font-weight:700; }
+.submission-form label small { color:var(--muted); font-weight:400; }
+.submission-choice { display:flex; flex-wrap:wrap; gap:10px; }
+.submission-choice label { display:flex; align-items:center; gap:8px; padding:10px 16px; border:1px solid var(--line); border-radius:999px; background:var(--mist); cursor:pointer; font-weight:600; }
+.submission-choice label:has(input:checked) { border-color:var(--olive); background:var(--olive-soft); color:var(--olive-dark); }
+.submission-choice input { width:auto; accent-color:var(--olive); }
+.submission-form .submission-trap { position:absolute; inset:0 auto auto 0; min-width:0; max-width:1px; padding:0; border:0; width:1px; height:1px; overflow:hidden; opacity:0; clip-path:inset(50%); pointer-events:none; }
+.submission-success { display:grid; justify-items:center; gap:10px; padding:30px 10px; text-align:center; color:var(--ink); }
+.submission-success svg { color:var(--olive); }
+.submission-success h2 { margin:6px 0 0; color:var(--olive-dark); }
+.submission-success p { max-width:420px; line-height:1.9; }
+.submission-intro ul li svg { color:#C46A12; }
+@media (max-width:860px) { .submission-layout { grid-template-columns:1fr; gap:22px; } .form-row { grid-template-columns:1fr; } }
+.about-hero.about-hero--wide { max-width:none; }
+
+.admin-requests { grid-column:1/-1; }
+.admin-request p { margin:6px 0; overflow-wrap:anywhere; }
+.admin-request__head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.admin-request__head h2 { margin:0; }
+.admin-status { padding:4px 12px; border-radius:999px; font-size:13px; font-weight:700; background:var(--mist); }
+.admin-status--new { background:var(--apricot-soft); color:#C46A12; }
+.admin-status--reviewing { background:#E7F1FB; color:#245B8F; }
+.admin-status--approved { background:var(--olive-soft); color:var(--olive-dark); }
+.admin-status--rejected { background:#FBEBEB; color:#9B2C2C; }
+.admin-request__actions { display:flex; flex-wrap:wrap; align-items:end; gap:12px; margin-top:12px; }
+.admin-request__actions label { display:grid; gap:6px; font-weight:600; }

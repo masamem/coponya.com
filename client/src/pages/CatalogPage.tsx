@@ -25,8 +25,8 @@ import SubmitCoupon from "@/components/SubmitCoupon";
 const pages: Record<string, [string, string]> = {
   ...Object.fromEntries(Object.entries(legalPages).map(([path, page]) => [path, [page.title, page.description] as [string, string]])),
   "/submit-coupon": [
-    "أضف كوبونك",
-    "شارك عرضك مع فريق كوبونيا ليصل إلى المزيد من المتسوقين.",
+    "أضف متجرك",
+    "أضف متجرك الإلكتروني وعروضه إلى كوبونيا مجاناً، وصل إلى متسوقين في السعودية يبحثون عن أكواد الخصم.",
   ],
   "/stores": ["كل المتاجر", "ابدأ بمتجرك المفضل واكتشف الكوبونات المتاحة."],
   "/coupons": [
@@ -300,7 +300,7 @@ export default function CatalogPage({
       description: `${info?.[0] || "كوبونيا"}: ${info?.[1] || "تصفح المتاجر والكوبونات والعروض."}`,
     };
     applyPageMetadata(metadata.title, metadata.description, location, {
-      noindex: !info || ["/favorites", "/account", "/report", "/submit-coupon"].includes(location) || !!store && !isLive,
+      noindex: !info || ["/favorites", "/account", "/report"].includes(location) || !!store && !isLive,
       structuredData: store && isLive ? storeStructuredData(store, window.location.origin) : undefined,
     });
   }, [location, isLive, store, info?.[0], info?.[1]]);
@@ -328,12 +328,13 @@ export default function CatalogPage({
         {store&&<><Link href="/stores">المتاجر</Link><span>/</span></>}
         <span>{info?.[0] || "الصفحة غير موجودة"}</span>
       </nav>
-      {styledLegalIcons[location] ? <div className="about-hero">
+      {styledLegalIcons[location] || location === "/submit-coupon" ? <div className={`about-hero${location === "/submit-coupon" ? " about-hero--wide" : ""}`}>
         <div className="about-hero__brand">
           <img className="about-hero__logo" src="/brand/coponya-logo.svg?v=20261030-colors" alt="كوبونيا Coponya" width="1356" height="535" />
           <Link href="/" className="about-hero__url">www.coponya.com</Link>
         </div>
         {location === "/about" && <h1 className="sr-only">من نحن</h1>}
+        {location === "/submit-coupon" && <h1 className="about-hero__title">أضف متجرك إلى كوبونيا</h1>}
       </div> : store ? <StoreOverview store={store} couponCount={coupons.filter(c=>c.store===store.name).length}/> : <div className="page-heading">
         {location !== "/about" && <span className="eyebrow">كوبونيا · أوفر لك، أسرع لك</span>}
         <h1>{info?.[0] || "الصفحة غير موجودة"}</h1>

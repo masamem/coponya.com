@@ -10,12 +10,16 @@ import { BackendError, backendConfigured, backendRequest, type StoreRecord, type
 import { categories } from "@/lib/data";
 import { useCatalog } from "@/contexts/CatalogContext";
 const blankStore = { id: "", name: "", initial: "", tone: "olive", website_url: "", active: false, summary: "", about: "", products: "", shipping: "", payment: "", returns_policy: "", faq: "", logo_url: "", seo_title: "", meta_description: "", primary_keyword: "", supporting_keywords: "", long_tail_keywords: "", article_ideas: "" };
+type Submission = { id: string; created_at: string; status: "new"|"reviewing"|"approved"|"rejected"; store_name: string; website_url: string; category: string; registration: string|null; contact_name: string; email: string; phone: string|null; offer_type: "code"|"deal"; code: string|null; offer: string; terms: string|null; expires_on: string|null; affiliate: "yes"|"no"|"unsure"; admin_notes: string|null };
+const submissionStatus = { new: "جديد", reviewing: "قيد المراجعة", approved: "مقبول", rejected: "مرفوض" } as const;
+const affiliateLabel = { yes: "نعم", no: "لا", unsure: "لا يعرف" } as const;
 const blankCoupon = { id: "", store_id: "", title: "", description: "", discount: "10%", code: "", category: categories[0][0], terms: "", expires_at: "", published: false, verified_at: null as string | null };
 export default function Admin() {
   const { reload } = useCatalog();
   const [token, setToken] = useState("");
   const [stores, setStores] = useState<StoreRecord[]>([]);
   const [coupons, setCoupons] = useState<CouponRecord[]>([]);
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [store, setStore] = useState(blankStore);
   const [coupon, setCoupon] = useState(blankCoupon);
   const [tab, setTab] = useState("stores");
@@ -24,8 +28,8 @@ export default function Admin() {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   async function load(accessToken: string) {
-    const [s,c] = await Promise.all([backendRequest<StoreRecord[]>("/rest/v1/stores?select=*&order=name", {token:accessToken}), backendRequest<CouponRecord[]>("/rest/v1/coupons?select=*&order=created_at.desc", {token:accessToken})]);
-    setStores(s); setCoupons(c); reload();
+    const [s,c,r] = await Promise.all([backendRequest<StoreRecord[]>("/rest/v1/stores?select=*&order=name", {token:accessToken}), backendRequest<CouponRecord[]>("/rest/v1/coupons?select=*&order=created_at.desc", {token:accessToken}), backendRequest<Submission[]>("/rest/v1/store_submissions?select=*&order=created_at.desc", {token:accessToken}).catch(() => [] as Submission[])]);
+    setStores(s); setCoupons(c); setSubmissions(r); reload();
   }
   async function run(action: () => Promise<void>) { setBusy(true); setNotice(""); try { await action(); } catch(e) { if(e instanceof BackendError && e.status === 401) { setToken(""); setStores([]); setCoupons([]); } setNotice(e instanceof Error ? e.message : "تعذر تنفيذ الإجراء."); } finally { setBusy(false); } }
   return <section className="catalog-page container admin-page" dir="rtl">
@@ -39,9 +43,20 @@ export default function Admin() {
         await load(session.access_token); setToken(session.access_token);
       } catch(error) { await backendRequest("/auth/v1/logout",{method:"POST",token:session.access_token}).catch(()=>{}); throw error; }
     });}}><h2>تسجيل دخول الإدارة</h2><label>البريد الإلكتروني<input name="email" type="email" dir="ltr" required autoComplete="username" /></label><label>كلمة المرور<input name="password" type="password" required autoComplete="current-password" /></label><button disabled={busy} className="button button--primary">{busy?"جارٍ الدخول…":"تسجيل الدخول"}</button><p>الجلسة مؤقتة في هذه الصفحة؛ بعد إعادة تحميلها يلزم تسجيل الدخول مجدداً.</p></form> : <>
-      <div className="admin-toolbar"><button className="button button--outline" disabled={busy} aria-pressed={tab==="stores"} onClick={()=>setTab("stores")}>المتاجر ({stores.length})</button><button className="button button--outline" disabled={busy} aria-pressed={tab==="coupons"} onClick={()=>setTab("coupons")}>الكوبونات ({coupons.length})</button><button disabled={busy} className="button button--outline" onClick={()=>void run(async()=>{try { await backendRequest("/auth/v1/logout",{method:"POST",token}); } finally { setToken("");setStores([]);setCoupons([]); }})}>تسجيل الخروج</button></div>
+      <div className="admin-toolbar"><button className="button button--outline" disabled={busy} aria-pressed={tab==="stores"} onClick={()=>setTab("stores")}>المتاجر ({stores.length})</button><button className="button button--outline" disabled={busy} aria-pressed={tab==="coupons"} onClick={()=>setTab("coupons")}>الكوبونات ({coupons.length})</button><button className="button button--outline" disabled={busy} aria-pressed={tab==="requests"} onClick={()=>setTab("requests")}>طلبات المتاجر ({submissions.filter(r=>r.status==="new").length} جديد)</button><button disabled={busy} className="button button--outline" onClick={()=>void run(async()=>{try { await backendRequest("/auth/v1/logout",{method:"POST",token}); } finally { setToken("");setStores([]);setCoupons([]); }})}>تسجيل الخروج</button></div>
       <div className="admin-layout">
-      {tab==="stores" ? <>
+      {tab==="requests" ? <div className="admin-list admin-requests">{!submissions.length&&<p>لا توجد طلبات بعد.</p>}{submissions.map(r=><article className="content-panel admin-request" key={r.id}>
+        <div className="admin-request__head"><h2>{r.store_name}</h2><span className={`admin-status admin-status--${r.status}`}>{submissionStatus[r.status]}</span></div>
+        <p><a href={r.website_url} target="_blank" rel="noopener noreferrer nofollow" dir="ltr">{r.website_url}</a> · {r.category}{r.registration?` · سجل/توثيق: ${r.registration}`:""}</p>
+        <p>{r.contact_name} · <a href={`mailto:${r.email}`} dir="ltr">{r.email}</a>{r.phone&&<> · <a href={`tel:${r.phone}`} dir="ltr">{r.phone}</a></>}</p>
+        <p><strong>{r.offer_type==="code"?<>كود <span dir="ltr">{r.code}</span></>:"عرض بدون كود"}:</strong> {r.offer}{r.expires_on?` · ينتهي ${r.expires_on}`:""}</p>
+        {r.terms&&<p>الشروط: {r.terms}</p>}
+        <p>برنامج عمولة: {affiliateLabel[r.affiliate]} · وصل {new Date(r.created_at).toLocaleDateString("ar-SA-u-ca-gregory")}</p>
+        <div className="admin-request__actions">
+          <label>الحالة<select value={r.status} disabled={busy} onChange={e=>{const status=e.target.value as Submission["status"]; void run(async()=>{await backendRequest(`/rest/v1/store_submissions?id=eq.${r.id}`,{method:"PATCH",token,body:{status}}); setSubmissions(list=>list.map(x=>x.id===r.id?{...x,status}:x)); setNotice("تم تحديث حالة الطلب.");});}}>{Object.entries(submissionStatus).map(([v,l])=><option key={v} value={v}>{l}</option>)}</select></label>
+          <button className="button button--outline" type="button" onClick={()=>{setStore({...blankStore,name:r.store_name,website_url:r.website_url}); setTab("stores");}}>إنشاء متجر من الطلب</button>
+        </div>
+      </article>)}</div> : tab==="stores" ? <>
         <form className="content-panel support-form" onSubmit={e=>{e.preventDefault();void run(async()=>{ const {id,...body}=store; body.initial = Array.from(body.name.trim()).slice(0,2).join("") || "م"; const url = new URL(body.website_url); if(url.protocol!=="https:" || url.username || url.password) throw new Error("استخدم رابط متجر آمن يبدأ بـ https:// بدون بيانات دخول."); if(body.logo_url) { const logo = new URL(body.logo_url); if(logo.protocol!=="https:" || logo.username || logo.password) throw new Error("استخدم رابط شعار يبدأ بـ https:// بدون بيانات دخول."); } await backendRequest(`/rest/v1/stores${id?`?id=eq.${id}`:""}`,{method:id?"PATCH":"POST",token,body});setStore(blankStore);await load(token);setNotice("تم حفظ المتجر.");});}}>
           <h2>{store.id?"تعديل المتجر":"متجر جديد"}</h2>
           <label>اسم المتجر<input value={store.name} required maxLength={120} onChange={e=>setStore({...store,name:e.target.value})}/></label>
