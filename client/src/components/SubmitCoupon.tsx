@@ -16,7 +16,7 @@ export default function SubmitCoupon() {
   async function submit(form: HTMLFormElement) {
     setError("");
     const data = new FormData(form);
-    if (String(data.get("company_site") || "")) { setState("sent"); return; } // spam trap
+    if (String(data.get("cp_hp_9f3") || "")) { setState("sent"); return; } // spam trap
     const raw = Object.fromEntries(Array.from(data.entries()).map(([k, v]) => [k, String(v)])) as unknown as StoreSubmissionInput;
     const result = buildStoreSubmission(raw);
     if (!result.ok) { setError(result.error); return; }
@@ -57,7 +57,7 @@ export default function SubmitCoupon() {
           </div>
         ) : (
           <form className="support-form submission-form" noValidate={false} onSubmit={e => { e.preventDefault(); void submit(e.currentTarget); }}>
-            <input className="submission-trap" name="company_site" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+            <input className="submission-trap" name="cp_hp_9f3" tabIndex={-1} autoComplete="one-time-code" data-lpignore="true" data-1p-ignore="true" aria-hidden="true" />
 
             <fieldset>
               <legend>بيانات المتجر</legend>
