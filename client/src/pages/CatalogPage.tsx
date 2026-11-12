@@ -1,5 +1,6 @@
 import { findStoreBySegment, storePath } from "@/lib/storeSlug";
 import { OPEN_COOKIE_SETTINGS } from "@/components/CookieConsent";
+import ContactForm from "@/components/ContactForm";
 import { legalPages, legalTextParts, legalUpdated, type LegalPage } from "@/lib/legal";
 import { navigate } from "wouter/use-browser-location";
 import { CategoryIcon } from "@/components/CategoryIcon";
@@ -45,7 +46,7 @@ const pages: Record<string, [string, string]> = {
   ],
   "/contact": [
     "تواصل معنا",
-    "جهز رسالتك ثم انسخها لإرسالها عبر قناة الدعم عند توفرها.",
+    "تواصل مع فريق كوبونيا لأي استفسار أو اقتراح، وسنرد عليك في أقرب وقت.",
   ],
   "/report": [
     "الإبلاغ عن كوبون",
@@ -328,7 +329,7 @@ export default function CatalogPage({
         {store&&<><Link href="/stores">المتاجر</Link><span>/</span></>}
         <span>{info?.[0] || "الصفحة غير موجودة"}</span>
       </nav>
-      {styledLegalIcons[location] || location === "/submit-coupon" ? <div className={`about-hero${location === "/submit-coupon" ? " about-hero--wide" : ""}`}>
+      {styledLegalIcons[location] || location === "/submit-coupon" || location === "/contact" ? <div className={`about-hero${location === "/submit-coupon" ? " about-hero--wide" : ""}`}>
         <div className="about-hero__brand">
           <img className="about-hero__logo" src="/brand/coponya-logo.svg?v=20261030-colors" alt="كوبونيا Coponya" width="1356" height="535" />
           <Link href="/" className="about-hero__url">www.coponya.com</Link>
@@ -502,9 +503,8 @@ export default function CatalogPage({
       {location === "/deals" && <TopOffers onReveal={onReveal}/>}
       {location === "/submit-coupon" && <SubmitCoupon />}
       {location === "/account" && <Profile />}
-      {["/contact", "/report"].includes(location) && (
-        <SupportForm key={location} report={location === "/report"} />
-      )}
+      {location === "/contact" && <ContactForm />}
+      {location === "/report" && <SupportForm key={location} report />}
       {location === "/faq" && (
         <div className="faq-list">
           {(isLive ? [

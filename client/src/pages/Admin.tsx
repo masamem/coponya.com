@@ -12,6 +12,8 @@ import { useCatalog } from "@/contexts/CatalogContext";
 const blankStore = { id: "", name: "", initial: "", tone: "olive", website_url: "", active: false, summary: "", about: "", products: "", shipping: "", payment: "", returns_policy: "", faq: "", logo_url: "", seo_title: "", meta_description: "", primary_keyword: "", supporting_keywords: "", long_tail_keywords: "", article_ideas: "" };
 type Submission = { id: string; created_at: string; status: "new"|"reviewing"|"approved"|"rejected"; store_name: string; website_url: string; category: string; registration: string|null; contact_name: string; email: string; phone: string|null; offer_type: "code"|"deal"; code: string|null; offer: string; terms: string|null; expires_on: string|null; affiliate: "yes"|"no"|"unsure"; admin_notes: string|null };
 const submissionStatus = { new: "جديد", reviewing: "قيد المراجعة", approved: "مقبول", rejected: "مرفوض" } as const;
+type ContactMessage = { id: string; created_at: string; status: "new"|"read"|"replied"|"closed"; name: string; email: string; phone: string|null; subject: string; message: string };
+const messageStatus = { new: "جديدة", read: "مقروءة", replied: "تم الرد", closed: "مغلقة" } as const;
 const affiliateLabel = { yes: "نعم", no: "لا", unsure: "لا يعرف" } as const;
 const blankCoupon = { id: "", store_id: "", title: "", description: "", discount: "10%", code: "", category: categories[0][0], terms: "", expires_at: "", published: false, verified_at: null as string | null };
 export default function Admin() {
@@ -20,6 +22,7 @@ export default function Admin() {
   const [stores, setStores] = useState<StoreRecord[]>([]);
   const [coupons, setCoupons] = useState<CouponRecord[]>([]);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [store, setStore] = useState(blankStore);
   const [coupon, setCoupon] = useState(blankCoupon);
   const [tab, setTab] = useState("stores");
@@ -28,8 +31,8 @@ export default function Admin() {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState("");
   async function load(accessToken: string) {
-    const [s,c,r] = await Promise.all([backendRequest<StoreRecord[]>("/rest/v1/stores?select=*&order=name", {token:accessToken}), backendRequest<CouponRecord[]>("/rest/v1/coupons?select=*&order=created_at.desc", {token:accessToken}), backendRequest<Submission[]>("/rest/v1/store_submissions?select=*&order=created_at.desc", {token:accessToken}).catch(() => [] as Submission[])]);
-    setStores(s); setCoupons(c); setSubmissions(r); reload();
+    const [s,c,r,m] = await Promise.all([backendRequest<StoreRecord[]>("/rest/v1/stores?select=*&order=name", {token:accessToken}), backendRequest<CouponRecord[]>("/rest/v1/coupons?select=*&order=created_at.desc", {token:accessToken}), backendRequest<Submission[]>("/rest/v1/store_submissions?select=*&order=created_at.desc", {token:accessToken}).catch(() => [] as Submission[]), backendRequest<ContactMessage[]>("/rest/v1/contact_messages?select=*&order=created_at.desc", {token:accessToken}).catch(() => [] as ContactMessage[])]);
+    setStores(s); setCoupons(c); setSubmissions(r); setMessages(m); reload();
   }
   async function run(action: () => Promise<void>) { setBusy(true); setNotice(""); try { await action(); } catch(e) { if(e instanceof BackendError && e.status === 401) { setToken(""); setStores([]); setCoupons([]); } setNotice(e instanceof Error ? e.message : "تعذر تنفيذ الإجراء."); } finally { setBusy(false); } }
   return <section className="catalog-page container admin-page" dir="rtl">
@@ -43,9 +46,14 @@ export default function Admin() {
         await load(session.access_token); setToken(session.access_token);
       } catch(error) { await backendRequest("/auth/v1/logout",{method:"POST",token:session.access_token}).catch(()=>{}); throw error; }
     });}}><h2>تسجيل دخول الإدارة</h2><label>البريد الإلكتروني<input name="email" type="email" dir="ltr" required autoComplete="username" /></label><label>كلمة المرور<input name="password" type="password" required autoComplete="current-password" /></label><button disabled={busy} className="button button--primary">{busy?"جارٍ الدخول…":"تسجيل الدخول"}</button><p>الجلسة مؤقتة في هذه الصفحة؛ بعد إعادة تحميلها يلزم تسجيل الدخول مجدداً.</p></form> : <>
-      <div className="admin-toolbar"><button className="button button--outline" disabled={busy} aria-pressed={tab==="stores"} onClick={()=>setTab("stores")}>المتاجر ({stores.length})</button><button className="button button--outline" disabled={busy} aria-pressed={tab==="coupons"} onClick={()=>setTab("coupons")}>الكوبونات ({coupons.length})</button><button className="button button--outline" disabled={busy} aria-pressed={tab==="requests"} onClick={()=>setTab("requests")}>طلبات المتاجر ({submissions.filter(r=>r.status==="new").length} جديد)</button><button disabled={busy} className="button button--outline" onClick={()=>void run(async()=>{try { await backendRequest("/auth/v1/logout",{method:"POST",token}); } finally { setToken("");setStores([]);setCoupons([]); }})}>تسجيل الخروج</button></div>
+      <div className="admin-toolbar"><button className="button button--outline" disabled={busy} aria-pressed={tab==="stores"} onClick={()=>setTab("stores")}>المتاجر ({stores.length})</button><button className="button button--outline" disabled={busy} aria-pressed={tab==="coupons"} onClick={()=>setTab("coupons")}>الكوبونات ({coupons.length})</button><button className="button button--outline" disabled={busy} aria-pressed={tab==="requests"} onClick={()=>setTab("requests")}>طلبات المتاجر ({submissions.filter(r=>r.status==="new").length} جديد)</button><button className="button button--outline" disabled={busy} aria-pressed={tab==="messages"} onClick={()=>setTab("messages")}>الرسائل ({messages.filter(x=>x.status==="new").length} جديدة)</button><button disabled={busy} className="button button--outline" onClick={()=>void run(async()=>{try { await backendRequest("/auth/v1/logout",{method:"POST",token}); } finally { setToken("");setStores([]);setCoupons([]); }})}>تسجيل الخروج</button></div>
       <div className="admin-layout">
-      {tab==="requests" ? <div className="admin-list admin-requests">{!submissions.length&&<p>لا توجد طلبات بعد.</p>}{submissions.map(r=><article className="content-panel admin-request" key={r.id}>
+      {tab==="messages" ? <div className="admin-list admin-requests">{!messages.length&&<p>لا توجد رسائل بعد.</p>}{messages.map(m=><article className="content-panel admin-request" key={m.id}>
+        <div className="admin-request__head"><h2>{m.subject}</h2><span className={`admin-status admin-status--${m.status==="new"?"new":m.status==="closed"?"rejected":m.status==="replied"?"approved":"reviewing"}`}>{messageStatus[m.status]}</span></div>
+        <p>{m.name} · <a href={`mailto:${m.email}?subject=${encodeURIComponent("رد كوبونيا: "+m.subject)}`} dir="ltr">{m.email}</a>{m.phone&&<> · <a href={`tel:${m.phone}`} dir="ltr">{m.phone}</a></>} · {new Date(m.created_at).toLocaleDateString("ar-SA-u-ca-gregory")}</p>
+        <p className="admin-message-body">{m.message}</p>
+        <div className="admin-request__actions"><label>الحالة<select value={m.status} disabled={busy} onChange={e=>{const status=e.target.value as ContactMessage["status"]; void run(async()=>{await backendRequest(`/rest/v1/contact_messages?id=eq.${m.id}`,{method:"PATCH",token,body:{status}}); setMessages(list=>list.map(x=>x.id===m.id?{...x,status}:x)); setNotice("تم تحديث حالة الرسالة.");});}}>{Object.entries(messageStatus).map(([v,l])=><option key={v} value={v}>{l}</option>)}</select></label></div>
+      </article>)}</div> : tab==="requests" ? <div className="admin-list admin-requests">{!submissions.length&&<p>لا توجد طلبات بعد.</p>}{submissions.map(r=><article className="content-panel admin-request" key={r.id}>
         <div className="admin-request__head"><h2>{r.store_name}</h2><span className={`admin-status admin-status--${r.status}`}>{submissionStatus[r.status]}</span></div>
         <p><a href={r.website_url} target="_blank" rel="noopener noreferrer nofollow" dir="ltr">{r.website_url}</a> · {r.category}{r.registration?` · سجل/توثيق: ${r.registration}`:""}</p>
         <p>{r.contact_name} · <a href={`mailto:${r.email}`} dir="ltr">{r.email}</a>{r.phone&&<> · <a href={`tel:${r.phone}`} dir="ltr">{r.phone}</a></>}</p>
