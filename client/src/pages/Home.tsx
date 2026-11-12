@@ -20,7 +20,6 @@ import { useCatalog } from "@/contexts/CatalogContext";
 const Admin = lazy(() => import("./Admin"));
 import { matchesSearch, readSaved, saveLocal } from "@/lib/catalog";
 import {
-  ArrowLeft,
   ArrowUpLeft,
   BadgeCheck,
   Bell,
@@ -87,7 +86,7 @@ function SectionHeading({
       </div>
       <Link className="text-link" href={href}>
         {link}
-        <ArrowLeft size={16} />
+
       </Link>
     </div>
   );
@@ -111,7 +110,7 @@ function BannerSlideshow() {
       onTouchEnd={(event) => { if (touchStart !== null) { const distance = event.changedTouches[0].clientX - touchStart; if (Math.abs(distance) > 45) changeSlide(distance > 0 ? 1 : -1); } setTouchStart(null); }}>
                 <Link href="/deals" className="hero-slide hero-slide--original seasonal-slide festive-slide" hidden={active !== 0}>
                   <img src={heroUrl} alt="" width="1200" height="600" fetchPriority="high"/>
-                  <div className="festive-slide__heading"><span>اختيارات الموسم مع كوبونيا</span><h2>كل موسم<br/>له اختياراته</h2><span className="festive-slide__cta">استكشف العروض <ArrowLeft size={15}/></span></div>
+                  <div className="festive-slide__heading"><span>اختيارات الموسم مع كوبونيا</span><h2>كل موسم<br/>له اختياراته</h2><span className="festive-slide__cta">استكشف العروض</span></div>
                   <div className="festive-slide__brands" aria-label="نون، ماتش للعطور، أمازون، ترينديول">{[{id:"noon",name:"نون"},{id:"match",name:"ماتش للعطور"},{id:"amazon",name:"أمازون"},{id:"trendyol",name:"ترينديول"}].map(brand => <span key={brand.id}><img src={`/brand/merchants/${brand.id}.png`} alt="" width="32" height="32"/><strong>{brand.name}</strong></span>)}</div>
                 </Link>
               <Link href={storePath("noon - نون")} className="hero-slide discovery-banner noon-slide" hidden={active !== 1}>
@@ -119,20 +118,20 @@ function BannerSlideshow() {
                 <span className="discovery-banner__eyebrow">كوبونات نون على كوبونيا</span>
                 <h2>استرداد نقدي 10% من نون بحد أقصى 75 ريال</h2>
                 <p>تعرّف على تفاصيل الكوبون وشروط الاستخدام.</p>
-                <span className="discovery-banner__cta">شاهد كوبونات نون <ArrowLeft size={17}/></span>
+                <span className="discovery-banner__cta">شاهد كوبونات نون</span>
               </Link>
               <Link href="/categories/المنزل" className="hero-slide discovery-banner discovery-banner--orange" hidden={active !== 2}>
                 <span className="discovery-banner__eyebrow">وقت اللمسات الدافئة</span>
                 <h2>جدّد أجواء بيتك للموسم</h2>
                 <p>قارن الاختيارات وتصفح كوبونات المنزل المتاحة.</p>
-                <span className="discovery-banner__cta">كوبونات المنزل <ArrowLeft size={17} /></span>
+                <span className="discovery-banner__cta">كوبونات المنزل</span>
                 <Store className="discovery-banner__art" aria-hidden="true" />
               </Link>
               <Link href="/categories/السفر" className="hero-slide discovery-banner discovery-banner--cream" hidden={active !== 3}>
                 <span className="discovery-banner__eyebrow">طلعات وأجواء ألطف</span>
                 <h2>خطّط لرحلتك القادمة بذكاء</h2>
                 <p>استكشف كوبونات السفر وراجع التفاصيل قبل الحجز.</p>
-                <span className="discovery-banner__cta">كوبونات السفر <ArrowLeft size={17} /></span>
+                <span className="discovery-banner__cta">كوبونات السفر</span>
                 <Heart className="discovery-banner__art" aria-hidden="true" />
               </Link>
 
@@ -238,7 +237,7 @@ export default function Home() {
                 placeholder="ابحث عن متجر أو كود خصم..."
               />
               <button type="submit">
-                ابحث عن كوبون <ArrowLeft size={17} />
+                ابحث عن كوبون
               </button>
             </form>
             {query.trim() && (
@@ -248,7 +247,7 @@ export default function Home() {
                   <nav aria-label="المتاجر المطابقة للبحث">
                     {matchingStores.map((store) => (
                       <Link key={store.name} href={storePath(store.name)}>
-                        <Store size={16} /> {store.name} <ArrowLeft size={14} />
+                        <Store size={16} /> {store.name}
                       </Link>
                     ))}
                   </nav>
@@ -425,9 +424,9 @@ export default function Home() {
               <h1 id="home-title" className="sr-only">كل توفير يبدأ بكوبونيا — أكواد خصم وكوبونات متاجر السعودية</h1>
               <Link href="/coupons" className="promo-banner__link">
                 <picture>
-                  <source media="(max-width: 700px)" srcSet="/brand/banners/coponya-banner-mobile.webp" width={1500} height={840} />
+                  <source media="(max-width: 700px)" srcSet="/brand/banners/coponya-banner-mobile.webp?v=2" width={1500} height={840} />
                   <img
-                    src="/brand/banners/coponya-banner-desktop.webp"
+                    src="/brand/banners/coponya-banner-desktop.webp?v=2"
                     width={2712}
                     height={632}
                     fetchPriority="high"
@@ -540,7 +539,7 @@ export default function Home() {
                         {coupons.filter((c) => c.category === name).length}{" "}
                         كوبون
                       </small>
-                      <ArrowLeft size={15} />
+
                     </Link>
                   ))}
                 </div>
@@ -584,7 +583,7 @@ export default function Home() {
                             )
                           }
                         >
-                          مشاهدة العرض <ArrowLeft size={15} />
+                          مشاهدة العرض
                         </button>
                       </div>
                     </article>
@@ -641,7 +640,7 @@ export default function Home() {
       <footer className="site-footer signature-footer">
         <div className="container signature-footer__content">
           <div className="signature-footer__tools">
-            <Link href="/submit-coupon" className="footer-add-store">أضف متجرك <span aria-hidden="true">←</span></Link>
+            <Link href="/submit-coupon" className="footer-add-store">أضف متجرك</Link>
           </div>
           <div className="signature-footer__main">
             <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) منصة سعودية تساعدك على إيجاد أكواد الخصم والعروض لمتاجرك المفضلة وبخطوات واضحة</p><address className="footer-address"><MapPin size={18} aria-hidden="true" />{operatorAddress()}</address></div>
