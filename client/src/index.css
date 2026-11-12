@@ -847,3 +847,4 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .about-hero__logo-link { display:block; line-height:0; transition:transform .2s var(--ease), opacity .2s var(--ease); }
 .about-hero__logo-link:hover { transform:scale(1.03); }
 .about-hero__logo-link:focus-visible { outline:2px solid var(--olive); outline-offset:6px; border-radius:8px; }
+.contact-form input[name=website_url]:not(:placeholder-shown) { direction:ltr; text-align:left; }

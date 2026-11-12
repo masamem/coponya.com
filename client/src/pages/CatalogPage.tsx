@@ -335,7 +335,7 @@ export default function CatalogPage({
           <Link href="/" className="about-hero__url">www.coponya.com</Link>
         </div>
         {location === "/about" && <h1 className="sr-only">من نحن</h1>}
-        {location === "/submit-coupon" && <h1 className="sr-only">أضف متجرك إلى كوبونيا</h1>}
+        
       </div> : store ? <StoreOverview store={store} couponCount={coupons.filter(c=>c.store===store.name).length}/> : <div className="page-heading">
         {location !== "/about" && <span className="eyebrow">كوبونيا · أوفر لك، أسرع لك</span>}
         <h1>{info?.[0] || "الصفحة غير موجودة"}</h1>
