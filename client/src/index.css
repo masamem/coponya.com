@@ -821,3 +821,15 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .admin-status--rejected { background:#FBEBEB; color:#9B2C2C; }
 .admin-request__actions { display:flex; flex-wrap:wrap; align-items:end; gap:12px; margin-top:12px; }
 .admin-request__actions label { display:grid; gap:6px; font-weight:600; }
+
+/* تواصل معنا */
+.contact-lead { margin:0 0 22px; font-weight:700; line-height:2; text-align:justify; }
+.contact-brand { color:#E07B1F; }
+.contact-form { gap:14px; }
+.contact-form label { max-width:440px; }
+.contact-form label:has(textarea) { max-width:none; }
+.contact-form textarea { min-height:170px; resize:vertical; }
+.contact-note { margin:0; color:var(--muted); font-size:13px; line-height:1.9; }
+.contact-note strong { color:#E07B1F; }
+.contact-submit { justify-self:center !important; min-width:180px; justify-content:center; }
+.admin-message-body { white-space:pre-wrap; padding:12px; border-radius:10px; background:var(--mist); }
