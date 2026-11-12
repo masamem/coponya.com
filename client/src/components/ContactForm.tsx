@@ -27,7 +27,7 @@ export default function ContactForm() {
   async function submit(form: HTMLFormElement) {
     setError("");
     const data = new FormData(form);
-    if (clean(data.get("company_site"))) { setState("sent"); return; } // spam trap
+    if (clean(data.get("cp_hp_9f3"))) { setState("sent"); return; } // spam trap
     const result = buildContactMessage(data);
     if (!result.ok) { setError(result.error); return; }
     if (!backendConfigured) { setError("الإرسال غير متاح حالياً. راسلنا على info@coponya.com."); return; }
@@ -54,7 +54,7 @@ export default function ContactForm() {
       ) : <>
         <p className="contact-lead">نسعد بخدمتكم دائماً في <span className="contact-brand">كوبونيا</span>. نرحب بجميع استفساراتكم واقتراحاتكم؛ وللتواصل مع فريقنا يرجى تعبئة البيانات أدناه:</p>
         <form className="support-form submission-form contact-form" onSubmit={e => { e.preventDefault(); void submit(e.currentTarget); }}>
-          <input className="submission-trap" name="company_site" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+          <input className="submission-trap" name="cp_hp_9f3" tabIndex={-1} autoComplete="one-time-code" data-lpignore="true" data-1p-ignore="true" aria-hidden="true" />
           <input name="name" aria-label="الاسم" placeholder="الاسم" autoComplete="name" required minLength={2} maxLength={80} />
           <input name="email" type="email" aria-label="البريد الإلكتروني" placeholder="البريد الإلكتروني" autoComplete="email" required maxLength={120} />
           <input name="phone" type="tel" aria-label="رقم الهاتف (اختياري)" placeholder="رقم الهاتف" autoComplete="tel" maxLength={20} />
