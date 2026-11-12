@@ -823,7 +823,7 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .admin-request__actions label { display:grid; gap:6px; font-weight:600; }
 
 /* تواصل معنا */
-.contact-lead { margin:0 0 22px; font-weight:700; line-height:2; text-align:justify; }
+.contact-lead { margin:0 0 22px; }
 .contact-brand { color:#E07B1F; }
 .contact-form { gap:14px; }
 .contact-form label { max-width:440px; }
