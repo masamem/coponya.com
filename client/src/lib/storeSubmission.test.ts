@@ -8,6 +8,11 @@ describe("buildStoreSubmission", () => {
     const r = buildStoreSubmission({ ...base, phone: "٠٥٥١٢٣٤٥٦٧", terms: "" });
     expect(r).toEqual({ ok: true, value: expect.objectContaining({ store_name: "متجر تجربة", email: "sara@example.com", phone: "0551234567", code: "SAVE20", terms: null, affiliate: "unsure" }) });
   });
+  it("uses the link's domain when no store name is given", () => {
+    const r = buildStoreSubmission({ ...base, store_name: "", website_url: "www.shop-ksa.com/ar" });
+    expect(r.ok && r.value.store_name).toBe("shop-ksa.com");
+    expect(r.ok && r.value.website_url).toBe("https://www.shop-ksa.com/ar");
+  });
   it("drops the code for deals and requires it for codes", () => {
     const deal = buildStoreSubmission({ ...base, offer_type: "deal", code: "IGNORED" });
     expect(deal.ok && deal.value.code).toBeNull();
