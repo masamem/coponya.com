@@ -838,3 +838,9 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .contact-form input[type=email],.contact-form input[type=tel] { text-align:right; }
 .contact-form input[type=email]:not(:placeholder-shown),.contact-form input[type=tel]:not(:placeholder-shown) { direction:ltr; text-align:left; }
 .contact-form > input,.contact-form > textarea { padding:9px 12px; font-size:14px; }
+.contact-brand { font-weight:inherit; }
+.contact-form { width:100%; max-width:460px; margin-inline:auto; }
+.contact-form > input,.contact-form > textarea,.contact-form > .contact-submit { width:100%; max-width:none; }
+.contact-form input::placeholder,.contact-form textarea::placeholder { font-weight:300; }
+.contact-form > input,.contact-form > textarea { font-weight:300; }
+.contact-form > .contact-submit { justify-self:stretch !important; min-height:50px; margin-top:16px; }
