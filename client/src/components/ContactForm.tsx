@@ -13,7 +13,7 @@ export function buildContactMessage(data: FormData): { ok: true; value: { name: 
   const email = clean(data.get("email")).toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false, error: "أدخل بريداً إلكترونياً صحيحاً." };
   const phone = latin(clean(data.get("phone"))) || null;
-  if (phone && !/^[0-9+ ()-]{7,20}$/.test(phone)) return { ok: false, error: "أدخل رقم هاتف صحيحاً." };
+  if (phone && !/^[0-9+ ()-]{7,20}$/.test(phone)) return { ok: false, error: "أدخل رقم جوال صحيحاً." };
   const subject = clean(data.get("subject"));
   if (subject.length < 2) return { ok: false, error: "اكتب موضوع الرسالة." };
   const message = String(data.get("message") || "").trim();
@@ -58,7 +58,7 @@ export default function ContactForm() {
           <input className="submission-trap" name="cp_hp_9f3" tabIndex={-1} autoComplete="one-time-code" data-lpignore="true" data-1p-ignore="true" aria-hidden="true" />
           <input name="name" aria-label="الاسم" placeholder="الاسم" autoComplete="name" required minLength={2} maxLength={80} />
           <input name="email" type="email" aria-label="البريد الإلكتروني" placeholder="البريد الإلكتروني" autoComplete="email" required maxLength={120} />
-          <input name="phone" type="tel" aria-label="رقم الهاتف (اختياري)" placeholder="رقم الهاتف" autoComplete="tel" maxLength={20} />
+          <input name="phone" type="tel" aria-label="رقم الجوال (اختياري)" placeholder="رقم الجوال" autoComplete="tel" maxLength={20} />
           <input name="subject" aria-label="الموضوع" placeholder="الموضوع" required minLength={2} maxLength={120} />
           <textarea name="message" aria-label="رسالتك" placeholder="رسالتك" rows={7} required minLength={5} maxLength={3000} />
           <p className="contact-note"><strong>ملاحظة:</strong> في حال طلب تسجيل متجر <Link href="/submit-coupon" className="legal-link">اضغط هنا</Link>.</p>
