@@ -17,5 +17,7 @@ export async function backendRequest<T>(path: string, options: { method?: string
     if (response.status === 409) throw new Error("الاسم أو كود الخصم موجود بالفعل.");
     throw new Error("تعذر تنفيذ الطلب. تحقق من الاتصال وإعدادات قاعدة البيانات.");
   }
-  return response.status === 204 ? undefined as T : response.json();
+  if (response.status === 204) return undefined as T;
+  const text = await response.text(); // "Prefer: return=minimal" answers 201 with an empty body
+  return (text ? JSON.parse(text) : undefined) as T;
 }
