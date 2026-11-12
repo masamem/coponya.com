@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "wouter";
 import { CheckCircle2 } from "lucide-react";
 import { backendConfigured, backendRequest } from "@/lib/backend";
 import { buildStoreSubmission, type StoreSubmissionInput } from "@/lib/storeSubmission";
@@ -45,10 +44,6 @@ export default function SubmitCoupon() {
             <input name="email" type="email" aria-label="البريد الإلكتروني" placeholder="البريد الإلكتروني" autoComplete="email" required maxLength={120} />
             <input name="phone" type="tel" aria-label="رقم الجوال (اختياري)" placeholder="رقم الجوال" autoComplete="tel" maxLength={20} />
             <textarea name="offer" aria-label="العرض أو كود الخصم" placeholder="العرض أو كود الخصم وشروطه (مثال: كود SAVE20 خصم 20% على الطلب الأول)" rows={4} required minLength={3} maxLength={700} />
-            <label className="consent-label">
-              <input name="consent" type="checkbox" required />
-              <span>أؤكد صحة المعلومات وأنني مخوّل بنشر هذا العرض، وأوافق على التواصل معي وفق <Link href="/privacy">سياسة الخصوصية</Link>.</span>
-            </label>
             {error && <p className="form-error" role="alert">{error}</p>}
             <button className="button button--primary contact-submit" type="submit" disabled={state === "sending"}>
               {state === "sending" ? "جارٍ الإرسال…" : "إرسال الطلب"}
