@@ -18,24 +18,24 @@ const toLatinDigits = (v: string) => v.replace(/[٠-٩]/g, d => String("٠١٢٣
 export function buildStoreSubmission(input: StoreSubmissionInput): { ok: true; value: StoreSubmission } | { ok: false; error: string } {
   const store_name = clean(input.store_name);
   if (store_name.length < 2) return { ok: false, error: "أدخل اسم المتجر." };
-  const website_url = clean(input.website_url);
+  let website_url = clean(input.website_url);
+  if (website_url && !/^https?:\/\//i.test(website_url)) website_url = `https://${website_url}`;
   try {
     const url = new URL(website_url);
     if (!["http:", "https:"].includes(url.protocol) || url.username || url.password || !url.hostname.includes(".")) throw new Error();
   } catch { return { ok: false, error: "أدخل رابط متجر صحيحاً يبدأ بـ https://" }; }
-  const category = clean(input.category);
-  if (!category) return { ok: false, error: "اختر تصنيف المتجر." };
+  const category = clean(input.category) || "غير محدد";
   const contact_name = clean(input.contact_name);
   if (contact_name.length < 2) return { ok: false, error: "أدخل اسمك." };
   const email = clean(input.email).toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok: false, error: "أدخل بريداً إلكترونياً صحيحاً." };
   const phone = optional(toLatinDigits(input.phone || ""));
   if (phone && !/^[0-9+ ()-]{7,20}$/.test(phone)) return { ok: false, error: "أدخل رقم جوال صحيحاً." };
-  const offer_type = input.offer_type === "deal" ? "deal" : "code";
+  const offer_type = input.offer_type === "code" ? "code" : "deal";
   const code = offer_type === "code" ? clean(input.code) : "";
-  if (offer_type === "code" && code.length < 2) return { ok: false, error: "أدخل كود الخصم، أو اختر «عرض بدون كود»." };
-  const offer = clean(input.offer);
-  if (offer.length < 3) return { ok: false, error: "اكتب تفاصيل العرض." };
+  if (offer_type === "code" && code.length < 2) return { ok: false, error: "أدخل كود الخصم." };
+  const offer = (input.offer || "").trim().slice(0, 700);
+  if (offer.length < 3) return { ok: false, error: "اكتب العرض أو كود الخصم." };
   const expires_on = optional(input.expires_on);
   if (expires_on && !/^\d{4}-\d{2}-\d{2}$/.test(expires_on)) return { ok: false, error: "تاريخ الانتهاء غير صحيح." };
   const affiliate = input.affiliate === "yes" || input.affiliate === "no" ? input.affiliate : "unsure";

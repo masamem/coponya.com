@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { BadgeCheck, CheckCircle2, Megaphone, ShieldCheck, Store, Users } from "lucide-react";
-import { categories } from "@/lib/data";
 import { backendConfigured, backendRequest } from "@/lib/backend";
 import { buildStoreSubmission, type StoreSubmissionInput } from "@/lib/storeSubmission";
 
 /* "أضف متجرك": merchants send their store and first offer; requests are saved for admin review. */
 export default function SubmitCoupon() {
-  const [offerType, setOfferType] = useState<"code" | "deal">("code");
   const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState("");
-  const today = new Date();
-  const minDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
   async function submit(form: HTMLFormElement) {
     setError("");
@@ -24,7 +20,7 @@ export default function SubmitCoupon() {
     setState("sending");
     try {
       await backendRequest("/rest/v1/store_submissions", { method: "POST", body: result.value, prefer: "return=minimal" });
-      form.reset(); setOfferType("code"); setState("sent");
+      form.reset(); setState("sent");
     } catch {
       setState("idle");
       setError("تعذر إرسال الطلب الآن. حاول مرة أخرى أو راسلنا على hello@coponya.com.");
@@ -56,68 +52,21 @@ export default function SubmitCoupon() {
             <button className="button button--outline" type="button" onClick={() => setState("idle")}>إرسال طلب آخر</button>
           </div>
         ) : (
-          <form className="support-form submission-form" noValidate={false} onSubmit={e => { e.preventDefault(); void submit(e.currentTarget); }}>
+          <form className="support-form submission-form contact-form" onSubmit={e => { e.preventDefault(); void submit(e.currentTarget); }}>
             <input className="submission-trap" name="cp_hp_9f3" tabIndex={-1} autoComplete="one-time-code" data-lpignore="true" data-1p-ignore="true" aria-hidden="true" />
-
-            <fieldset>
-              <legend>بيانات المتجر</legend>
-              <div className="form-row">
-                <label>اسم المتجر<input name="store_name" required minLength={2} maxLength={100} /></label>
-                <label>رابط المتجر<input name="website_url" type="url" placeholder="https://example.com" dir="ltr" required maxLength={200} /></label>
-              </div>
-              <div className="form-row">
-                <label>التصنيف
-                  <select name="category" required defaultValue="">
-                    <option value="" disabled>اختر التصنيف</option>
-                    {categories.map(([name]) => <option key={name}>{name}</option>)}
-                    <option>أخرى</option>
-                  </select>
-                </label>
-                <label><span>السجل التجاري أو رقم التوثيق <small>(اختياري)</small></span><input name="registration" maxLength={120} /></label>
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>بيانات التواصل</legend>
-              <label>الاسم<input name="contact_name" autoComplete="name" required minLength={2} maxLength={80} /></label>
-              <div className="form-row">
-                <label>البريد الإلكتروني<input name="email" type="email" autoComplete="email" dir="ltr" required maxLength={120} /></label>
-                <label><span>رقم الجوال <small>(اختياري)</small></span><input name="phone" type="tel" autoComplete="tel" dir="ltr" placeholder="05xxxxxxxx" maxLength={20} /></label>
-              </div>
-            </fieldset>
-
-            <fieldset>
-              <legend>العرض</legend>
-              <div className="submission-choice" role="radiogroup" aria-label="نوع العرض">
-                <label><input type="radio" name="offer_type" value="code" checked={offerType === "code"} onChange={() => setOfferType("code")} /> كود خصم</label>
-                <label><input type="radio" name="offer_type" value="deal" checked={offerType === "deal"} onChange={() => setOfferType("deal")} /> عرض بدون كود</label>
-              </div>
-              <div className="form-row">
-                {offerType === "code" && <label>كود الخصم<input name="code" dir="ltr" placeholder="SAVE20" required minLength={2} maxLength={60} /></label>}
-                <label>تفاصيل العرض<input name="offer" placeholder="مثال: خصم 20% على الطلب الأول" required minLength={3} maxLength={180} /></label>
-              </div>
-              <label><span>الشروط والاستثناءات <small>(اختياري)</small></span>
-                <textarea name="terms" rows={3} placeholder="الحد الأدنى للطلب، المنتجات المستثناة، وأي شروط أخرى..." maxLength={700} />
-              </label>
-              <div className="form-row">
-                <label><span>تاريخ انتهاء العرض <small>(اختياري)</small></span><input name="expires_on" type="date" min={minDate} lang="ar" /></label>
-                <label>هل لدى متجرك برنامج تسويق بالعمولة؟
-                  <select name="affiliate" defaultValue="unsure">
-                    <option value="yes">نعم</option>
-                    <option value="no">لا</option>
-                    <option value="unsure">لا أعرف</option>
-                  </select>
-                </label>
-              </div>
-            </fieldset>
-
+            <input name="store_name" aria-label="اسم المتجر" placeholder="اسم المتجر" required minLength={2} maxLength={100} />
+            <input name="website_url" type="text" inputMode="url" dir="auto" aria-label="رابط المتجر" placeholder="رابط المتجر" required maxLength={200} />
+            <input name="contact_name" aria-label="اسمك" placeholder="اسمك" autoComplete="name" required minLength={2} maxLength={80} />
+            <input name="email" type="email" aria-label="البريد الإلكتروني" placeholder="البريد الإلكتروني" autoComplete="email" required maxLength={120} />
+            <input name="phone" type="tel" aria-label="رقم الجوال (اختياري)" placeholder="رقم الجوال" autoComplete="tel" maxLength={20} />
+            <textarea name="offer" aria-label="العرض أو كود الخصم" placeholder="العرض أو كود الخصم وشروطه (مثال: كود SAVE20 خصم 20% على الطلب الأول)" rows={4} required minLength={3} maxLength={700} />
             <label className="consent-label">
               <input name="consent" type="checkbox" required />
-              <span>أؤكد صحة المعلومات وأنني مخوّل بنشر هذا العرض، وأوافق على التواصل معي بخصوص الطلب وفق <Link href="/privacy">سياسة الخصوصية</Link>.</span>
+              <span>أؤكد صحة المعلومات وأنني مخوّل بنشر هذا العرض، وأوافق على التواصل معي وفق <Link href="/privacy">سياسة الخصوصية</Link>.</span>
             </label>
             {error && <p className="form-error" role="alert">{error}</p>}
-            <button className="button button--primary" type="submit" disabled={state === "sending"}>
-              {state === "sending" ? "جارٍ الإرسال…" : <>إرسال الطلب</>}
+            <button className="button button--primary contact-submit" type="submit" disabled={state === "sending"}>
+              {state === "sending" ? "جارٍ الإرسال…" : "إرسال الطلب"}
             </button>
           </form>
         )}
