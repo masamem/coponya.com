@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { backendConfigured, backendRequest } from "@/lib/backend";
 
 const clean = (v: FormDataEntryValue | null) => String(v || "").replace(/\s+/g, " ").trim();
@@ -63,7 +63,7 @@ export default function ContactForm() {
           <textarea name="message" aria-label="رسالتك" placeholder="رسالتك" rows={7} required minLength={5} maxLength={3000} />
           {error && <p className="form-error" role="alert">{error}</p>}
           <button className="button button--primary contact-submit" type="submit" disabled={state === "sending"}>
-            {state === "sending" ? "جارٍ الإرسال…" : <>إرسال <ArrowLeft size={16} /></>}
+            {state === "sending" ? "جارٍ الإرسال…" : <>إرسال</>}
           </button>
         </form>
       </>}

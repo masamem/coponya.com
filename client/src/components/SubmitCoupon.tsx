@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, BadgeCheck, CheckCircle2, Megaphone, ShieldCheck, Store, Users } from "lucide-react";
+import { BadgeCheck, CheckCircle2, Megaphone, ShieldCheck, Store, Users } from "lucide-react";
 import { categories } from "@/lib/data";
 import { backendConfigured, backendRequest } from "@/lib/backend";
 import { buildStoreSubmission, type StoreSubmissionInput } from "@/lib/storeSubmission";
@@ -44,7 +44,7 @@ export default function SubmitCoupon() {
           <li><ShieldCheck size={18} /> بياناتك تُستخدم للتواصل بخصوص طلبك فقط.</li>
         </ul>
         <p className="submission-note">يبقى المتجر مسؤولاً عن صحة العرض وشروطه وفق نظام التجارة الإلكترونية، وإرسال الطلب لا يضمن النشر.</p>
-        <Link className="text-link" href="/contact">لديك سؤال؟ تواصل معنا <ArrowLeft size={16} /></Link>
+        <Link className="text-link" href="/contact">لديك سؤال؟ تواصل معنا</Link>
       </aside>
 
       <div className="content-panel submission-panel">
@@ -117,7 +117,7 @@ export default function SubmitCoupon() {
             </label>
             {error && <p className="form-error" role="alert">{error}</p>}
             <button className="button button--primary" type="submit" disabled={state === "sending"}>
-              {state === "sending" ? "جارٍ الإرسال…" : <>إرسال الطلب <ArrowLeft size={16} /></>}
+              {state === "sending" ? "جارٍ الإرسال…" : <>إرسال الطلب</>}
             </button>
           </form>
         )}

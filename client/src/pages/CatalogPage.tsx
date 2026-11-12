@@ -11,7 +11,7 @@ import TopOffers from "@/components/TopOffers";
 /* سوق الضوء: searchable store pages and readable Arabic metadata. */
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, Search, Heart, SlidersHorizontal, Tag, BadgeCheck, Target, Database, Cookie, ExternalLink, RefreshCw, Mail, type LucideIcon } from "lucide-react";
+import { Search, Heart, SlidersHorizontal, Tag, BadgeCheck, Target, Database, Cookie, ExternalLink, RefreshCw, Mail, type LucideIcon } from "lucide-react";
 import { useCatalog } from "@/contexts/CatalogContext";
 import {
   type Coupon,
@@ -176,7 +176,7 @@ function SupportForm({ report }: { report: boolean }) {
           />
         </label>
         <button className="button button--primary">
-          تجهيز الرسالة <ArrowLeft size={16} />
+          تجهيز الرسالة
         </button>
       </form>
       {ready && (
@@ -421,7 +421,7 @@ export default function CatalogPage({
                 مسح البحث والفلاتر
               </button>
               <Link className="text-link" href="/coupons">
-                تصفح كل الكوبونات <ArrowLeft size={16} />
+                تصفح كل الكوبونات
               </Link>
             </div>
           )}
@@ -464,7 +464,7 @@ export default function CatalogPage({
                     {coupons.filter((c) => c.store === s.name).length} كوبون
                   </span>
                   <small>
-                    تصفح الكوبونات <ArrowLeft size={14} />
+                    تصفح الكوبونات
                   </small>
                 </Link>
               ))}
@@ -495,7 +495,7 @@ export default function CatalogPage({
               <small>
                 {coupons.filter((c) => c.category === name).length} كوبون
               </small>
-              <ArrowLeft size={15} />
+
             </Link>
           ))}
         </div>
