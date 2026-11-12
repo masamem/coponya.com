@@ -789,3 +789,4 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .legal-content p,.legal-content li { color:#1F2A27; }
 .legal-content .legal-link { color:inherit; font-weight:inherit; text-decoration-color:rgba(31,42,39,.35); }
 .legal-content .legal-link:hover,.legal-content .legal-link:focus-visible { color:#C46A12; text-decoration-color:currentColor; }
+.site-footer .signature-footer__bottom { border-top:0; border-bottom:0; margin-top:0; padding-top:8px; }

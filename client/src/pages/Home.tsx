@@ -661,7 +661,6 @@ export default function Home() {
           <p className="footer-tagline">كل طلب فرصة للتوفير. مع كوبونيا تجدون أكواد الخصم والعروض المناسبة لأشهر المتاجر الإلكترونية في السعودية، بخطوات واضحة وبدون تسجيل أو رسوم.</p>
           <OperatorFooter />
           <div className="signature-footer__bottom">
-            <nav aria-label="السياسات والمساعدة"><Link href="/complaints">الشكاوى والمقترحات</Link><Link href="/faq">المساعدة</Link></nav>
             <p>جميع الحقوق محفوظة <Link href="/" className="footer-copyright-link">كوبونيا</Link> ©</p>
           </div>
         </div>
