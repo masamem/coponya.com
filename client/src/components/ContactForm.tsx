@@ -52,12 +52,12 @@ export default function ContactForm() {
           <button className="button button--outline" type="button" onClick={() => setState("idle")}>إرسال رسالة أخرى</button>
         </div>
       ) : <>
-        <p className="contact-lead">نسعد بخدمتك دائماً. إذا كان لديك أي استفسار أو اقتراح، أو ترغب في التواصل مع فريق <strong className="contact-brand">كوبونيا</strong>، يرجى تعبئة البيانات أدناه:</p>
+        <p className="contact-lead">نسعد بخدمتكم دائماً في <span className="contact-brand">كوبونيا</span>. نرحب بجميع استفساراتكم واقتراحاتكم؛ وللتواصل مع فريقنا يرجى تعبئة البيانات أدناه:</p>
         <form className="support-form submission-form contact-form" onSubmit={e => { e.preventDefault(); void submit(e.currentTarget); }}>
           <input className="submission-trap" name="company_site" tabIndex={-1} autoComplete="off" aria-hidden="true" />
           <input name="name" aria-label="الاسم" placeholder="الاسم" autoComplete="name" required minLength={2} maxLength={80} />
           <input name="email" type="email" aria-label="البريد الإلكتروني" placeholder="البريد الإلكتروني" autoComplete="email" required maxLength={120} />
-          <input name="phone" type="tel" aria-label="رقم الهاتف (اختياري)" placeholder="رقم الهاتف (اختياري)" autoComplete="tel" maxLength={20} />
+          <input name="phone" type="tel" aria-label="رقم الهاتف (اختياري)" placeholder="رقم الهاتف" autoComplete="tel" maxLength={20} />
           <input name="subject" aria-label="الموضوع" placeholder="الموضوع" required minLength={2} maxLength={120} />
           <textarea name="message" aria-label="رسالتك" placeholder="رسالتك" rows={7} required minLength={5} maxLength={3000} />
           {error && <p className="form-error" role="alert">{error}</p>}
