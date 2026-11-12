@@ -40,9 +40,8 @@ export default function SubmitCoupon() {
       ) : (
           <form className="support-form submission-form contact-form" onSubmit={e => { e.preventDefault(); void submit(e.currentTarget); }}>
             <input className="submission-trap" name="cp_hp_9f3" tabIndex={-1} autoComplete="one-time-code" data-lpignore="true" data-1p-ignore="true" aria-hidden="true" />
-            <input name="store_name" aria-label="اسم المتجر" placeholder="اسم المتجر" required minLength={2} maxLength={100} />
             <input name="website_url" type="text" inputMode="url" aria-label="رابط المتجر" placeholder="رابط المتجر" required maxLength={200} />
-            <input name="contact_name" aria-label="اسمك" placeholder="اسمك" autoComplete="name" required minLength={2} maxLength={80} />
+            <input name="contact_name" aria-label="الاسم" placeholder="الاسم" autoComplete="name" required minLength={2} maxLength={80} />
             <input name="email" type="email" aria-label="البريد الإلكتروني" placeholder="البريد الإلكتروني" autoComplete="email" required maxLength={120} />
             <input name="phone" type="tel" aria-label="رقم الجوال (اختياري)" placeholder="رقم الجوال" autoComplete="tel" maxLength={20} />
             <textarea name="offer" aria-label="العرض أو كود الخصم" placeholder="العرض أو كود الخصم وشروطه (مثال: كود SAVE20 خصم 20% على الطلب الأول)" rows={4} required minLength={3} maxLength={700} />

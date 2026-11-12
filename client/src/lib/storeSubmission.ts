@@ -16,14 +16,14 @@ const optional = (v?: string) => clean(v) || null;
 const toLatinDigits = (v: string) => v.replace(/[٠-٩]/g, d => String("٠١٢٣٤٥٦٧٨٩".indexOf(d)));
 
 export function buildStoreSubmission(input: StoreSubmissionInput): { ok: true; value: StoreSubmission } | { ok: false; error: string } {
-  const store_name = clean(input.store_name);
-  if (store_name.length < 2) return { ok: false, error: "أدخل اسم المتجر." };
   let website_url = clean(input.website_url);
   if (website_url && !/^https?:\/\//i.test(website_url)) website_url = `https://${website_url}`;
   try {
     const url = new URL(website_url);
     if (!["http:", "https:"].includes(url.protocol) || url.username || url.password || !url.hostname.includes(".")) throw new Error();
   } catch { return { ok: false, error: "أدخل رابط متجر صحيحاً يبدأ بـ https://" }; }
+  // The form no longer asks for a store name; fall back to the link's domain.
+  const store_name = (clean(input.store_name) || new URL(website_url).hostname.replace(/^www\./, "")).slice(0, 100);
   const category = clean(input.category) || "غير محدد";
   const contact_name = clean(input.contact_name);
   if (contact_name.length < 2) return { ok: false, error: "أدخل اسمك." };
