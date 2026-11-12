@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { backendConfigured, backendRequest } from "@/lib/backend";
 
@@ -52,7 +53,7 @@ export default function ContactForm() {
           <button className="button button--outline" type="button" onClick={() => setState("idle")}>إرسال رسالة أخرى</button>
         </div>
       ) : <>
-        <p className="contact-lead">نسعد بخدمتكم دائماً في <span className="contact-brand">كوبونيا</span>. نرحب بجميع استفساراتكم واقتراحاتكم، وللتواصل مع فريقنا يرجى تعبئة البيانات أدناه:</p>
+        <p className="contact-lead">نسعد بخدمتكم دائماً في <Link href="/" className="legal-link contact-brand">كوبونيا</Link>. نرحب بجميع استفساراتكم واقتراحاتكم، وللتواصل مع فريقنا يرجى تعبئة البيانات أدناه:</p>
         <form className="support-form submission-form contact-form" onSubmit={e => { e.preventDefault(); void submit(e.currentTarget); }}>
           <input className="submission-trap" name="cp_hp_9f3" tabIndex={-1} autoComplete="one-time-code" data-lpignore="true" data-1p-ignore="true" aria-hidden="true" />
           <input name="name" aria-label="الاسم" placeholder="الاسم" autoComplete="name" required minLength={2} maxLength={80} />
