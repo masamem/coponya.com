@@ -787,8 +787,8 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 @media (min-width:701px) { .signature-footer__bottom { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; } .signature-footer__bottom nav { grid-column:3; grid-row:1; justify-self:end; justify-content:flex-end; } .signature-footer__bottom p { grid-column:2; grid-row:1; } }
 .legal-content p,.legal-content li { text-align:justify; text-justify:inter-word; hyphens:none; }
 .legal-content p,.legal-content li { color:#1F2A27; }
-.legal-content .legal-link { color:inherit; font-weight:inherit; text-decoration-color:rgba(31,42,39,.35); }
-.legal-content .legal-link:hover,.legal-content .legal-link:focus-visible { color:#C46A12; text-decoration-color:currentColor; }
+.legal-content .legal-link { color:#E07B1F; font-weight:600; text-decoration-color:rgba(224,123,31,.4); }
+.legal-content .legal-link:hover,.legal-content .legal-link:focus-visible { color:#B85F0E; text-decoration-color:currentColor; }
 .site-footer .signature-footer__bottom { border-top:0; border-bottom:0; margin-top:0; padding-top:8px; }
 
 /* أضف متجرك */
