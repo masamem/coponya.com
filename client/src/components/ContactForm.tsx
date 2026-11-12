@@ -61,6 +61,7 @@ export default function ContactForm() {
           <input name="phone" type="tel" aria-label="رقم الهاتف (اختياري)" placeholder="رقم الهاتف" autoComplete="tel" maxLength={20} />
           <input name="subject" aria-label="الموضوع" placeholder="الموضوع" required minLength={2} maxLength={120} />
           <textarea name="message" aria-label="رسالتك" placeholder="رسالتك" rows={7} required minLength={5} maxLength={3000} />
+          <p className="contact-note"><strong>ملاحظة:</strong> في حال طلب تسجيل متجر <Link href="/submit-coupon" className="legal-link">اضغط هنا</Link>.</p>
           {error && <p className="form-error" role="alert">{error}</p>}
           <button className="button button--primary contact-submit" type="submit" disabled={state === "sending"}>
             {state === "sending" ? "جارٍ الإرسال…" : <>إرسال</>}
