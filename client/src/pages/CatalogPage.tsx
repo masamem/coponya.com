@@ -331,7 +331,7 @@ export default function CatalogPage({
       </nav>
       {styledLegalIcons[location] || location === "/submit-coupon" || location === "/contact" ? <div className={`about-hero${location === "/submit-coupon" ? " about-hero--wide" : ""}`}>
         <div className="about-hero__brand">
-          <img className="about-hero__logo" src="/brand/coponya-logo.svg?v=20261030-colors" alt="كوبونيا Coponya" width="1356" height="535" />
+          <Link href="/" className="about-hero__logo-link" aria-label="كوبونيا، الرئيسية"><img className="about-hero__logo" src="/brand/coponya-logo.svg?v=20261030-colors" alt="كوبونيا Coponya" width="1356" height="535" /></Link>
           <Link href="/" className="about-hero__url">www.coponya.com</Link>
         </div>
         {location === "/about" && <h1 className="sr-only">من نحن</h1>}
