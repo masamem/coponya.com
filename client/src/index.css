@@ -851,7 +851,10 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .contact-note.contact-note--after { margin-top:4px; color:var(--ink); font-size:14px; text-align:center; }
 /* Homepage promo banners: one shows at a time, dots below to pick one. */
 .promo-slider { position:relative; }
-.promo-slider .promo-banner__link[hidden] { display:none; }
+.promo-slider__track { display:grid; }
+.promo-slider__track > .promo-banner__link { grid-area:1 / 1; opacity:0; visibility:hidden; transition:opacity .8s var(--ease), visibility 0s linear .8s, transform .2s var(--ease), box-shadow .2s var(--ease); }
+.promo-slider__track > .promo-banner__link[data-active="true"] { opacity:1; visibility:visible; transition:opacity .8s var(--ease), visibility 0s, transform .2s var(--ease), box-shadow .2s var(--ease); }
+@media (prefers-reduced-motion: reduce) { .promo-slider__track > .promo-banner__link { transition:none; } }
 .promo-slider__dots { display:flex; justify-content:center; gap:4px; margin-top:6px; }
 .promo-slider__dots button { width:28px; height:28px; padding:0; border:0; background:transparent; cursor:pointer; display:grid; place-items:center; }
 .promo-slider__dots button::before { content:""; width:8px; height:8px; border-radius:999px; background:var(--line); transition:width .2s var(--ease), background .2s var(--ease); }
