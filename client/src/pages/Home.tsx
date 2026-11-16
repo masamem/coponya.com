@@ -121,14 +121,16 @@ function PromoBanners() {
     <div className="promo-slider" aria-roledescription="عرض شرائح" aria-label="بنرات كوبونيا"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}>
+      <div className="promo-slider__track">
       {promoBanners.map((banner, index) => (
-        <Link key={banner.href} href={banner.href} className="promo-banner__link" hidden={active !== index}>
+        <Link key={banner.href} href={banner.href} className="promo-banner__link" data-active={active === index ? "true" : "false"} aria-hidden={active !== index} tabIndex={active === index ? undefined : -1}>
           <picture>
             <source media="(max-width: 700px)" srcSet={banner.mobile} width={1500} height={840} />
             <img src={banner.desktop} width={2712} height={632} fetchPriority={index === 0 ? "high" : "low"} loading={index === 0 ? "eager" : "lazy"} decoding="async" alt={banner.alt} />
           </picture>
         </Link>
       ))}
+      </div>
       <div className="promo-slider__dots" role="group" aria-label="اختيار البنر">
         {promoBanners.map((banner, index) => (
           <button key={banner.href} type="button" aria-label={`البنر ${index + 1}`} aria-current={active === index ? "true" : undefined} onClick={() => setActive(index)} />
