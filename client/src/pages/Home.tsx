@@ -103,9 +103,9 @@ const promoBanners = [
   },
   {
     href: "/deals",
-    desktop: "/brand/banners/coponya-days-desktop.webp?v=1",
-    mobile: "/brand/banners/coponya-days-mobile.webp?v=1",
-    alt: "أيام كوبونيا من 25 إلى 27 كل شهر — أكواد خصم حصرية وخصومات المتاجر. تسوّق العروض الآن",
+    desktop: "/brand/banners/coponya-days-desktop.webp?v=2",
+    mobile: "/brand/banners/coponya-days-mobile.webp?v=2",
+    alt: "وفّر أكثر مع أيام كوبونيا — أكواد خصم حصرية لأشهر متاجر السعودية. تسوّق العروض الآن",
   },
 ];
 
