@@ -5,13 +5,18 @@ import { Link } from "wouter";
 import { ArrowUpLeft, Tag, BookOpen } from "lucide-react";
 import type { Store } from "@/lib/catalog";
 
+/** The store page H1: the store's primary keyword when one is set (e.g. "كود خصم نون السعودية 2026"), else "كوبونات <name>". */
+export function storeHeading(store: Pick<Store, "name" | "primaryKeyword">) {
+  return store.primaryKeyword?.trim() || `كوبونات ${store.name}`;
+}
+
 function Paragraphs({text}: {text: string}) {
   return <>{text.trim().split(/\n\s*\n/).filter(Boolean).map((p,i)=><p key={i}>{p}</p>)}</>;
 }
 export function StoreOverview({store,couponCount}: {store: Store; couponCount: number}) {
   return <header className="store-overview">
     <StoreLogo initial={store.initial} tone={store.tone} logoUrl={store.logoUrl} className="store-profile-logo"/>
-    <div className="store-overview-copy"><span className="eyebrow">دليل متاجر كوبونيا</span><h1>كوبونات {store.name}</h1>
+    <div className="store-overview-copy"><span className="eyebrow">دليل متاجر كوبونيا</span><h1>{storeHeading(store)}</h1>
       <p>{store.summary||`تصفح كوبونات ${store.name} واقرأ شروط العرض قبل استخدامه.`}</p>
       <div className="store-overview-actions"><a href="#store-coupons" className="button button--primary"><Tag size={18}/>الكوبونات المتاحة ({couponCount})</a>{store.websiteUrl&&<a className="button button--outline" href={store.websiteUrl} target="_blank" rel="noopener noreferrer sponsored">زيارة المتجر<ArrowUpLeft size={18}/></a>}{store.about&&<a href="#store-about" className="text-link"><BookOpen size={17}/>عن المتجر</a>}</div>
     </div>
