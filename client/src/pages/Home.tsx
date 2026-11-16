@@ -92,6 +92,52 @@ function SectionHeading({
   );
 }
 
+/** The homepage promo banners, one at a time: each shows for 5 seconds, pauses while hovered
+ * or focused, and stays put for visitors who ask for reduced motion. */
+const promoBanners = [
+  {
+    href: "/coupons",
+    desktop: "/brand/banners/coponya-banner-desktop.webp?v=2",
+    mobile: "/brand/banners/coponya-banner-mobile.webp?v=2",
+    alt: "كل توفير يبدأ بكوبونيا — ليش تدفع السعر كامل؟ كودك جاهز، انسخه ووفّر في ثوانٍ. اكتشف كوبونك الآن",
+  },
+  {
+    href: "/stores/noon",
+    desktop: "/brand/banners/coponya-noon-desktop.webp?v=1",
+    mobile: "/brand/banners/coponya-noon-mobile.webp?v=1",
+    alt: "كود خصم نون على كوبونيا — استرداد نقدي 10% بحد أقصى 75 ريال بالكود CPY10، ينتهي 31 ديسمبر 2026. انسخ كود نون",
+  },
+];
+
+function PromoBanners() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => setActive((current) => (current + 1) % promoBanners.length), 5000);
+    return () => window.clearInterval(timer);
+  }, [paused]);
+  return (
+    <div className="promo-slider" aria-roledescription="عرض شرائح" aria-label="بنرات كوبونيا"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false); }}>
+      {promoBanners.map((banner, index) => (
+        <Link key={banner.href} href={banner.href} className="promo-banner__link" hidden={active !== index}>
+          <picture>
+            <source media="(max-width: 700px)" srcSet={banner.mobile} width={1500} height={840} />
+            <img src={banner.desktop} width={2712} height={632} fetchPriority={index === 0 ? "high" : "low"} loading={index === 0 ? "eager" : "lazy"} decoding="async" alt={banner.alt} />
+          </picture>
+        </Link>
+      ))}
+      <div className="promo-slider__dots" role="group" aria-label="اختيار البنر">
+        {promoBanners.map((banner, index) => (
+          <button key={banner.href} type="button" aria-label={`البنر ${index + 1}`} aria-current={active === index ? "true" : undefined} onClick={() => setActive(index)} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function BannerSlideshow() {
   const [active, setActive] = useState(1);
   const [paused, setPaused] = useState(false);
@@ -425,19 +471,7 @@ export default function Home() {
 
             <section className="promo-banner container" aria-labelledby="home-title">
               <h1 id="home-title" className="sr-only">كل توفير يبدأ بكوبونيا — أكواد خصم وكوبونات متاجر السعودية</h1>
-              <Link href="/coupons" className="promo-banner__link">
-                <picture>
-                  <source media="(max-width: 700px)" srcSet="/brand/banners/coponya-banner-mobile.webp?v=2" width={1500} height={840} />
-                  <img
-                    src="/brand/banners/coponya-banner-desktop.webp?v=2"
-                    width={2712}
-                    height={632}
-                    fetchPriority="high"
-                    decoding="async"
-                    alt="كل توفير يبدأ بكوبونيا — ليش تدفع السعر كامل؟ كودك جاهز، انسخه ووفّر في ثوانٍ. اكتشف كوبونك الآن"
-                  />
-                </picture>
-              </Link>
+              <PromoBanners />
             </section>
 
             <SupermarketStores />
