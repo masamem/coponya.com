@@ -156,16 +156,19 @@ export default function Home() {
     (typeof coupons)[number] | null
   >(null);
 
-  const [favorites, setFavorites] = useState<string[]>(() => {
+  // Favorites live in this browser only: read them after hydration so the server and
+  // first client render match, and write back only once they have been loaded.
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [favoritesLoaded, setFavoritesLoaded] = useState(false);
+  useEffect(() => {
     const saved = readSaved<unknown>("sahm-favorites", []);
-    return Array.isArray(saved)
-      ? saved.filter((v): v is string => typeof v === "string")
-      : [];
-  });
+    setFavorites(Array.isArray(saved) ? saved.filter((v): v is string => typeof v === "string") : []);
+    setFavoritesLoaded(true);
+  }, []);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
-    saveLocal("sahm-favorites", favorites);
-  }, [favorites]);
+    if (favoritesLoaded) saveLocal("sahm-favorites", favorites);
+  }, [favorites, favoritesLoaded]);
   useEffect(() => {
     setMenuOpen(false);
     setModalCoupon(null);

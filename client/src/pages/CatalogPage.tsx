@@ -10,6 +10,7 @@ import { StoreLogo } from "@/components/StoreLogo";
 import TopOffers from "@/components/TopOffers";
 /* سوق الضوء: searchable store pages and readable Arabic metadata. */
 import { useEffect, useState } from "react";
+import { pages } from "@/lib/pageInfo";
 import { Link } from "wouter";
 import { Search, Heart, SlidersHorizontal, Tag, BadgeCheck, Target, Database, Cookie, ExternalLink, RefreshCw, Mail, type LucideIcon } from "lucide-react";
 import { useCatalog } from "@/contexts/CatalogContext";
@@ -23,41 +24,6 @@ import { CouponCard } from "@/components/CouponCard";
 import { StoreOverview, StoreArticle } from "@/components/StoreProfile";
 import SubmitCoupon from "@/components/SubmitCoupon";
 
-const pages: Record<string, [string, string]> = {
-  ...Object.fromEntries(Object.entries(legalPages).map(([path, page]) => [path, [page.title, page.description] as [string, string]])),
-  "/submit-coupon": [
-    "أضف متجرك",
-    "أضف متجرك الإلكتروني وعروضه إلى كوبونيا مجاناً، وصل إلى متسوقين في السعودية يبحثون عن أكواد الخصم.",
-  ],
-  "/stores": ["كل المتاجر", "ابدأ بمتجرك المفضل واكتشف الكوبونات المتاحة."],
-  "/coupons": [
-    "تصفح الكوبونات",
-    "ابحث عن كود أو متجر، واختر التصنيف المناسب لك.",
-  ],
-  "/deals": ["عروض تستحقّ المشاهدة", "اكتشف العروض والكوبونات، وتعرّف على التفاصيل قبل التسوق."],
-  "/categories": ["التصنيفات", "كل اهتماماتك، في مكان واحد."],
-  "/favorites": [
-    "كوبوناتك المفضلة",
-    "اختياراتك محفوظة في هذا المتصفح على هذا الجهاز.",
-  ],
-  "/account": [
-    "مساحتك الشخصية",
-    "خصص تجربتك واحفظ اسمك محلياً على هذا الجهاز.",
-  ],
-  "/contact": [
-    "تواصل معنا",
-    "تواصل مع فريق كوبونيا لأي استفسار أو اقتراح، وسنرد عليك في أقرب وقت.",
-  ],
-  "/report": [
-    "الإبلاغ عن كوبون",
-    "جهز تفاصيل المشكلة لمشاركتها مع فريق الدعم.",
-  ],
-  "/faq": ["الأسئلة الشائعة", "إجابات سريعة لتجربة أوضح."],
-  "/how-it-works": [
-    "طريقة استخدام الكوبونات",
-    "من البحث إلى الدفع، خطوة بخطوة.",
-  ],
-};
 const faqs = [
   [
     "كيف أنسخ الكود؟",
@@ -159,7 +125,7 @@ function SupportForm({ report }: { report: boolean }) {
               dir="ltr"
               maxLength={80}
               defaultValue={
-                new URLSearchParams(window.location.search).get("code") || ""
+                typeof window === "undefined" ? "" : new URLSearchParams(window.location.search).get("code") || ""
               }
             />
           </label>

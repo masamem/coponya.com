@@ -12,9 +12,9 @@ export function parseConsent(raw: string | null, now = Date.now()): Consent | nu
 export function readConsent(): Consent | null { try { return parseConsent(localStorage.getItem(CONSENT_KEY)); } catch { return null; } }
 type Queue = ((...args: unknown[]) => void) & { queue?: unknown[][]; push?: Queue; loaded?: boolean; version?: string; callMethod?: (...args: unknown[]) => void };
 declare global { interface Window { dataLayer?: unknown[]; gtag?: Queue; fbq?: Queue; _fbq?: Queue; } }
-const ga = /^G-[A-Z0-9]+$/.test(import.meta.env.VITE_GA_MEASUREMENT_ID || "") ? import.meta.env.VITE_GA_MEASUREMENT_ID : "";
-const ads = /^AW-\d+$/.test(import.meta.env.VITE_GOOGLE_ADS_ID || "") ? import.meta.env.VITE_GOOGLE_ADS_ID : "";
-const meta = /^\d+$/.test(import.meta.env.VITE_META_PIXEL_ID || "") ? import.meta.env.VITE_META_PIXEL_ID : "";
+const ga = /^G-[A-Z0-9]+$/.test(process.env.VITE_GA_MEASUREMENT_ID || "") ? process.env.VITE_GA_MEASUREMENT_ID : "";
+const ads = /^AW-\d+$/.test(process.env.VITE_GOOGLE_ADS_ID || "") ? process.env.VITE_GOOGLE_ADS_ID : "";
+const meta = /^\d+$/.test(process.env.VITE_META_PIXEL_ID || "") ? process.env.VITE_META_PIXEL_ID : "";
 let googleStarted = false, metaStarted = false;
 let lastPage = "";
 function loadScript(id: string, src: string) {

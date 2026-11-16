@@ -16,7 +16,7 @@ export async function uploadStoreLogo(file: File, token: string) {
   const blob = await new Promise<Blob>((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error("تعذر تجهيز الصورة.")),"image/png"));
   const path=`${crypto.randomUUID()}.png`;
   const form=new FormData();form.append("cacheControl","3600");form.append("",blob,path);
-  const publicKey=import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  const publicKey=process.env.VITE_SUPABASE_PUBLISHABLE_KEY || "";
   const response=await fetch(`${backendUrl}/storage/v1/object/store-logos/${path}`,{method:"POST",headers:{apikey:publicKey,Authorization:`Bearer ${token}`,"x-upsert":"false"},body:form});
   if(!response.ok){if(response.status===401)throw new BackendError("انتهت الجلسة. سجل الدخول مجدداً.",401);throw new Error("تعذر رفع الشعار. تحقق من الاتصال وصلاحية الإدارة.");}
   return `${backendUrl}/storage/v1/object/public/store-logos/${path}`;
