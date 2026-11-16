@@ -849,3 +849,11 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .about-hero__logo-link:focus-visible { outline:2px solid var(--olive); outline-offset:6px; border-radius:8px; }
 .contact-form input[name=website_url]:not(:placeholder-shown) { direction:ltr; text-align:left; }
 .contact-note.contact-note--after { margin-top:4px; color:var(--ink); font-size:14px; text-align:center; }
+/* Homepage promo banners: one shows at a time, dots below to pick one. */
+.promo-slider { position:relative; }
+.promo-slider .promo-banner__link[hidden] { display:none; }
+.promo-slider__dots { display:flex; justify-content:center; gap:4px; margin-top:6px; }
+.promo-slider__dots button { width:28px; height:28px; padding:0; border:0; background:transparent; cursor:pointer; display:grid; place-items:center; }
+.promo-slider__dots button::before { content:""; width:8px; height:8px; border-radius:999px; background:var(--line); transition:width .2s var(--ease), background .2s var(--ease); }
+.promo-slider__dots button[aria-current="true"]::before { width:22px; background:var(--olive); }
+.promo-slider__dots button:focus-visible { outline:2px solid var(--apricot); outline-offset:2px; border-radius:8px; }
