@@ -19,7 +19,8 @@ export default function Discovery({ location, favorites, onFavorite, onReveal }:
   location: string; favorites: string[]; onFavorite: (code: string) => void; onReveal: (coupon: Coupon) => void;
 }) {
   const { stores, coupons, categories } = useCatalog();
-  const [query, setQuery] = useState(() => new URLSearchParams(window.location.search).get("q") || "");
+  const [query, setQuery] = useState("");
+  useEffect(() => { setQuery(new URLSearchParams(window.location.search).get("q") || ""); }, [location]);
   const article = articles.find(a => location === `/blog/${a.slug}`);
   const search = location === "/search";
   const title = search ? "ابحث في كوبونيا" : article?.title || (location === "/blog" ? "المدونة" : "الصفحة غير موجودة");

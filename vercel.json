@@ -1,33 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "vite",
+  "framework": "nextjs",
   "buildCommand": "pnpm run check && pnpm run build",
-  "outputDirectory": "dist/public",
   "redirects": [
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "www.coponya.com" }],
       "destination": "https://coponya.com/:path*",
       "permanent": true
-    }
-  ],
-  "rewrites": [
-    { "source": "/stores", "destination": "/stores/index.html" },
-    { "source": "/coupons", "destination": "/coupons/index.html" },
-    { "source": "/categories", "destination": "/categories/index.html" },
-    { "source": "/deals", "destination": "/deals/index.html" },
-    { "source": "/blog", "destination": "/blog/index.html" },
-    { "source": "/blog/:slug", "destination": "/blog/:slug/index.html" },
-    { "source": "/about", "destination": "/about/index.html" },
-    { "source": "/submit-coupon", "destination": "/submit-coupon/index.html" },
-    { "source": "/contact", "destination": "/contact/index.html" },
-    { "source": "/terms", "destination": "/terms/index.html" },
-    { "source": "/privacy", "destination": "/privacy/index.html" },
-    { "source": "/complaints", "destination": "/complaints/index.html" },
-    { "source": "/stores/:slug", "destination": "/api/store-page?slug=:slug" },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ]
 }

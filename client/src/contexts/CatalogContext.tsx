@@ -5,13 +5,15 @@ import { backendConfigured, backendRequest, type CouponRecord, type StoreRecord 
 import { mapCatalog } from "@/lib/liveCatalog";
 type Catalog = { stores: Store[]; coupons: typeof demo.coupons; categories: typeof demo.categories; deals: typeof demo.deals; isLive: boolean; loading: boolean; error: string; reload: () => void };
 const Context = createContext<Catalog | null>(null);
-export function CatalogProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<{ stores: Store[]; coupons: typeof demo.coupons }>({ stores: backendConfigured ? [] : demo.stores, coupons: backendConfigured ? [] : demo.coupons });
-  const [loading, setLoading] = useState(backendConfigured);
+export type InitialCatalog = { stores: Store[]; coupons: typeof demo.coupons };
+/** `initial` is the catalog the server rendered with; when given, the first client fetch is skipped. */
+export function CatalogProvider({ children, initial }: { children: ReactNode; initial?: InitialCatalog | null }) {
+  const [data, setData] = useState<InitialCatalog>(initial ?? { stores: backendConfigured ? [] : demo.stores, coupons: backendConfigured ? [] : demo.coupons });
+  const [loading, setLoading] = useState(backendConfigured && !initial);
   const [error, setError] = useState("");
   const [revision, setRevision] = useState(0);
   useEffect(() => {
-    if (!backendConfigured) return;
+    if (!backendConfigured || (initial && revision === 0)) return;
     const controller = new AbortController(); setLoading(true); setError("");
     Promise.all([
       backendRequest<StoreRecord[]>("/rest/v1/stores?select=*&active=eq.true&order=name", { signal: controller.signal }),
