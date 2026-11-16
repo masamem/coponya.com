@@ -102,10 +102,10 @@ const promoBanners = [
     alt: "كل توفير يبدأ بكوبونيا — ليش تدفع السعر كامل؟ كودك جاهز، انسخه ووفّر في ثوانٍ. اكتشف كوبونك الآن",
   },
   {
-    href: "/deals",
-    desktop: "/brand/banners/coponya-days-desktop.webp?v=2",
-    mobile: "/brand/banners/coponya-days-mobile.webp?v=2",
-    alt: "وفّر أكثر مع أيام كوبونيا — أكواد خصم حصرية لأشهر متاجر السعودية. تسوّق العروض الآن",
+    href: "/stores/noon",
+    desktop: "/brand/banners/coponya-noon-desktop.webp?v=1",
+    mobile: "/brand/banners/coponya-noon-mobile.webp?v=1",
+    alt: "كود خصم نون على كوبونيا — استرداد نقدي 10% بحد أقصى 75 ريال بالكود CPY10، ينتهي 31 ديسمبر 2026. انسخ كود نون",
   },
 ];
 
