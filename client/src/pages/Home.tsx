@@ -103,8 +103,8 @@ const promoBanners = [
   },
   {
     href: "/stores/noon",
-    desktop: "/brand/banners/coponya-noon-desktop.webp?v=2",
-    mobile: "/brand/banners/coponya-noon-mobile.webp?v=2",
+    desktop: "/brand/banners/coponya-noon-ring-desktop.webp?v=1",
+    mobile: "/brand/banners/coponya-noon-ring-mobile.webp?v=1",
     alt: "كود خصم نون على كوبونيا — استرداد نقدي 10% بحد أقصى 75 ريال بالكود CPY10، ينتهي 31 ديسمبر 2026. انسخ كود نون",
   },
 ];
