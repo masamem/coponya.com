@@ -863,3 +863,16 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 /* Footer address: always one line; scales down on phones */
 .signature-footer .footer-address { white-space:nowrap; }
 @media (max-width:700px) { .signature-footer .footer-address { gap:5px; font-size:min(13px,2.75vw); } .signature-footer .footer-address svg { width:15px; height:15px; } }
+/* Store guide text styled like the About page: white panel, black justified text, bullets, orange links */
+.store-article { background:#fff; border:1px solid #EEF2EF; border-radius:18px; box-shadow:var(--shadow-sm); padding:32px 34px; }
+.store-article section:last-child { margin-bottom:0; padding-bottom:0; border-bottom:0; }
+.store-article h2 { font-size:20px; margin:0 0 14px; }
+.store-article h3 { font-size:17px; margin:22px 0 8px; }
+.store-article p,.store-article li { font-size:15px; line-height:2; color:#1F2A27; text-align:justify; text-justify:inter-word; hyphens:none; }
+.store-article ul { list-style:disc; padding-inline-start:20px; display:grid; gap:6px; }
+.store-article ol { list-style:decimal; padding-inline-start:22px; display:grid; gap:6px; }
+.store-article li { white-space:normal; }
+.store-article strong { color:#1F2A27; }
+.store-article p a,.store-article li a,.store-article td a { color:#E07B1F; font-weight:600; text-decoration:underline; text-decoration-color:rgba(224,123,31,.4); text-underline-offset:4px; }
+.store-article .store-table td { color:#1F2A27; }
+@media (max-width:700px) { .store-article { padding:22px 18px; } .store-article h2 { font-size:19px; } }
