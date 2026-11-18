@@ -6,6 +6,9 @@ import { ArrowUpLeft, Tag, BookOpen } from "lucide-react";
 import type { Store } from "@/lib/catalog";
 import { RichText } from "@/lib/richText";
 
+/** "noon - نون" → "نون": the Arabic part of a bilingual store name, or the name itself. */
+function storeArabicName(name: string) { const ar = name.split(" - ").map(p => p.trim()).find(p => /[\u0600-\u06FF]/.test(p)); return ar || name; }
+
 export function StoreOverview({store,couponCount}: {store: Store; couponCount: number}) {
   return <header className="store-overview">
     <StoreLogo initial={store.initial} tone={store.tone} logoUrl={store.logoUrl} className="store-profile-logo"/>
@@ -16,7 +19,7 @@ export function StoreOverview({store,couponCount}: {store: Store; couponCount: n
   </header>;
 }
 export function StoreArticle({store,related}: {store: Store; related: Store[]}) {
-  const sections = [{id:"store-about",title:`نبذة عن ${store.name}`,text:store.about},{id:"store-products",title:"المنتجات والأقسام",text:store.products},{id:"store-shipping",title:"الشحن والتوصيل",text:store.shipping},{id:"store-payment",title:"طرق الدفع",text:store.payment},{id:"store-returns",title:"الاستبدال والاسترجاع",text:store.returnsPolicy}].filter(s=>s.text?.trim());
+  const sections = [{id:"store-about",title:`تفاصيل حول ${storeArabicName(store.name)} السعودية`,text:store.about},{id:"store-products",title:"المنتجات والأقسام",text:store.products},{id:"store-shipping",title:"الشحن والتوصيل",text:store.shipping},{id:"store-payment",title:"طرق الدفع",text:store.payment},{id:"store-returns",title:"الاستبدال والاسترجاع",text:store.returnsPolicy}].filter(s=>s.text?.trim());
   const faq = parseFaq(store.faq);
   return <div className="store-guide-layout">
     <aside className="store-guide-nav" aria-label="دليل صفحة المتجر"><span className="eyebrow">تعرّف على المتجر</span><h2>دليلك للتسوق</h2><a href="#store-coupons">الكوبونات المتاحة</a>{sections.map(s=><a key={s.id} href={`#${s.id}`}>{s.title}</a>)}<a href="#store-how">طريقة استخدام الكوبون</a>{faq.length>0&&<a href="#store-faq">الأسئلة الشائعة</a>}</aside>
