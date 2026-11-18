@@ -860,3 +860,6 @@ textarea:focus-visible { outline:3px solid var(--olive); outline-offset:3px; }
 .promo-slider__dots button::before { content:""; width:8px; height:8px; border-radius:999px; background:var(--line); transition:width .2s var(--ease), background .2s var(--ease); }
 .promo-slider__dots button[aria-current="true"]::before { width:22px; background:var(--olive); }
 .promo-slider__dots button:focus-visible { outline:2px solid var(--apricot); outline-offset:2px; border-radius:8px; }
+/* Footer address: always one line; scales down on phones */
+.signature-footer .footer-address { white-space:nowrap; }
+@media (max-width:700px) { .signature-footer .footer-address { gap:5px; font-size:min(13px,2.75vw); } .signature-footer .footer-address svg { width:15px; height:15px; } }
