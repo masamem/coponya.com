@@ -19,7 +19,7 @@ export const operator = {
   /** Public verification link for the certificate (from business.sa). */
   businessCenterUrl: "",
   /** District and city, as shown in the footer and legal pages. */
-  city: "شارع نائف فرحان عميش الحربي، حي تصلال، نجران",
+  city: "العزيزية، الرياض",
   country: "المملكة العربية السعودية",
   email: "hello@coponya.com",
   supportEmail: "support@coponya.com",
@@ -31,7 +31,7 @@ export const legalUpdated = "2026-11-09";
 export type LegalBlock = string | string[]; // a paragraph, or a bullet list
 export type LegalPage = { title: string; description: string; sections: [string, LegalBlock[]][] };
 
-/** "شارع نائف فرحان عميش الحربي، حي تصلال، نجران، المملكة العربية السعودية" */
+/** "العزيزية، الرياض، المملكة العربية السعودية" */
 export function operatorAddress(o = operator): string {
   return [o.city, o.country].filter(Boolean).join("، ");
 }
