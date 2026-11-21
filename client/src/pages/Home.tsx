@@ -677,15 +677,12 @@ export default function Home() {
 
       <footer className="site-footer signature-footer">
         <div className="container signature-footer__content">
-          <div className="signature-footer__tools">
-            <Link href="/submit-coupon" className="footer-add-store">أضف متجرك</Link>
-          </div>
           <div className="signature-footer__main">
             <div className="footer-brand"><BrandMark inverse /><p>كوبونيا (Coponya) منصة سعودية تساعدك على إيجاد أكواد الخصم والعروض لمتاجرك المفضلة وبخطوات واضحة</p><address className="footer-address"><MapPin size={18} aria-hidden="true" />{operatorAddress()}</address></div>
             <nav className="signature-footer__links" aria-labelledby="footer-links-title">
               <h2 id="footer-links-title" className="footer-links-title">روابط تهمك</h2>
               <div className="footer-links-list">
-                <Link href="/about">من نحن</Link><Link href="/privacy">سياسة الخصوصية</Link><Link href="/contact">تواصل معنا</Link>
+                <Link href="/about">من نحن</Link><Link href="/privacy">سياسة الخصوصية</Link><Link href="/contact">تواصل معنا</Link><Link href="/submit-coupon">أضف متجرك</Link>
               </div>
             </nav>
             <div className="signature-footer__social">            <nav aria-label="حسابات كوبونيا على التواصل الاجتماعي" className="footer-socials">
