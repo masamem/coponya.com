@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { StoreLogo } from "./StoreLogo";
 import type { Coupon } from "@/lib/catalog";
 import { copyCouponCode, couponCopyOpensUrl } from "@/lib/couponAffiliate";
+import { outboundPath, safeOutboundUrl } from "@/lib/outbound";
 
 export default function CouponDialog({ coupon, onClose, returnFocusTo }: { coupon: Coupon | null; onClose: () => void; returnFocusTo?: HTMLElement | null }) {
   const [copied, setCopied] = useState(false);
@@ -19,8 +20,10 @@ export default function CouponDialog({ coupon, onClose, returnFocusTo }: { coupo
     if (copied) setCopied(true);
     else toast.error("تعذر النسخ. حدد الكود وانسخه يدوياً.");
   };
-  let storeUrl: string | null = null;
-  try { const url = new URL(coupon?.websiteUrl || ""); if (url.protocol === "https:" && !url.username && !url.password) storeUrl = coupon!.websiteUrl!; } catch { /* Use the internal store page when no safe destination is available. */ }
+  // Live coupons leave through /go/<store> so the click is counted; demo coupons keep their direct link.
+  // Without a safe destination the button falls back to Coponya's own store page.
+  const directUrl = safeOutboundUrl(coupon?.websiteUrl);
+  const storeUrl = directUrl && coupon ? (coupon.isDemo === false ? outboundPath(coupon.store, coupon.id) : directUrl) : null;
   return <Dialog.Root open={!!coupon} onOpenChange={open => { if (!open) onClose(); }}><Dialog.Portal><Dialog.Overlay className="modal-backdrop coupon-reveal-overlay"/>{coupon && <Dialog.Content className="coupon-reveal accessible-modal" dir="rtl" onCloseAutoFocus={event => { if (returnFocusTo?.isConnected) { event.preventDefault(); returnFocusTo.focus(); } }}>
     <Dialog.Close className="icon-button coupon-reveal__close" aria-label="إغلاق"><X size={21}/></Dialog.Close>
     <div className="coupon-reveal__panel">

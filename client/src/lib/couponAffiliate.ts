@@ -1,4 +1,5 @@
 import type { Coupon } from "./catalog";
+import { outboundPath } from "./outbound";
 
 // Keep the saved affiliate URL intact, including its tracking parameters.
 export function couponAffiliateUrl(coupon: Pick<Coupon, "websiteUrl">): string | null {
@@ -11,14 +12,15 @@ export function couponAffiliateUrl(coupon: Pick<Coupon, "websiteUrl">): string |
   }
 }
 
-export function openCouponAffiliate(coupon: Pick<Coupon, "websiteUrl">): void {
-  const url = couponAffiliateUrl(coupon);
-  if (url) window.open(url, "_blank", "noopener,noreferrer");
-}
+type OutboundCoupon = Pick<Coupon, "websiteUrl" | "isDemo" | "store" | "id">;
 
-/** The tracked link a real (non-demo) coupon's copy button also opens, if any. */
-export function couponCopyOpensUrl(coupon: Pick<Coupon, "websiteUrl" | "isDemo">): string | null {
-  return coupon.isDemo === false ? couponAffiliateUrl(coupon) : null;
+/**
+ * Where a real (non-demo) coupon's copy button also takes the shopper, if anywhere:
+ * Coponya's /go/<store> path, which counts the click and forwards to the saved
+ * tracked link above unchanged.
+ */
+export function couponCopyOpensUrl(coupon: OutboundCoupon): string | null {
+  return coupon.isDemo === false && couponAffiliateUrl(coupon) ? outboundPath(coupon.store, coupon.id) : null;
 }
 
 type CopyDeps = { writeText?: (text: string) => Promise<void>; open?: (url: string) => void };
@@ -29,7 +31,7 @@ type CopyDeps = { writeText?: (text: string) => Promise<void>; open?: (url: stri
  * synchronously inside the click so popup blockers allow it.
  */
 export async function copyCouponCode(
-  coupon: Pick<Coupon, "websiteUrl" | "isDemo" | "code">,
+  coupon: OutboundCoupon & Pick<Coupon, "code">,
   {
     writeText = text => navigator.clipboard.writeText(text),
     open = url => { window.open(url, "_blank", "noopener,noreferrer"); },

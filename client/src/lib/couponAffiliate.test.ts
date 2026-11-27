@@ -1,11 +1,13 @@
 import { describe, it, expect, vi } from "vitest";
 import { copyCouponCode, couponCopyOpensUrl } from "./couponAffiliate";
 
-const noon = { code: "XXRMG", isDemo: false, websiteUrl: "https://s.noon.com/OoQcrZA2gGg?x=1" };
+const noon = { code: "XXRMG", isDemo: false, store: "noon - نون", id: "3f2a9c1e-5b7d-4e8a-9c21-7d4e5f6a8b90", websiteUrl: "https://s.noon.com/OoQcrZA2gGg?x=1" };
+const tracked = "/go/noon?c=3f2a9c1e-5b7d-4e8a-9c21-7d4e5f6a8b90";
 
 describe("copy button opens Noon", () => {
-  it("opens the tracked Noon link unchanged for real coupons only", () => {
-    expect(couponCopyOpensUrl(noon)).toBe(noon.websiteUrl);
+  it("opens the counted /go path for real Noon coupons only", () => {
+    expect(couponCopyOpensUrl(noon)).toBe(tracked);
+    expect(couponCopyOpensUrl({ ...noon, id: undefined })).toBe("/go/noon");
     expect(couponCopyOpensUrl({ ...noon, isDemo: true })).toBeNull();
     expect(couponCopyOpensUrl({ ...noon, isDemo: undefined })).toBeNull();
     expect(couponCopyOpensUrl({ ...noon, websiteUrl: "https://www.noon.com/saudi-ar/" })).toBeNull();
@@ -18,7 +20,7 @@ describe("copy button opens Noon", () => {
     const writeText = vi.fn(async (t: string) => { calls.push(`copy:${t}`); });
     const open = vi.fn((u: string) => { calls.push(`open:${u}`); });
     expect(await copyCouponCode(noon, { writeText, open })).toEqual({ copied: true, opened: true });
-    expect(calls).toEqual(["copy:XXRMG", `open:${noon.websiteUrl}`]);
+    expect(calls).toEqual(["copy:XXRMG", `open:${tracked}`]);
   });
 
   it("only copies for other stores", async () => {

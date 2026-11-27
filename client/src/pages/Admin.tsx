@@ -23,6 +23,8 @@ export default function Admin() {
   const [coupons, setCoupons] = useState<CouponRecord[]>([]);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [messages, setMessages] = useState<ContactMessage[]>([]);
+  /** Outbound /go clicks per store id over the last 30 days; null until the click migration is applied. */
+  const [clicks, setClicks] = useState<Record<string, number> | null>(null);
   const [store, setStore] = useState(blankStore);
   const [coupon, setCoupon] = useState(blankCoupon);
   const [tab, setTab] = useState("stores");
@@ -33,6 +35,8 @@ export default function Admin() {
   async function load(accessToken: string) {
     const [s,c,r,m] = await Promise.all([backendRequest<StoreRecord[]>("/rest/v1/stores?select=*&order=name", {token:accessToken}), backendRequest<CouponRecord[]>("/rest/v1/coupons?select=*&order=created_at.desc", {token:accessToken}), backendRequest<Submission[]>("/rest/v1/store_submissions?select=*&order=created_at.desc", {token:accessToken}).catch(() => [] as Submission[]), backendRequest<ContactMessage[]>("/rest/v1/contact_messages?select=*&order=created_at.desc", {token:accessToken}).catch(() => [] as ContactMessage[])]);
     setStores(s); setCoupons(c); setSubmissions(r); setMessages(m); reload();
+    const stats = await backendRequest<{store_id:string; clicks:number}[]>("/rest/v1/rpc/outbound_click_stats", {method:"POST", body:{p_days:30}, token:accessToken}).catch(() => null);
+    setClicks(stats ? Object.fromEntries(stats.map(x => [x.store_id, Number(x.clicks)])) : null);
   }
   async function run(action: () => Promise<void>) { setBusy(true); setNotice(""); try { await action(); } catch(e) { if(e instanceof BackendError && e.status === 401) { setToken(""); setStores([]); setCoupons([]); } setNotice(e instanceof Error ? e.message : "تعذر تنفيذ الإجراء."); } finally { setBusy(false); } }
   return <section className="catalog-page container admin-page" dir="rtl">
@@ -103,7 +107,7 @@ export default function Admin() {
           <label className="admin-checkbox"><input type="checkbox" checked={store.active} onChange={e=>setStore({...store,active:e.target.checked})}/>إظهار المتجر للزوار</label>
           <button disabled={busy} className="button button--primary">حفظ المتجر</button><button type="button" disabled={busy} className="text-link" onClick={()=>setStore(blankStore)}>إلغاء التعديل</button>
         </form>
-        <div className="admin-list">{!stores.length&&<p>لا توجد متاجر بعد. أضف أول متجر.</p>}{stores.map(s=><article className="content-panel" key={s.id}><h2>{s.name}</h2><p>{s.active?"ظاهر للزوار":"مخفي"}</p><button disabled={busy} className="button button--outline" onClick={()=>setStore({...blankStore,...s,summary:s.summary||"",about:s.about||"",products:s.products||"",shipping:s.shipping||"",payment:s.payment||"",returns_policy:s.returns_policy||"",faq:s.faq||"",logo_url:s.logo_url||"",seo_title:s.seo_title||"",meta_description:s.meta_description||"",primary_keyword:s.primary_keyword||"",supporting_keywords:s.supporting_keywords||"",long_tail_keywords:s.long_tail_keywords||"",article_ideas:s.article_ideas||""})}>تعديل</button></article>)}</div>
+        <div className="admin-list">{!stores.length&&<p>لا توجد متاجر بعد. أضف أول متجر.</p>}{stores.map(s=><article className="content-panel" key={s.id}><h2>{s.name}</h2><p>{s.active?"ظاهر للزوار":"مخفي"}{clicks&&<> · {clicks[s.id]??0} ضغطة للمتجر آخر 30 يوم</>}</p><button disabled={busy} className="button button--outline" onClick={()=>setStore({...blankStore,...s,summary:s.summary||"",about:s.about||"",products:s.products||"",shipping:s.shipping||"",payment:s.payment||"",returns_policy:s.returns_policy||"",faq:s.faq||"",logo_url:s.logo_url||"",seo_title:s.seo_title||"",meta_description:s.meta_description||"",primary_keyword:s.primary_keyword||"",supporting_keywords:s.supporting_keywords||"",long_tail_keywords:s.long_tail_keywords||"",article_ideas:s.article_ideas||""})}>تعديل</button></article>)}</div>
       </> : <>
         <form className="content-panel support-form" onSubmit={e=>{e.preventDefault();void run(async()=>{const {id,...values}=coupon;if(!stores.some(s=>s.id===values.store_id)) throw new Error("اختر متجراً أولاً."); if(!/^(100|\d{1,2})(\.\d{1,2})?%$/.test(values.discount)||parseFloat(values.discount)>100) throw new Error("أدخل نسبة صحيحة بين 0% و100%."); const body={...values,expires_at:values.expires_at||null}; await backendRequest(`/rest/v1/coupons${id?`?id=eq.${id}`:""}`,{method:id?"PATCH":"POST",token,body});setCoupon(blankCoupon);await load(token);setNotice("تم حفظ الكوبون.");});}}>
           <h2>{coupon.id?"تعديل الكوبون":"كوبون جديد"}</h2>
