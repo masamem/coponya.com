@@ -1,4 +1,5 @@
 import { storePath } from "@/lib/storeSlug";
+import { outboundPath } from "@/lib/outbound";
 import { parseFaq } from "@/lib/storeSeo";
 import { StoreLogo } from "./StoreLogo";
 import { Link } from "wouter";
@@ -14,7 +15,7 @@ export function StoreOverview({store,couponCount}: {store: Store; couponCount: n
     <StoreLogo initial={store.initial} tone={store.tone} logoUrl={store.logoUrl} className="store-profile-logo"/>
     <div className="store-overview-copy"><span className="eyebrow">دليل متاجر كوبونيا</span><h1>كوبونات {store.name}</h1>
       <p>{store.summary||`تصفح كوبونات ${store.name} واقرأ شروط العرض قبل استخدامه.`}</p>
-      <div className="store-overview-actions"><a href="#store-coupons" className="button button--primary"><Tag size={18}/>الكوبونات المتاحة ({couponCount})</a>{store.websiteUrl&&<a className="button button--outline" href={store.websiteUrl} target="_blank" rel="noopener noreferrer sponsored">زيارة المتجر<ArrowUpLeft size={18}/></a>}{store.about&&<a href="#store-about" className="text-link"><BookOpen size={17}/>عن المتجر</a>}</div>
+      <div className="store-overview-actions"><a href="#store-coupons" className="button button--primary"><Tag size={18}/>الكوبونات المتاحة ({couponCount})</a>{store.websiteUrl&&<a className="button button--outline" href={outboundPath(store.name)} target="_blank" rel="noopener noreferrer sponsored">زيارة المتجر<ArrowUpLeft size={18}/></a>}{store.about&&<a href="#store-about" className="text-link"><BookOpen size={17}/>عن المتجر</a>}</div>
     </div>
   </header>;
 }
